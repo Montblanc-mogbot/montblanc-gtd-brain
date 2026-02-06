@@ -1,19 +1,19 @@
 # Weekly Review — 20260206
 
 ## Get Clear
-- [ ] Close open loops (anything on your mind) into Inbox
-- [ ] Clear Inbox
-  - [ ] Move/convert items into Projects as needed
-  - [ ] Copy checked-off Inbox items into this doc under “Completed Items” (then leave only uncompleted tasks in Inbox)
-- [ ] Create any new project hubs needed
-- [ ] Archive any completed projects (move project folder → Reference/finished-projects)
+- [x] Close open loops (anything on your mind) into Inbox
+- [x] Clear Inbox
+  - [x] Move/convert items into Projects as needed
+  - [x] Copy checked-off Inbox items into this doc under “Completed Items” (then leave only uncompleted tasks in Inbox)
+- [x] Create any new project hubs needed (none)
+- [x] Archive any completed projects (none)
 
 ## Get Current
-- [ ] Mark done / delete / clarify any todos
-- [ ] Ensure every active project has at least one Next Action
-- [ ] Review Next Actions
-- [ ] Review Waiting For
-- [ ] Review Someday / Maybe
+- [x] Mark done / delete / clarify any todos
+- [x] Ensure every active project has at least one Next Action
+- [x] Review Next Actions
+- [x] Review Waiting For
+- [x] Review Someday / Maybe
 
 ## Get Focused
 - [x] Add a #focus tag to 3 items that are tagged #nextaction
@@ -21,7 +21,7 @@
   - [ ] #focus Set Montblanc avatar everywhere (Discord/OpenClaw + local)
   - [ ] #focus Set Ptyxis terminal colors to match palette
   - [ ] #focus Optional: tmux theme to match (only if we want it)
-- [ ] Note whether last week’s focused actions were completed (N/A — first weekly review)
+- [x] Note whether last week’s focused actions were completed (N/A — first weekly review)
 
 ## Completed Items
 > Paste/copy completed items from Inbox (and/or projects) here as your weekly record.
