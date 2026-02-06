@@ -4,8 +4,8 @@
 - **Status:** Active
 - **Outcome (what done looks like):**
   - Montblanc bot has full admin permissions in the Discord server
-  - Server structure supports our work (GTD, accounting, programming, notes)
-  - Clear conventions: where tasks go, where status updates go, where files/links go
+  - Server structure supports our work (GTD, project-first work threads, notes)
+  - Clear conventions: where capture happens, where weekly review happens, where decisions/logs live
 
 ## Next Actions
 - [x] #nextaction #project/moghome-discord-setup Verify bot has Administrator permission (confirmed via permissions check)
