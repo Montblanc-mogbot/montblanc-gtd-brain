@@ -20,7 +20,7 @@
 - [x] #project/linux-ricing-montblanc-fft Decide fonts: UI font + terminal mono font (high readability) (set Open Sans + JetBrains Mono)
 
 ### Visual identity (Montblanc face)
-- [ ] #nextaction #project/linux-ricing-montblanc-fft Set Montblanc avatar everywhere: local profile + OpenClaw/Discord (use Reference/avatars/montblanc-avatar-zoom-1024.png)
+- [ ] #waitingfor #project/linux-ricing-montblanc-fft Set Montblanc avatar everywhere: local profile + OpenClaw/Discord (use Reference/avatars/montblanc-avatar-zoom-1024.png)
 - [x] #project/linux-ricing-montblanc-fft Choose a wallpaper set (day/night variants) in the tactics-whimsy style (gallery imported; applied selected/day.png + selected/night.png; fill mode)
 - [x] #project/linux-ricing-montblanc-fft Set GNOME accent colors to match the palette (set accent-color to teal)
 
@@ -35,9 +35,9 @@
 - [x] #project/linux-ricing-montblanc-fft Make a "revert" doc (how to return to stock Adwaita) (see revert.md)
 
 ### Terminal + dev vibe
-- [ ] #nextaction #project/linux-ricing-montblanc-fft Set Ptyxis colors to match palette (parchment bg + ink text + teal highlights)
+- [ ] #waitingfor #project/linux-ricing-montblanc-fft Set Ptyxis colors to match palette (parchment bg + ink text + teal highlights)
 - [x] #project/linux-ricing-montblanc-fft Set Ptyxis font (JetBrains Mono 11)
-- [ ] #project/linux-ricing-montblanc-fft Optional: tmux theme to match
+- [ ] #waitingfor #project/linux-ricing-montblanc-fft Optional: tmux theme to match (snip: Reference/snippets/tmux.conf → you decide whether to adopt)
 
 ## Waiting On
 - [x] #waitingon #project/linux-ricing-montblanc-fft Reference images/wallpapers received (gallery imported)
