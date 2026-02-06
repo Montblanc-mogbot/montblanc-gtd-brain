@@ -21,9 +21,9 @@
 - `#weekly-review` — weekly review reminders + short summaries; link to weekly review doc in GitHub.
 - `#waiting-for` — when something is blocked on Matt; I post concise unblock requests here.
 
-### Category: Work
-- `#accounting` — payroll/payables/taxes questions, checklists, and notes.
-- `#programming` — dev tasks, debugging, planning.
+### Category: Work (project-first)
+- `#work` — project-focused discussion; use threads per project/task.
+- (optional later) `#accounting` and `#programming` if `#work` becomes too busy.
 
 ### Category: Ops
 - `#automation-log` — only errors/alerts from scheduled jobs (sync failures, cron issues).
@@ -38,7 +38,9 @@
 
 ## Pins (draft)
 ### `#inbox` pin
-- “Dump tasks here. Start lines with `TODO:` if you want. I’ll move them into `Inbox/inbox.md`.”
+- “Drop tasks for Montblanc here (capture-only). I’ll convert them into durable todos in `Inbox/inbox.md`.
+- Tip: prefix with `TODO:`.
+- I’ll avoid duplicates by checking if it’s already captured or already done.”
 
 ### `#weekly-review` pin
 - “Fridays AM: weekly review. Source of truth: `Reference/weekly-reviews/` in GitHub repo.”
