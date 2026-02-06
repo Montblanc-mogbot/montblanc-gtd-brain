@@ -20,6 +20,7 @@
 
 ## Reference
 - [[Reference/README.md]]
+- How this GTD brain works: [[Reference/gtd-system.md]]
 
 ## Waiting For (quick scan)
 Tip: search in Obsidian for `#waitingfor`.
