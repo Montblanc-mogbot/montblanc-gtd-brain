@@ -15,15 +15,20 @@
 - [x] #nextaction #project/griddle Scaffold app (Vite + React + TS) + lint/format
 
 ### Milestone 1 — Pivot structure
-- [ ] #nextaction #project/griddle Implement domain types (dataset/schema/records)
-- [ ] #nextaction #project/griddle Implement pivot compute (tuples + cell map + SUM)
-- [ ] #nextaction #project/griddle Implement pivot grid renderer (multi-header rows/cols)
-- [ ] #nextaction #project/griddle Implement measure selector + row/col selectors
-- [ ] #nextaction #project/griddle Implement cell selection state + debug panel
+- [x] #nextaction #project/griddle Implement domain types (dataset/schema/records) (in repo: src/domain/types.ts)
+- [x] #nextaction #project/griddle Implement pivot compute (tuples + cell map + SUM) (in repo: src/domain/pivot.ts)
+- [x] #nextaction #project/griddle Implement pivot grid renderer (multi-header rows/cols) (in repo: src/components/PivotGrid.tsx)
+- [x] #nextaction #project/griddle Implement measure selector + row/col selectors (in repo: src/components/PivotControls.tsx)
+- [x] #nextaction #project/griddle Implement cell selection state + debug panel (in repo: src/App.tsx)
 
 ### Quality
-- [ ] #nextaction #project/griddle Add basic sample dataset + snapshot-ish test (or unit tests for pivot compute)
-- [ ] #nextaction #project/griddle Write README with run instructions + current limitations
+- [x] #nextaction #project/griddle Add basic sample dataset + snapshot-ish test (unit tests via vitest: src/domain/pivot.test.ts)
+- [x] #nextaction #project/griddle Write README with run instructions + current limitations (in griddle repo README.md)
+
+### Next chunk (still Milestone 1 / polish)
+- [ ] #nextaction #project/griddle Add import/export of dataset JSON (local file) so Matt can test with real data
+- [ ] #nextaction #project/griddle Improve header rendering correctness (grouping/colSpan edge cases) + add sticky top row headers
+- [ ] #nextaction #project/griddle Add basic slicers UI (optional; compute supports it)
 
 (Completed)
 - [x] #project/griddle Create initial design docs folder + core documents (overview, data model, pivot spec, milestone plan)
