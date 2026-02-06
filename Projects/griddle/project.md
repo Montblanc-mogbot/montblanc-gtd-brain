@@ -147,7 +147,7 @@
 
 #### B) Number formatting
 - [x] #nextaction #project/griddle Add helper `formatNumber(value: number, opts?)` (default 2 decimals) and use for cell totals + tape measures
-- [ ] #nextaction #project/griddle Ensure pivot cell display and EntryHeader total use the same sane formatting
+- [x] #nextaction #project/griddle Ensure pivot cell display and EntryHeader total use the same sane formatting
 
 #### C) Tape ledger layout (table-like)
 - [ ] #nextaction #project/griddle Replace RecordTape list with a table-like ledger: sticky column headers, one row per record (measures + flags inline)
