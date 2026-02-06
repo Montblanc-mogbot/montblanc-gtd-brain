@@ -103,31 +103,31 @@
 - [x] #nextaction #project/griddle Add helper `upsertRecords(dataset: DatasetFileV1, updated: RecordEntity[]): DatasetFileV1`
 
 #### B) UI: Entry panel shell + header
-- [ ] #nextaction #project/griddle Create component `EntryPanel.tsx`
-- [ ] #nextaction #project/griddle Create component `EntryHeader.tsx` (lists implied row/col/slicer dims + shows aggregate + record count)
+- [x] #nextaction #project/griddle Create component `EntryPanel.tsx`
+- [x] #nextaction #project/griddle Create component `EntryHeader.tsx` (lists implied row/col/slicer dims + shows aggregate + record count)
 
 #### C) UI: Tape list (records in cell)
-- [ ] #nextaction #project/griddle Create component `RecordTape.tsx` (renders contributing records)
-- [ ] #nextaction #project/griddle Create component `RecordTapeRow.tsx` (shows measure values + metadata checkboxes; metadata editable per row)
-- [ ] #nextaction #project/griddle Implement “tape updates live” (re-renders after insert/update)
+- [x] #nextaction #project/griddle Create component `RecordTape.tsx` (renders contributing records)
+- [x] #nextaction #project/griddle Create component `RecordTapeRow.tsx` (shows measure values + metadata checkboxes; metadata editable per row)
+- [x] #nextaction #project/griddle Implement “tape updates live” (re-renders after insert/update)
 
 #### D) UI: Fast entry form (tape-calculator behavior)
-- [ ] #nextaction #project/griddle Create component `FastEntryForm.tsx`
-- [ ] #nextaction #project/griddle Implement `measureFieldKeys` selector (schema fields with role=measure; stable ordering)
-- [ ] #nextaction #project/griddle Implement `flagFieldKeys` selector (schema fields with role=flag; stable ordering)
-- [ ] #nextaction #project/griddle Implement keyboard flow (Enter advance; Enter submit last; after submit clear + focus first)
-- [ ] #nextaction #project/griddle Implement metadata checkboxes for the record being entered (default false)
+- [x] #nextaction #project/griddle Create component `FastEntryForm.tsx`
+- [x] #nextaction #project/griddle Implement `measureFieldKeys` selector (schema fields with role=measure; stable ordering)
+- [x] #nextaction #project/griddle Implement `flagFieldKeys` selector (schema fields with role=flag; stable ordering)
+- [x] #nextaction #project/griddle Implement keyboard flow (Enter advance; Enter submit last; after submit clear + focus first)
+- [x] #nextaction #project/griddle Implement metadata checkboxes for the record being entered (default false)
 
 #### E) UI: Bulk metadata edit for cell
-- [ ] #nextaction #project/griddle Create component `BulkMetadataEdit.tsx` (simple checkbox per flag)
+- [x] #nextaction #project/griddle Create component `BulkMetadataEdit.tsx` (simple checkbox per flag)
 - [ ] #nextaction #project/griddle Implement handler `onBulkFlagToggle(flagKey, checked)` sets all records in cell to checked
 
 #### F) App wiring
-- [ ] #nextaction #project/griddle Add state `selectedCell` → opens EntryPanel when non-null
-- [ ] #nextaction #project/griddle Implement `handleSubmitEntry()` in App: append new record + recompute pivot
-- [ ] #nextaction #project/griddle Implement `handleToggleRowFlag(recordId, flagKey, value)` in App: update dataset record + recompute pivot
-- [ ] #nextaction #project/griddle Implement `handleBulkToggle(flagKey, value)` in App
-- [ ] #nextaction #project/griddle Ensure EntryPanel operates strictly on roles (dims implied; only measures/flags editable)
+- [x] #nextaction #project/griddle Add state `selectedCell` → opens EntryPanel when non-null
+- [x] #nextaction #project/griddle Implement `handleSubmitEntry()` in App: append new record + recompute pivot
+- [x] #nextaction #project/griddle Implement `handleToggleRowFlag(recordId, flagKey, value)` in App: update dataset record + recompute pivot
+- [x] #nextaction #project/griddle Implement `handleBulkToggle(flagKey, value)` in App
+- [x] #nextaction #project/griddle Ensure EntryPanel operates strictly on roles (dims implied; only measures/flags editable)
 
 #### G) Tests (light but important)
 - [ ] #nextaction #project/griddle Add unit tests for `createRecordFromSelection`
