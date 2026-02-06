@@ -162,13 +162,13 @@
 ### Milestone 6a — AG Grid Community spike (multi-cell selection)
 **Goal:** Prototype the pivot grid rendered with AG Grid Community and confirm multi-cell/range selection behavior.
 
-- [ ] #nextaction #project/griddle Decide target AG Grid version + install deps (`ag-grid-community`, `ag-grid-react`) and theme CSS
-- [ ] #nextaction #project/griddle Create `src/spikes/AgGridPivotSpike.tsx` (renders pivot via AG Grid)
-- [ ] #nextaction #project/griddle Create pivot→AGGrid adapter: `makeAgGridTable(pivot, config)` returning `columnDefs` + `rowData`
-- [ ] #nextaction #project/griddle Enable range selection + multi-range (if supported) and add event logging (`onRangeSelectionChanged`)
-- [ ] #nextaction #project/griddle Add simple UI toggle in App: switch between current table and AG Grid spike
-- [ ] #nextaction #project/griddle Document findings in `docs/ag-grid-spike.md` (does multi-cell selection work in Community? any caveats)
-- [ ] #nextaction #project/griddle Push commits + mark Milestone 6a complete
+- [x] #nextaction #project/griddle Decide target AG Grid version + install deps (`ag-grid-community`, `ag-grid-react`) and theme CSS
+- [x] #nextaction #project/griddle Create `src/spikes/AgGridPivotSpike.tsx` (renders pivot via AG Grid)
+- [x] #nextaction #project/griddle Create pivot→AGGrid adapter: `makeAgGridTable(pivot, config)` returning `columnDefs` + `rowData`
+- [x] #nextaction #project/griddle Enable range selection + multi-range (if supported) and add event logging (`onRangeSelectionChanged`)
+- [x] #nextaction #project/griddle Add simple UI toggle in App: switch between current table and AG Grid spike
+- [x] #nextaction #project/griddle Document findings in `docs/ag-grid-spike.md` (does multi-cell selection work in Community? any caveats)
+- [x] #nextaction #project/griddle Push commits + mark Milestone 6a complete
 
 ### Next chunk (post-M6a)
 - [ ] #nextaction #project/griddle Improve header rendering correctness (grouping/colSpan edge cases)
