@@ -9,7 +9,7 @@
 
 - [x] #nextaction Create a daily check-in note for tomorrow using Templates/daily-checkin-template.md (created Reference/daily/2026-02-06-daily-checkin.md)
 - [x] #nextaction Review Inbox + Projects and ensure everything active has at least one #nextaction
-- [ ] #waitingfor Set up a GitHub account for Montblanc (needs you to choose username + provide an email or decide to use GitHub noreply). After that: `gh auth login`.
+- [x] #waitingfor Set up a GitHub account for Montblanc (username + email set; gh authenticated)
 - [x] #nextaction Produce a brief #waitingfor report for Matt (see message to Matt)
 
 - [x] #project/linux-ricing-montblanc-fft Install Dash to Dock (enabled + configured)
