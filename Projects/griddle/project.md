@@ -141,12 +141,12 @@
 **Goal:** Make the Entry panel match the approved “tape calculator” ledger mockup; remove inline styles; fix white-on-white; format numbers sanely.
 
 #### A) Styling refactor (CSS modules)
-- [ ] #nextaction #project/griddle Create `entryPanel.module.css` and move EntryPanel/EntryHeader/BulkMetadata styles out of inline
+- [x] #nextaction #project/griddle Create `entryPanel.module.css` and move EntryPanel/EntryHeader/BulkMetadata styles out of inline
 - [ ] #nextaction #project/griddle Create `tapeLedger.module.css` and move tape row/table styles out of inline
 - [ ] #nextaction #project/griddle Ensure all text is readable (no white-on-white) for tape and selection panels
 
 #### B) Number formatting
-- [ ] #nextaction #project/griddle Add helper `formatNumber(value: number, opts?)` (default 2 decimals) and use for cell totals + tape measures
+- [x] #nextaction #project/griddle Add helper `formatNumber(value: number, opts?)` (default 2 decimals) and use for cell totals + tape measures
 - [ ] #nextaction #project/griddle Ensure pivot cell display and EntryHeader total use the same sane formatting
 
 #### C) Tape ledger layout (table-like)
