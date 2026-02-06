@@ -3,3 +3,5 @@
 Reference/attachments/
 # OpenClaw state is outside workspace; keep repo clean
 .DS_Store
+
+.obsidian/workspace.json
