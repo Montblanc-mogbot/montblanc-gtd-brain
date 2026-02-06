@@ -142,7 +142,7 @@
 
 #### A) Styling refactor (CSS modules)
 - [x] #nextaction #project/griddle Create `entryPanel.module.css` and move EntryPanel/EntryHeader/BulkMetadata styles out of inline
-- [ ] #nextaction #project/griddle Create `tapeLedger.module.css` and move tape row/table styles out of inline
+- [x] #nextaction #project/griddle Create `tapeLedger.module.css` and move tape row/table styles out of inline
 - [ ] #nextaction #project/griddle Ensure all text is readable (no white-on-white) for tape and selection panels
 
 #### B) Number formatting
