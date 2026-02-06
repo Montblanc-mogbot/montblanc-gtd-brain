@@ -8,12 +8,13 @@
   - Clear conventions: where tasks go, where status updates go, where files/links go
 
 ## Next Actions
-- [ ] #nextaction #project/moghome-discord-setup Verify bot has Administrator permission (role assigned) via a test channel create
-- [ ] #nextaction #project/moghome-discord-setup Propose a minimal channel/category layout for our work
+- [x] #nextaction #project/moghome-discord-setup Verify bot has Administrator permission (confirmed via permissions check)
+- [ ] #nextaction #project/moghome-discord-setup Write Moghome design doc: goals, categories/channels, naming conventions, and “how we work here” pins
+- [ ] #nextaction #project/moghome-discord-setup Get Matt notes/approval on the design doc
 - [ ] #nextaction #project/moghome-discord-setup Implement the layout (create categories/channels) and pin “how we work here” messages
 
 ## Waiting On
-- [ ] #waitingfor #project/moghome-discord-setup You: assign the bot an Admin role (or Administrator permission) in Server Settings → Roles
+- [x] #waitingfor #project/moghome-discord-setup You: assign the bot an Admin role (done)
 
 ## Someday / Maybe
 - [ ] #someday #project/moghome-discord-setup Add a private "scratch" channel for quick dumps and cleanup
