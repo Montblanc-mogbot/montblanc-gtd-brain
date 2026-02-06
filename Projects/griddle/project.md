@@ -134,7 +134,7 @@
 - [x] #nextaction #project/griddle Add unit tests for `bulkSetMetadata` + `upsertRecords`
 
 #### H) Finish
-- [ ] #nextaction #project/griddle Update README with “fast entry” workflow + keyboard rules
+- [x] #nextaction #project/griddle Update README with “fast entry” workflow + keyboard rules
 - [ ] #nextaction #project/griddle Push commits and mark Milestone 5 complete
 
 ### Next chunk (post-M5)
