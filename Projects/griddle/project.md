@@ -120,7 +120,7 @@
 
 #### E) UI: Bulk metadata edit for cell
 - [x] #nextaction #project/griddle Create component `BulkMetadataEdit.tsx` (simple checkbox per flag)
-- [ ] #nextaction #project/griddle Implement handler `onBulkFlagToggle(flagKey, checked)` sets all records in cell to checked
+- [x] #nextaction #project/griddle Implement handler `onBulkFlagToggle(flagKey, checked)` sets all records in cell to checked
 
 #### F) App wiring
 - [x] #nextaction #project/griddle Add state `selectedCell` → opens EntryPanel when non-null
@@ -130,8 +130,8 @@
 - [x] #nextaction #project/griddle Ensure EntryPanel operates strictly on roles (dims implied; only measures/flags editable)
 
 #### G) Tests (light but important)
-- [ ] #nextaction #project/griddle Add unit tests for `createRecordFromSelection`
-- [ ] #nextaction #project/griddle Add unit tests for `bulkSetMetadata` + `upsertRecords`
+- [x] #nextaction #project/griddle Add unit tests for `createRecordFromSelection`
+- [x] #nextaction #project/griddle Add unit tests for `bulkSetMetadata` + `upsertRecords`
 
 #### H) Finish
 - [ ] #nextaction #project/griddle Update README with “fast entry” workflow + keyboard rules
