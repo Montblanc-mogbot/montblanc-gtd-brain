@@ -29,3 +29,7 @@ Tip: search in Obsidian for `#nextaction`.
 
 ## Cheatsheet
 - [[Reference/dashboards/search-cheatsheet.md]]
+
+## GitHub
+- Repo: https://github.com/Montblanc-mogbot/montblanc-gtd-brain
+- Sync script (local): `./sync-gtd.sh`
