@@ -25,9 +25,120 @@
 - [x] #nextaction #project/griddle Add basic sample dataset + snapshot-ish test (unit tests via vitest: src/domain/pivot.test.ts)
 - [x] #nextaction #project/griddle Write README with run instructions + current limitations (in griddle repo README.md)
 
-### Next chunk (still Milestone 1 / polish)
-- [ ] #nextaction #project/griddle Add import/export of dataset JSON (local file) so Matt can test with real data
-- [ ] #nextaction #project/griddle Improve header rendering correctness (grouping/colSpan edge cases) + add sticky top row headers
+### Milestone 2 — Usable pivot demo (dummy data + selection inspector)
+- [x] #nextaction #project/griddle Replace selection debug with a proper "Selection Inspector" panel/drawer
+- [x] #nextaction #project/griddle Show selected cell coordinates (row+col dimension values) + aggregated value
+- [x] #nextaction #project/griddle List contributing records for the selected cell (at least IDs; preferably small table)
+- [x] #nextaction #project/griddle Improve pivot table visuals (sticky headers, hover, selected cell state)
+- [x] #nextaction #project/griddle Push commit(s) + README note that Milestone 2 is done and how to test selection
+
+### Milestone 3 — Schema editor (move fields/roles without code)
+- [x] #nextaction #project/griddle Move dataset into React state (stop using a const) + update pivot to use state
+- [x] #nextaction #project/griddle Add Schema Editor panel/page: list fields + select field to edit
+- [x] #nextaction #project/griddle Implement field CRUD: add, edit (key/label/type), delete
+- [x] #nextaction #project/griddle Implement role editing (rowDim/colDim/slicer/measure/flag) with validation (at least one role optional)
+- [x] #nextaction #project/griddle Update PivotControls options to reflect schema changes live
+- [x] #nextaction #project/griddle Add minimal "enum" editor for categorical fields (optional, but useful)
+- [x] #nextaction #project/griddle README update: how to use Schema Editor
+- [x] #nextaction #project/griddle Push commits and mark Milestone 3 complete
+
+### Milestone 3.1 — Correctness + maintainable styling
+- [x] #nextaction #project/griddle Implement field key rename migration (schema change should move record.data keys + pivotConfig keys)
+- [x] #nextaction #project/griddle Add tests for schema migration helper (rename + delete behavior)
+- [x] #nextaction #project/griddle PivotControls: drive eligible fields by roles (not by FieldType)
+- [x] #nextaction #project/griddle Styling refactor: reduce inline styles (start with PivotGrid + inspectors) and introduce a consistent CSS approach (e.g., CSS modules)
+- [x] #nextaction #project/griddle UI polish direction: add a short note on recommended UI library candidates (Mantine/Chakra/MUI) and why
+- [x] #nextaction #project/griddle Push commits + mark Milestone 3.1 complete
+
+### Milestone 4 — Dataset JSON format docs + import/export
+**Goal:** Document the JSON format and let users import/export datasets.
+
+#### A) JSON format documentation
+- [x] #nextaction #project/griddle Create `docs/dataset-json-format.md` describing `DatasetFileV1` (schema + records) + versioning rules
+- [x] #nextaction #project/griddle Add example dataset JSON snippet(s) to the doc (minimal + slightly richer)
+
+#### B) Domain: parse/validate/serialize
+- [x] #nextaction #project/griddle Create module `src/domain/datasetIo.ts`
+- [x] #nextaction #project/griddle Add function `serializeDataset(dataset: DatasetFileV1): string`
+- [x] #nextaction #project/griddle Add function `parseDatasetJson(text: string): DatasetFileV1`
+- [x] #nextaction #project/griddle Add function `validateDataset(dataset: DatasetFileV1): string[]` (warnings)
+- [x] #nextaction #project/griddle Add function `ensureDatasetV1(input: unknown): DatasetFileV1` (throws user-facing error)
+
+#### C) UI: Import/Export component
+- [x] #nextaction #project/griddle Create component `src/components/DatasetImportExport.tsx`
+- [x] #nextaction #project/griddle Add helper `downloadTextFile(filename: string, content: string)`
+- [x] #nextaction #project/griddle Add handler `handleExport()` (uses `serializeDataset`)
+- [x] #nextaction #project/griddle Add handler `handleImportFile(file: File)` (reads file text + `parseDatasetJson`)
+- [x] #nextaction #project/griddle Add UI: Import button + hidden file input + Export button + error display
+
+#### D) App wiring
+- [x] #nextaction #project/griddle Add method `applyImportedDataset(next: DatasetFileV1)` in `App.tsx` (setDataset + reconcile PivotConfig)
+- [x] #nextaction #project/griddle Add helper `reconcilePivotConfig(schema: DatasetSchema, prev: PivotConfig): PivotConfig` (keeps keys valid, picks default measure)
+- [x] #nextaction #project/griddle Integrate `DatasetImportExport` into the main toolbar
+
+#### E) Tests
+- [x] #nextaction #project/griddle Create `src/domain/datasetIo.test.ts`
+- [x] #nextaction #project/griddle Test: parse/serialize round-trip stable for a sample dataset
+- [x] #nextaction #project/griddle Test: invalid JSON / invalid version produces a friendly error
+
+#### F) Finish
+- [x] #nextaction #project/griddle Update repo README: how to import/export
+- [x] #nextaction #project/griddle Push commits and mark Milestone 4 complete
+
+**Acceptance criteria:**
+- You can export the current dataset to a JSON file
+- You can import a dataset JSON file and see schema + pivot update immediately
+- Invalid files fail gracefully (no crash) with actionable error text
+- JSON format is documented in-repo with examples
+
+### Milestone 5 — Record tape + fast entry (measures+metadata only)
+**Goal:** Selecting a pivot cell opens an entry panel with: implied dims header + tape of contributing records + fast entry for measures/flags.
+
+#### A) Domain: selection + record filtering
+- [x] #nextaction #project/griddle Add type `CellSelectionContext` (row tuple, col tuple, recordIds, implied dims)
+- [x] #nextaction #project/griddle Add function `getRecordsForCell(dataset: DatasetFileV1, selected: SelectedCell): RecordEntity[]`
+- [x] #nextaction #project/griddle Add function `createRecordFromSelection(args)` (implied dims + entered measures + metadata) → `RecordEntity`
+- [x] #nextaction #project/griddle Add function `updateRecordMetadata(record: RecordEntity, flagKey: string, value: boolean): RecordEntity`
+- [x] #nextaction #project/griddle Add function `bulkSetMetadata(records: RecordEntity[], flagKey: string, value: boolean): RecordEntity[]`
+- [x] #nextaction #project/griddle Add helper `upsertRecords(dataset: DatasetFileV1, updated: RecordEntity[]): DatasetFileV1`
+
+#### B) UI: Entry panel shell + header
+- [ ] #nextaction #project/griddle Create component `EntryPanel.tsx`
+- [ ] #nextaction #project/griddle Create component `EntryHeader.tsx` (lists implied row/col/slicer dims + shows aggregate + record count)
+
+#### C) UI: Tape list (records in cell)
+- [ ] #nextaction #project/griddle Create component `RecordTape.tsx` (renders contributing records)
+- [ ] #nextaction #project/griddle Create component `RecordTapeRow.tsx` (shows measure values + metadata checkboxes; metadata editable per row)
+- [ ] #nextaction #project/griddle Implement “tape updates live” (re-renders after insert/update)
+
+#### D) UI: Fast entry form (tape-calculator behavior)
+- [ ] #nextaction #project/griddle Create component `FastEntryForm.tsx`
+- [ ] #nextaction #project/griddle Implement `measureFieldKeys` selector (schema fields with role=measure; stable ordering)
+- [ ] #nextaction #project/griddle Implement `flagFieldKeys` selector (schema fields with role=flag; stable ordering)
+- [ ] #nextaction #project/griddle Implement keyboard flow (Enter advance; Enter submit last; after submit clear + focus first)
+- [ ] #nextaction #project/griddle Implement metadata checkboxes for the record being entered (default false)
+
+#### E) UI: Bulk metadata edit for cell
+- [ ] #nextaction #project/griddle Create component `BulkMetadataEdit.tsx` (simple checkbox per flag)
+- [ ] #nextaction #project/griddle Implement handler `onBulkFlagToggle(flagKey, checked)` sets all records in cell to checked
+
+#### F) App wiring
+- [ ] #nextaction #project/griddle Add state `selectedCell` → opens EntryPanel when non-null
+- [ ] #nextaction #project/griddle Implement `handleSubmitEntry()` in App: append new record + recompute pivot
+- [ ] #nextaction #project/griddle Implement `handleToggleRowFlag(recordId, flagKey, value)` in App: update dataset record + recompute pivot
+- [ ] #nextaction #project/griddle Implement `handleBulkToggle(flagKey, value)` in App
+- [ ] #nextaction #project/griddle Ensure EntryPanel operates strictly on roles (dims implied; only measures/flags editable)
+
+#### G) Tests (light but important)
+- [ ] #nextaction #project/griddle Add unit tests for `createRecordFromSelection`
+- [ ] #nextaction #project/griddle Add unit tests for `bulkSetMetadata` + `upsertRecords`
+
+#### H) Finish
+- [ ] #nextaction #project/griddle Update README with “fast entry” workflow + keyboard rules
+- [ ] #nextaction #project/griddle Push commits and mark Milestone 5 complete
+
+### Next chunk (post-M5)
+- [ ] #nextaction #project/griddle Improve header rendering correctness (grouping/colSpan edge cases)
 - [ ] #nextaction #project/griddle Add basic slicers UI (optional; compute supports it)
 
 (Completed)
