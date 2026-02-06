@@ -135,7 +135,7 @@
 
 #### H) Finish
 - [x] #nextaction #project/griddle Update README with “fast entry” workflow + keyboard rules
-- [ ] #nextaction #project/griddle Push commits and mark Milestone 5 complete
+- [x] #nextaction #project/griddle Push commits and mark Milestone 5 complete
 
 ### Next chunk (post-M5)
 - [ ] #nextaction #project/griddle Improve header rendering correctness (grouping/colSpan edge cases)
