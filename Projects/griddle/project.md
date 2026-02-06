@@ -170,7 +170,25 @@
 - [x] #nextaction #project/griddle Document findings in `docs/ag-grid-spike.md` (does multi-cell selection work in Community? any caveats)
 - [x] #nextaction #project/griddle Push commits + mark Milestone 6a complete
 
-### Next chunk (post-M6a)
+### Milestone 6b — Multi-cell selection OSS spikes (Glide Data Grid + ReactGrid)
+**Goal:** Evaluate free/OSS grids for spreadsheet-like multi-cell selection for the pivot view.
+
+#### Glide Data Grid spike
+- [ ] #nextaction #project/griddle Install deps for Glide Data Grid and add minimal CSS
+- [ ] #nextaction #project/griddle Create `src/spikes/GlidePivotSpike.tsx` and pivot→Glide adapter
+- [ ] #nextaction #project/griddle Confirm range selection + multi-selection behavior; add event logging
+
+#### ReactGrid spike
+- [ ] #nextaction #project/griddle Install deps for ReactGrid and add required styles
+- [ ] #nextaction #project/griddle Create `src/spikes/ReactGridPivotSpike.tsx` and pivot→ReactGrid adapter
+- [ ] #nextaction #project/griddle Confirm range selection + multi-selection behavior; add event logging
+
+#### App wiring + docs
+- [ ] #nextaction #project/griddle Add App toggle(s) to switch between: current grid / AG Grid spike / Glide spike / ReactGrid spike
+- [ ] #nextaction #project/griddle Document findings in `docs/multicell-grid-spike.md` (selection UX, keyboard, performance notes, licensing)
+- [ ] #nextaction #project/griddle Push commits + mark Milestone 6b complete
+
+### Next chunk (post-M6b)
 - [ ] #nextaction #project/griddle Improve header rendering correctness (grouping/colSpan edge cases)
 - [ ] #nextaction #project/griddle Add basic slicers UI (optional; compute supports it)
 
