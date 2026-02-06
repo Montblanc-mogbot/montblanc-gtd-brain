@@ -143,21 +143,21 @@
 #### A) Styling refactor (CSS modules)
 - [x] #nextaction #project/griddle Create `entryPanel.module.css` and move EntryPanel/EntryHeader/BulkMetadata styles out of inline
 - [x] #nextaction #project/griddle Create `tapeLedger.module.css` and move tape row/table styles out of inline
-- [ ] #nextaction #project/griddle Ensure all text is readable (no white-on-white) for tape and selection panels
+- [x] #nextaction #project/griddle Ensure all text is readable (no white-on-white) for tape and selection panels
 
 #### B) Number formatting
 - [x] #nextaction #project/griddle Add helper `formatNumber(value: number, opts?)` (default 2 decimals) and use for cell totals + tape measures
 - [x] #nextaction #project/griddle Ensure pivot cell display and EntryHeader total use the same sane formatting
 
 #### C) Tape ledger layout (table-like)
-- [ ] #nextaction #project/griddle Replace RecordTape list with a table-like ledger: sticky column headers, one row per record (measures + flags inline)
-- [ ] #nextaction #project/griddle Move Bulk metadata section above the tape (as approved)
+- [x] #nextaction #project/griddle Replace RecordTape list with a table-like ledger: sticky column headers, one row per record (measures + flags inline)
+- [x] #nextaction #project/griddle Move Bulk metadata section above the tape (as approved)
 - [x] #nextaction #project/griddle Replace FastEntryForm with a shaded bottom “new entry” row aligned to columns
 - [x] #nextaction #project/griddle Keyboard rules: Enter advances measures; Enter on last submits; clears row and focuses first input
 
 #### D) Finish
-- [ ] #nextaction #project/griddle README update: tape layout + formatting notes
-- [ ] #nextaction #project/griddle Push commits, merge to master, and mark Milestone 5.1 complete
+- [x] #nextaction #project/griddle README update: tape layout + formatting notes
+- [x] #nextaction #project/griddle Push commits, merge to master, and mark Milestone 5.1 complete
 
 ### Next chunk (post-M5.1)
 - [ ] #nextaction #project/griddle Improve header rendering correctness (grouping/colSpan edge cases)
