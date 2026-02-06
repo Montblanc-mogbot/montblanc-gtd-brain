@@ -152,8 +152,8 @@
 #### C) Tape ledger layout (table-like)
 - [ ] #nextaction #project/griddle Replace RecordTape list with a table-like ledger: sticky column headers, one row per record (measures + flags inline)
 - [ ] #nextaction #project/griddle Move Bulk metadata section above the tape (as approved)
-- [ ] #nextaction #project/griddle Replace FastEntryForm with a shaded bottom “new entry” row aligned to columns
-- [ ] #nextaction #project/griddle Keyboard rules: Enter advances measures; Enter on last submits; clears row and focuses first input
+- [x] #nextaction #project/griddle Replace FastEntryForm with a shaded bottom “new entry” row aligned to columns
+- [x] #nextaction #project/griddle Keyboard rules: Enter advances measures; Enter on last submits; clears row and focuses first input
 
 #### D) Finish
 - [ ] #nextaction #project/griddle README update: tape layout + formatting notes
