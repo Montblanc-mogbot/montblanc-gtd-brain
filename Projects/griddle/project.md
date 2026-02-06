@@ -137,7 +137,29 @@
 - [x] #nextaction #project/griddle Update README with “fast entry” workflow + keyboard rules
 - [x] #nextaction #project/griddle Push commits and mark Milestone 5 complete
 
-### Next chunk (post-M5)
+### Milestone 5.1 — Entry panel tape layout + styling + formatting
+**Goal:** Make the Entry panel match the approved “tape calculator” ledger mockup; remove inline styles; fix white-on-white; format numbers sanely.
+
+#### A) Styling refactor (CSS modules)
+- [ ] #nextaction #project/griddle Create `entryPanel.module.css` and move EntryPanel/EntryHeader/BulkMetadata styles out of inline
+- [ ] #nextaction #project/griddle Create `tapeLedger.module.css` and move tape row/table styles out of inline
+- [ ] #nextaction #project/griddle Ensure all text is readable (no white-on-white) for tape and selection panels
+
+#### B) Number formatting
+- [ ] #nextaction #project/griddle Add helper `formatNumber(value: number, opts?)` (default 2 decimals) and use for cell totals + tape measures
+- [ ] #nextaction #project/griddle Ensure pivot cell display and EntryHeader total use the same sane formatting
+
+#### C) Tape ledger layout (table-like)
+- [ ] #nextaction #project/griddle Replace RecordTape list with a table-like ledger: sticky column headers, one row per record (measures + flags inline)
+- [ ] #nextaction #project/griddle Move Bulk metadata section above the tape (as approved)
+- [ ] #nextaction #project/griddle Replace FastEntryForm with a shaded bottom “new entry” row aligned to columns
+- [ ] #nextaction #project/griddle Keyboard rules: Enter advances measures; Enter on last submits; clears row and focuses first input
+
+#### D) Finish
+- [ ] #nextaction #project/griddle README update: tape layout + formatting notes
+- [ ] #nextaction #project/griddle Push commits, merge to master, and mark Milestone 5.1 complete
+
+### Next chunk (post-M5.1)
 - [ ] #nextaction #project/griddle Improve header rendering correctness (grouping/colSpan edge cases)
 - [ ] #nextaction #project/griddle Add basic slicers UI (optional; compute supports it)
 
