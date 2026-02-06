@@ -3,6 +3,8 @@
 > Capture new tasks here. Keep it as a single list of checkbox items.
 
 ## Tasks
+- [ ] #nextaction Figure out a way for Matt to know if I’m currently working on something (status/indicator/notifications) (from squadronhawk.)
+
 - [ ] #nextaction #project/structured-json-editor Kickoff: clarify requirements + success criteria (in thread)
 
 - [ ] #waitingfor #project/linux-ricing-montblanc-fft Set Montblanc avatar (Discord/OpenClaw) — use `Reference/avatars/montblanc-avatar-zoom-1024.png`
