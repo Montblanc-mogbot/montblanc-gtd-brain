@@ -188,7 +188,24 @@
 - [ ] #nextaction #project/griddle Document findings in `docs/multicell-grid-spike.md` (selection UX, keyboard, performance notes, licensing)
 - [ ] #nextaction #project/griddle Push commits + mark Milestone 6b complete
 
-### Next chunk (post-M6b)
+### Milestone 6c — Multi-cell selection comparison (Glide vs MUI DataGrid)
+**Goal:** Compare selection UX in Glide Data Grid vs MUI X DataGrid (community) under our current stack.
+
+#### Glide spike (fix + surface selection)
+- [ ] #nextaction #project/griddle Fix Glide build issues (install missing deps like lodash; remove legacy-peer hacks if possible)
+- [ ] #nextaction #project/griddle Add App spike view option for Glide and verify drag range selection + multi-select behavior
+
+#### MUI DataGrid spike
+- [ ] #nextaction #project/griddle Install MUI deps (`@mui/material`, `@emotion/react`, `@emotion/styled`, `@mui/x-data-grid`)
+- [ ] #nextaction #project/griddle Create `src/spikes/MuiDataGridPivotSpike.tsx` and pivot→rows/columns adapter
+- [ ] #nextaction #project/griddle Verify what selection modes exist in community (cell focus, row selection, checkbox selection) and document limitations
+
+#### App wiring + docs
+- [ ] #nextaction #project/griddle Update App spike selector to include: Glide, MUI DataGrid (keep AG Grid for reference)
+- [ ] #nextaction #project/griddle Document findings in `docs/multicell-grid-spike.md` (Glide vs MUI; selection, keyboard, licensing)
+- [ ] #nextaction #project/griddle Push commits + mark Milestone 6c complete
+
+### Next chunk (post-M6c)
 - [ ] #nextaction #project/griddle Improve header rendering correctness (grouping/colSpan edge cases)
 - [ ] #nextaction #project/griddle Add basic slicers UI (optional; compute supports it)
 
