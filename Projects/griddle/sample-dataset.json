@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "name": "Griddle Test Dataset",
+  "schema": {
+    "version": 1,
+    "fields": [
+      { "key": "date", "label": "Date", "type": "date", "roles": ["rowDim"] },
+      {
+        "key": "material",
+        "label": "Material",
+        "type": "string",
+        "roles": ["rowDim"],
+        "enum": ["Stone", "Dirt", "Sand"]
+      },
+      {
+        "key": "vendor",
+        "label": "Vendor",
+        "type": "string",
+        "roles": ["colDim"],
+        "enum": ["Acme", "Globex", "Umbrella"]
+      },
+      {
+        "key": "location",
+        "label": "Location",
+        "type": "string",
+        "roles": ["colDim"],
+        "enum": ["North", "South"]
+      },
+      { "key": "hauler", "label": "Hauler", "type": "string", "roles": ["rowDim", "colDim"] },
+      { "key": "tons", "label": "Tons", "type": "number", "roles": ["measure"] },
+      { "key": "rate", "label": "Rate", "type": "number", "roles": ["measure"] },
+      { "key": "isCorrection", "label": "Correction", "type": "boolean", "roles": ["flag"] },
+      { "key": "notes", "label": "Notes", "type": "string", "roles": [] }
+    ]
+  },
+  "records": [
+    {
+      "id": "r1",
+      "createdAt": "2026-02-01T00:00:00Z",
+      "updatedAt": "2026-02-01T00:00:00Z",
+      "data": {
+        "date": "2026-02-01",
+        "material": "Stone",
+        "vendor": "Acme",
+        "location": "North",
+        "hauler": "Roadrunner",
+        "tons": 10,
+        "rate": 22.5,
+        "isCorrection": false,
+        "notes": "morning load"
+      }
+    },
+    {
+      "id": "r2",
+      "createdAt": "2026-02-01T00:00:00Z",
+      "updatedAt": "2026-02-01T00:00:00Z",
+      "data": {
+        "date": "2026-02-01",
+        "material": "Stone",
+        "vendor": "Acme",
+        "location": "North",
+        "hauler": "Roadrunner",
+        "tons": 2,
+        "rate": 22.5,
+        "isCorrection": true,
+        "notes": "correction entry"
+      }
+    },
+    {
+      "id": "r3",
+      "createdAt": "2026-02-01T00:00:00Z",
+      "updatedAt": "2026-02-01T00:00:00Z",
+      "data": {
+        "date": "2026-02-01",
+        "material": "Dirt",
+        "vendor": "Globex",
+        "location": "South",
+        "hauler": "BigHaul",
+        "tons": 7,
+        "rate": 19,
+        "isCorrection": false
+      }
+    },
+    {
+      "id": "r4",
+      "createdAt": "2026-02-02T00:00:00Z",
+      "updatedAt": "2026-02-02T00:00:00Z",
+      "data": {
+        "date": "2026-02-02",
+        "material": "Sand",
+        "vendor": "Umbrella",
+        "location": "South",
+        "hauler": "BigHaul",
+        "tons": 3,
+        "rate": 30,
+        "isCorrection": false
+      }
+    },
+    {
+      "id": "r5",
+      "createdAt": "2026-02-02T00:00:00Z",
+      "updatedAt": "2026-02-02T00:00:00Z",
+      "data": {
+        "date": "2026-02-02",
+        "material": "Stone",
+        "vendor": "Globex",
+        "location": "North",
+        "hauler": "Roadrunner",
+        "tons": 11.5,
+        "rate": 21,
+        "isCorrection": false
+      }
+    }
+  ]
+}
