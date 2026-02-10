@@ -11,7 +11,7 @@
 - [x] #nextaction Create/update MEMORY.md with distilled knowledge from daily notes - DONE
 - [x] #nextaction Figure out a way for Matt to know if I'm currently working on something (status/indicator/notifications) - DONE (posting to #automation-log)
 
-- [ ] #nextaction #project/structured-json-editor Kickoff: clarify requirements + success criteria (in thread)
+- [x] #nextaction #project/structured-json-editor Kickoff: clarify requirements + success criteria (in thread) - DONE
 
 - [ ] #waitingfor #project/linux-ricing-montblanc-fft Set Montblanc avatar (Discord/OpenClaw) — use `Reference/avatars/montblanc-avatar-zoom-1024.png`
 - [ ] #waitingfor #project/linux-ricing-montblanc-fft Set terminal colors in Ptyxis to match palette (do in Ptyxis Preferences)
