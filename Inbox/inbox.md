@@ -6,7 +6,7 @@
 - [x] #nextaction Configure model fallback: Codex primary with Kimi fallback (to manage usage limits) - DONE
 - [x] #nextaction Fix gateway offline status visibility - gateway token saved to Desktop, dashboard at http://127.0.0.1:18789/
 - [x] #nextaction Verify Obsidian installation and accessibility for Matt - DONE (Flatpak v1.11.7)
-- [ ] #nextaction Enable memory search in config (needs OpenAI API key or local embedding setup) - WAITING ON DECISION
+- [x] #nextaction Enable memory search in config (needs OpenAI API key or local embedding setup) - DONE (local embeddings with nomic-embed-text)
 - [x] #nextaction Enhance HEARTBEAT.md: add daily memory review + stale task detection (>7 days) - DONE
 - [x] #nextaction Create/update MEMORY.md with distilled knowledge from daily notes - DONE
 - [x] #nextaction Figure out a way for Matt to know if I'm currently working on something (status/indicator/notifications) - DONE (posting to #automation-log)
