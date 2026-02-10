@@ -3,13 +3,13 @@
 > Capture new tasks here. Keep it as a single list of checkbox items.
 
 ## Tasks
-- [ ] #nextaction Configure model fallback: Codex primary with Kimi fallback (to manage usage limits)
-- [ ] #nextaction Fix gateway offline status visibility - ensure Matt can see when I'm online/working
-- [ ] #nextaction Verify Obsidian installation and accessibility for Matt
-- [ ] #nextaction Enable memory search in config (needs OpenAI API key or local embedding setup)
-- [ ] #nextaction Enhance HEARTBEAT.md: add daily memory review + stale task detection (>7 days)
-- [ ] #nextaction Create/update MEMORY.md with distilled knowledge from daily notes
-- [ ] #nextaction Figure out a way for Matt to know if I'm currently working on something (status/indicator/notifications) (from squadronhawk.)
+- [x] #nextaction Configure model fallback: Codex primary with Kimi fallback (to manage usage limits) - DONE
+- [x] #nextaction Fix gateway offline status visibility - gateway token saved to Desktop, dashboard at http://127.0.0.1:18789/
+- [x] #nextaction Verify Obsidian installation and accessibility for Matt - DONE (Flatpak v1.11.7)
+- [ ] #nextaction Enable memory search in config (needs OpenAI API key or local embedding setup) - WAITING ON DECISION
+- [x] #nextaction Enhance HEARTBEAT.md: add daily memory review + stale task detection (>7 days) - DONE
+- [x] #nextaction Create/update MEMORY.md with distilled knowledge from daily notes - DONE
+- [x] #nextaction Figure out a way for Matt to know if I'm currently working on something (status/indicator/notifications) - DONE (posting to #automation-log)
 
 - [ ] #nextaction #project/structured-json-editor Kickoff: clarify requirements + success criteria (in thread)
 
@@ -20,4 +20,9 @@
 ---
 
 ## Completed (rolled up)
-> During weekly review, copy any newly-checked items from the Tasks section down here as a record.
+- [x] Model fallback configured (Codex primary / Kimi fallback) - 2026-02-09
+- [x] Gateway status visibility fixed - token on Desktop - 2026-02-09
+- [x] Obsidian verified - 2026-02-09
+- [x] HEARTBEAT.md enhanced with execution rules - 2026-02-09
+- [x] MEMORY.md created - 2026-02-09
+- [x] Status posting to #automation-log active - 2026-02-09
