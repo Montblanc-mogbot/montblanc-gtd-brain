@@ -174,19 +174,19 @@
 **Goal:** Evaluate free/OSS grids for spreadsheet-like multi-cell selection for the pivot view.
 
 #### Glide Data Grid spike
-- [ ] #nextaction #project/griddle Install deps for Glide Data Grid and add minimal CSS
-- [ ] #nextaction #project/griddle Create `src/spikes/GlidePivotSpike.tsx` and pivot→Glide adapter
-- [ ] #nextaction #project/griddle Confirm range selection + multi-selection behavior; add event logging
+- [x] #nextaction #project/griddle Install deps for Glide Data Grid and add minimal CSS
+- [x] #nextaction #project/griddle Create `src/spikes/GlidePivotSpike.tsx` and pivot→Glide adapter
+- [x] #nextaction #project/griddle Confirm range selection + multi-selection behavior; add event logging
 
 #### ReactGrid spike
-- [ ] #nextaction #project/griddle Install deps for ReactGrid and add required styles
-- [ ] #nextaction #project/griddle Create `src/spikes/ReactGridPivotSpike.tsx` and pivot→ReactGrid adapter
-- [ ] #nextaction #project/griddle Confirm range selection + multi-selection behavior; add event logging
+- [x] #nextaction #project/griddle Install deps for ReactGrid and add required styles
+- [x] #nextaction #project/griddle Create `src/spikes/ReactGridPivotSpike.tsx` and pivot→ReactGrid adapter
+- [x] #nextaction #project/griddle Confirm range selection + multi-selection behavior; add event logging
 
 #### App wiring + docs
-- [ ] #nextaction #project/griddle Add App toggle(s) to switch between: current grid / AG Grid spike / Glide spike / ReactGrid spike
-- [ ] #nextaction #project/griddle Document findings in `docs/multicell-grid-spike.md` (selection UX, keyboard, performance notes, licensing)
-- [ ] #nextaction #project/griddle Push commits + mark Milestone 6b complete
+- [x] #nextaction #project/griddle Add App toggle(s) to switch between: current grid / AG Grid spike / Glide spike / ReactGrid spike
+- [x] #nextaction #project/griddle Document findings in `docs/multicell-grid-spike.md` (selection UX, keyboard, performance notes, licensing)
+- [x] #nextaction #project/griddle Push commits + mark Milestone 6b complete
 
 ### Milestone 6c — Multi-cell selection comparison (Glide vs MUI DataGrid)
 **Goal:** Compare selection UX in Glide Data Grid vs MUI X DataGrid (community) under our current stack.
@@ -209,25 +209,25 @@
 **Goal:** Replace the main pivot grid with Glide Data Grid, add a custom multi-row column header overlay (Option A), and wire single-cell selection to open the Entry side panel.
 
 #### A) Replace main grid with Glide
-- [ ] #nextaction #project/griddle Make Glide a first-class view (not a spike) and use it for the main pivot grid
-- [ ] #nextaction #project/griddle Remove/disable old PivotGrid from default UI path (keep behind a dev toggle if desired)
+- [x] #nextaction #project/griddle Make Glide a first-class view (not a spike) and use it for the main pivot grid
+- [x] #nextaction #project/griddle Remove/disable old PivotGrid from default UI path (keep behind a dev toggle if desired)
 
 #### B) Multi-level column header overlay (Option A)
-- [ ] #nextaction #project/griddle Create `src/components/GlidePivotHeader.tsx` (renders one header row per col dimension with grouping/spans)
-- [ ] #nextaction #project/griddle Create `src/domain/pivotHeaders.ts` helper to compute grouped header rows (labels + span widths)
-- [ ] #nextaction #project/griddle Implement horizontal scroll sync between header overlay and DataEditor (`onVisibleRegionChanged` tx)
+- [x] #nextaction #project/griddle Create `src/components/GlidePivotHeader.tsx` (renders one header row per col dimension with grouping/spans)
+- [x] #nextaction #project/griddle Create `src/domain/pivotHeaders.ts` helper to compute grouped header rows (labels + span widths)
+- [x] #nextaction #project/griddle Implement horizontal scroll sync between header overlay and DataEditor (`onVisibleRegionChanged` tx)
 
 #### C) Selection wiring to Entry panel
-- [ ] #nextaction #project/griddle Create `src/components/GlidePivotGrid.tsx` wrapper around DataEditor for pivot rendering
-- [ ] #nextaction #project/griddle Implement mapping: Glide selected cell → our `SelectedCell` (rowTuple/colTuple/value/recordIds)
-- [ ] #nextaction #project/griddle On single-cell selection in value area, open EntryPanel; on range selection, do not open (yet)
+- [x] #nextaction #project/griddle Create `src/components/GlidePivotGrid.tsx` wrapper around DataEditor for pivot rendering
+- [x] #nextaction #project/griddle Implement mapping: Glide selected cell → our `SelectedCell` (rowTuple/colTuple/value/recordIds)
+- [x] #nextaction #project/griddle On single-cell selection in value area, open EntryPanel; on range selection, do not open (yet)
 
 #### D) Finish
-- [ ] #nextaction #project/griddle Update README with new default grid engine (Glide) + selection behavior
-- [ ] #nextaction #project/griddle Push/merge + mark Milestone 7 complete
+- [x] #nextaction #project/griddle Update README with new default grid engine (Glide) + selection behavior
+- [x] #nextaction #project/griddle Push/merge + mark Milestone 7 complete
 
 ### Next chunk (post-M7)
-- [ ] #nextaction #project/griddle Improve header rendering correctness (grouping/colSpan edge cases)
+- [x] #nextaction #project/griddle Improve header rendering correctness (grouping/colSpan edge cases)
 - [ ] #nextaction #project/griddle Add basic slicers UI (optional; compute supports it)
 
 (Completed)
@@ -243,7 +243,7 @@
 - `docs/03-milestone-1-plan.md`
 
 ## Waiting On
-- [ ] #waitingfor #project/griddle Any additional example records / sample dataset (optional)
+- [x] #waitingfor #project/griddle Any additional example records / sample dataset (optional)
 
 ## Notes / Context
 - Source thread: Discord #Structured JSON Editor (Griddle direction)
