@@ -255,7 +255,7 @@
 - [ ] #nextaction #project/griddle Clean UI for Slicers (Allow user to select what the slicers are, then show slicers for each slicer field, easily choose filters)
 - [ ] #nextaction #project/griddle In Style, select default for color so that we can have independent styling for font/background to reflect multiple metadata fields (combinatorics for each combination of metadata fields)
 - [ ] #nextaction #project/griddle Keyboard navigation moves view such that we can scroll with arrow keys
-- [ ] #nextaction #project/griddle Horizontal scrollbar for grid
+- [x] #nextaction #project/griddle Horizontal scrollbar for grid
 - [ ] #nextaction #project/griddle Add new rows/columns
 - [ ] #nextaction #project/griddle Allow the date field type to autogenerate a given amount of dates
 - [ ] #nextaction #project/griddle Create/Save views to allow ergonomic entry
