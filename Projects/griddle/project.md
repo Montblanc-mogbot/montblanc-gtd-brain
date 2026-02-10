@@ -248,3 +248,19 @@
 ## Notes / Context
 - Source thread: Discord #Structured JSON Editor (Griddle direction)
 - Terminology (proposed): Dimensions (rows/cols), Slicers (true filters), Measures, Flags
+
+### Future Enhancements / Backlog (from #inbox)
+- [ ] #nextaction #project/griddle Allow changing date format and data format overall within the griddle settings
+- [ ] #nextaction #project/griddle View full records in bulk edit
+- [ ] #nextaction #project/griddle Clean UI for Slicers (Allow user to select what the slicers are, then show slicers for each slicer field, easily choose filters)
+- [ ] #nextaction #project/griddle In Style, select default for color so that we can have independent styling for font/background to reflect multiple metadata fields (combinatorics for each combination of metadata fields)
+- [ ] #nextaction #project/griddle Keyboard navigation moves view such that we can scroll with arrow keys
+- [ ] #nextaction #project/griddle Horizontal scrollbar for grid
+- [ ] #nextaction #project/griddle Add new rows/columns
+- [ ] #nextaction #project/griddle Allow the date field type to autogenerate a given amount of dates
+- [ ] #nextaction #project/griddle Create/Save views to allow ergonomic entry
+- [ ] #nextaction #project/griddle Ability to easily add fields to the .griddle file
+- [ ] #nextaction #project/griddle Filters should be within the row/column instead of its own button
+- [ ] #nextaction #project/griddle Better saving UI so we don't have to download the file again to use it
+- [ ] #nextaction #project/griddle Should default to opening a griddle instead of what is saved locally
+- [ ] #nextaction #project/griddle Figure out how settings for the griddle should work (within the file itself?)
