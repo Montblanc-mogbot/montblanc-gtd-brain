@@ -264,3 +264,9 @@
 - [ ] #nextaction #project/griddle Better saving UI so we don't have to download the file again to use it
 - [ ] #nextaction #project/griddle Should default to opening a griddle instead of what is saved locally
 - [ ] #nextaction #project/griddle Figure out how settings for the griddle should work (within the file itself?)
+
+### Code Cleanup - Completed
+- [x] #nextaction #project/griddle Remove dead spike files (AgGrid, Glide spike, MUI spike adapters)
+- [x] #nextaction #project/griddle Remove unused components (DatasetImportExport, FastDetailsForm, FastEntryForm, GlidePivotHeader, SelectionInspector)
+- [x] #nextaction #project/griddle Verify all tests pass after cleanup
+- [x] #nextaction #project/griddle Verify build succeeds after cleanup
