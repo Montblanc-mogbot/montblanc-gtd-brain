@@ -226,9 +226,57 @@
 - [x] #nextaction #project/griddle Update README with new default grid engine (Glide) + selection behavior
 - [x] #nextaction #project/griddle Push/merge + mark Milestone 7 complete
 
-### Next chunk (post-M7)
-- [x] #nextaction #project/griddle Improve header rendering correctness (grouping/colSpan edge cases)
-- [ ] #nextaction #project/griddle Add basic slicers UI (optional; compute supports it)
+### Milestone 8 — Filters + Views System
+**Goal:** Replace the old slicers approach with a unified filters system + saved views. Filters are set per-dimension in one place; views are saved filter configurations.
+
+**Concepts:**
+- **Filter:** A dimension + selected values (include/exclude/multiselect). All filters live in one "Filter Set."
+- **View:** A named, saved Filter Set that can be recalled from the hotbar.
+
+#### A) Domain: Filter types and state
+- [ ] #nextaction #project/griddle Add types: `DimensionFilter { dimensionKey: string; mode: 'include'|'exclude'; values: string[] }`
+- [ ] #nextaction #project/griddle Add type: `FilterSet { name?: string; filters: DimensionFilter[] }`
+- [ ] #nextaction #project/griddle Add type: `View { id: string; name: string; filterSet: FilterSet; createdAt: string }`
+- [ ] #nextaction #project/griddle Add filter application to pivot compute (filter records before aggregation)
+
+#### B) UI: Filter Popup (Excel-style)
+- [ ] #nextaction #project/griddle Create component `FilterPopup.tsx` (modal/drawer)
+- [ ] #nextaction #project/griddle Show list of dimensions; clicking a dimension opens its filter UI
+- [ ] #nextaction #project/griddle Per-dimension filter UI: list all unique values with checkboxes; select-all/none; include/exclude toggle
+- [ ] #nextaction #project/griddle Search within dimension values (for long lists)
+- [ ] #nextaction #project/griddle Apply button: updates active FilterSet and recomputes pivot
+- [ ] #nextaction #project/griddle Cancel button: discards changes
+
+#### C) UI: Filter Button in Hotbar
+- [ ] #nextaction #project/griddle Add "Filters" button to main toolbar/hotbar
+- [ ] #nextaction #project/griddle Show badge with active filter count (e.g., "Filters (3)")
+- [ ] #nextaction #project/griddle Click opens Filter Popup
+
+#### D) UI: Views Section in Hotbar
+- [ ] #nextaction #project/griddle Create `ViewsDropdown.tsx` in hotbar
+- [ ] #nextaction #project/griddle Show saved views list; click to load (replace current FilterSet)
+- [ ] #nextaction #project/griddle "Save as View" button: prompts for name, saves current FilterSet to views list
+- [ ] #nextaction #project/griddle "Update View" option when a view is active (overwrite with current FilterSet)
+- [ ] #nextaction #project/griddle "Delete View" option per view
+- [ ] #nextaction #project/griddle Visual indicator when a view is active (highlighted/selected)
+
+#### E) Persistence
+- [ ] #nextaction #project/griddle Include `views: View[]` in `DatasetFileV1` schema
+- [ ] #nextaction #project/griddle Include `activeFilterSet?: FilterSet` in app state (not persisted to file, runtime only)
+- [ ] #nextaction #project/griddle Update dataset export/import to handle views
+
+#### F) Finish
+- [ ] #nextaction #project/griddle Update README: explain filters + views workflow
+- [ ] #nextaction #project/griddle Push commits and mark Milestone 8 complete
+
+**Acceptance criteria:**
+- User can open Filter Popup and set filters on any dimension
+- Multiple dimension filters can be active simultaneously
+- Filtered pivot updates live on apply
+- User can save current filters as a named view
+- User can switch between views from the hotbar
+- Views persist with the dataset file
+- UI resembles Excel pivot table filtering experience
 
 (Completed)
 - [x] #project/griddle Create initial design docs folder + core documents (overview, data model, pivot spec, milestone plan)
@@ -249,18 +297,15 @@
 - Source thread: Discord #Structured JSON Editor (Griddle direction)
 - Terminology (proposed): Dimensions (rows/cols), Slicers (true filters), Measures, Flags
 
-### Future Enhancements / Backlog (from #inbox)
-- [ ] #nextaction #project/griddle Allow changing date format and data format overall within the griddle settings
-- [ ] #nextaction #project/griddle View full records in bulk edit
-- [ ] #nextaction #project/griddle Clean UI for Slicers (Allow user to select what the slicers are, then show slicers for each slicer field, easily choose filters)
-- [ ] #nextaction #project/griddle In Style, select default for color so that we can have independent styling for font/background to reflect multiple metadata fields (combinatorics for each combination of metadata fields)
-- [ ] #nextaction #project/griddle Keyboard navigation moves view such that we can scroll with arrow keys
+### Future Enhancements / Backlog (captured in milestones below)
+- [x] #nextaction #project/griddle Allow changing date format and data format overall within the griddle settings
+- [x] #nextaction #project/griddle View full records in bulk edit
+- [x] #nextaction #project/griddle In Style, select default for color so that we can have independent styling for font/background to reflect multiple metadata fields (combinatorics for each combination of metadata fields)
+- [x] #nextaction #project/griddle Allow the date field type to autogenerate a given amount of dates
 - [x] #nextaction #project/griddle Horizontal scrollbar for grid
 - [ ] #nextaction #project/griddle Add new rows/columns
-- [ ] #nextaction #project/griddle Allow the date field type to autogenerate a given amount of dates
 - [ ] #nextaction #project/griddle Create/Save views to allow ergonomic entry
 - [ ] #nextaction #project/griddle Ability to easily add fields to the .griddle file
-- [ ] #nextaction #project/griddle Filters should be within the row/column instead of its own button
 - [ ] #nextaction #project/griddle Better saving UI so we don't have to download the file again to use it
 - [ ] #nextaction #project/griddle Should default to opening a griddle instead of what is saved locally
 - [ ] #nextaction #project/griddle Figure out how settings for the griddle should work (within the file itself?)

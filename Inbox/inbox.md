@@ -17,8 +17,6 @@
 - [ ] #waitingfor #project/linux-ricing-montblanc-fft Set terminal colors in Ptyxis to match palette (do in Ptyxis Preferences)
 - [ ] #waitingfor #project/linux-ricing-montblanc-fft Optional: tmux theme to match (I created Reference/snippets/tmux.conf; you'd need to adopt it in ~/.tmux.conf)
 
----
-
 ## Completed (rolled up)
 - [x] Model fallback configured (Codex primary / Kimi fallback) - 2026-02-09
 - [x] Gateway status visibility fixed - token on Desktop - 2026-02-09
