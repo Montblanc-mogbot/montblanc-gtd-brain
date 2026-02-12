@@ -303,12 +303,15 @@
 - [x] #nextaction #project/griddle In Style, select default for color so that we can have independent styling for font/background to reflect multiple metadata fields (combinatorics for each combination of metadata fields)
 - [x] #nextaction #project/griddle Allow the date field type to autogenerate a given amount of dates
 - [x] #nextaction #project/griddle Horizontal scrollbar for grid
-- [ ] #nextaction #project/griddle Add new rows/columns
-- [ ] #nextaction #project/griddle Create/Save views to allow ergonomic entry
-- [ ] #nextaction #project/griddle Ability to easily add fields to the .griddle file
+- [x] #nextaction #project/griddle Add new rows/columns
+- [x] #nextaction #project/griddle Create/Save views to allow ergonomic entry
+- [x] #nextaction #project/griddle Ability to easily add fields to the .griddle file
 - [ ] #nextaction #project/griddle Better saving UI so we don't have to download the file again to use it
-- [ ] #nextaction #project/griddle Should default to opening a griddle instead of what is saved locally
+- [x] #nextaction #project/griddle Should default to opening a griddle instead of what is saved locally
 - [ ] #nextaction #project/griddle Figure out how settings for the griddle should work (within the file itself?)
+- [ ] #nextaction #project/griddle Clean up UI
+- [ ] #nextaction #project/griddle New Griddle Wizard (create new dataset: name + fields + initial pivot config; optional scaffold dates)
+- [ ] #nextaction #project/griddle Default to a better starting screen where you choose to either create a new griddle or load an existing one
 
 ### Code Cleanup - Completed
 - [x] #nextaction #project/griddle Remove dead spike files (AgGrid, Glide spike, MUI spike adapters)

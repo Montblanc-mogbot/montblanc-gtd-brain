@@ -3,6 +3,10 @@
 > Capture new tasks here. Keep it as a single list of checkbox items.
 
 ## Tasks
+- [x] #nextaction Generate SSH key for this machine + prep GitHub deploy/auth steps for GTD brain sync — DONE (pubkey generated)
+- [ ] #waitingfor Fix GTD brain GitHub sync auth — Matt needs to add the SSH public key to GitHub (or choose HTTPS token/credential helper)
+- [x] #nextaction #project/griddle Add ability to delete records in Full Records view - DONE (per-row delete + delete-all button)
+- [x] #nextaction #project/griddle Persist resizable drawer width across open/close (Entry/Full Records/Bulk) - DONE
 - [x] #nextaction #project/griddle Implement “include empty items on axes” for date dimensions (date range domain) so filtered pivots keep empty date columns - DONE (pivot domain + schema editor UI)
 - [x] #nextaction #project/griddle Complete Milestone 8 (Filters + Views System) - DONE (filters popup + views + persistence)
 - [x] #nextaction Configure model fallback: Codex primary with Kimi fallback (to manage usage limits) - DONE
