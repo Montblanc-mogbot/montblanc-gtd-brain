@@ -234,40 +234,40 @@
 - **View:** A named, saved Filter Set that can be recalled from the hotbar.
 
 #### A) Domain: Filter types and state
-- [ ] #nextaction #project/griddle Add types: `DimensionFilter { dimensionKey: string; mode: 'include'|'exclude'; values: string[] }`
-- [ ] #nextaction #project/griddle Add type: `FilterSet { name?: string; filters: DimensionFilter[] }`
-- [ ] #nextaction #project/griddle Add type: `View { id: string; name: string; filterSet: FilterSet; createdAt: string }`
-- [ ] #nextaction #project/griddle Add filter application to pivot compute (filter records before aggregation)
+- [x] #nextaction #project/griddle Add types: `DimensionFilter { dimensionKey: string; mode: 'include'|'exclude'; values: string[] }`
+- [x] #nextaction #project/griddle Add type: `FilterSet { name?: string; filters: DimensionFilter[] }`
+- [x] #nextaction #project/griddle Add type: `View { id: string; name: string; filterSet: FilterSet; createdAt: string }`
+- [x] #nextaction #project/griddle Add filter application to pivot compute (filter records before aggregation)
 
 #### B) UI: Filter Popup (Excel-style)
-- [ ] #nextaction #project/griddle Create component `FilterPopup.tsx` (modal/drawer)
-- [ ] #nextaction #project/griddle Show list of dimensions; clicking a dimension opens its filter UI
-- [ ] #nextaction #project/griddle Per-dimension filter UI: list all unique values with checkboxes; select-all/none; include/exclude toggle
-- [ ] #nextaction #project/griddle Search within dimension values (for long lists)
-- [ ] #nextaction #project/griddle Apply button: updates active FilterSet and recomputes pivot
-- [ ] #nextaction #project/griddle Cancel button: discards changes
+- [x] #nextaction #project/griddle Create component `FilterPopup.tsx` (modal/drawer)
+- [x] #nextaction #project/griddle Show list of dimensions; clicking a dimension opens its filter UI
+- [x] #nextaction #project/griddle Per-dimension filter UI: list all unique values with checkboxes; select-all/none; include/exclude toggle
+- [x] #nextaction #project/griddle Search within dimension values (for long lists)
+- [x] #nextaction #project/griddle Apply button: updates active FilterSet and recomputes pivot
+- [x] #nextaction #project/griddle Cancel button: discards changes
 
 #### C) UI: Filter Button in Hotbar
-- [ ] #nextaction #project/griddle Add "Filters" button to main toolbar/hotbar
-- [ ] #nextaction #project/griddle Show badge with active filter count (e.g., "Filters (3)")
-- [ ] #nextaction #project/griddle Click opens Filter Popup
+- [x] #nextaction #project/griddle Add "Filters" button to main toolbar/hotbar
+- [x] #nextaction #project/griddle Show badge with active filter count (e.g., "Filters (3)")
+- [x] #nextaction #project/griddle Click opens Filter Popup
 
 #### D) UI: Views Section in Hotbar
-- [ ] #nextaction #project/griddle Create `ViewsDropdown.tsx` in hotbar
-- [ ] #nextaction #project/griddle Show saved views list; click to load (replace current FilterSet)
-- [ ] #nextaction #project/griddle "Save as View" button: prompts for name, saves current FilterSet to views list
-- [ ] #nextaction #project/griddle "Update View" option when a view is active (overwrite with current FilterSet)
-- [ ] #nextaction #project/griddle "Delete View" option per view
-- [ ] #nextaction #project/griddle Visual indicator when a view is active (highlighted/selected)
+- [x] #nextaction #project/griddle Create `ViewsDropdown.tsx` in hotbar
+- [x] #nextaction #project/griddle Show saved views list; click to load (replace current FilterSet)
+- [x] #nextaction #project/griddle "Save as View" button: prompts for name, saves current FilterSet to views list
+- [x] #nextaction #project/griddle "Update View" option when a view is active (overwrite with current FilterSet)
+- [x] #nextaction #project/griddle "Delete View" option per view
+- [x] #nextaction #project/griddle Visual indicator when a view is active (highlighted/selected)
 
 #### E) Persistence
-- [ ] #nextaction #project/griddle Include `views: View[]` in `DatasetFileV1` schema
-- [ ] #nextaction #project/griddle Include `activeFilterSet?: FilterSet` in app state (not persisted to file, runtime only)
-- [ ] #nextaction #project/griddle Update dataset export/import to handle views
+- [x] #nextaction #project/griddle Include `views: View[]` in `DatasetFileV1` schema
+- [x] #nextaction #project/griddle Include `activeFilterSet?: FilterSet` in app state (not persisted to file, runtime only)
+- [x] #nextaction #project/griddle Update dataset export/import to handle views
 
 #### F) Finish
-- [ ] #nextaction #project/griddle Update README: explain filters + views workflow
-- [ ] #nextaction #project/griddle Push commits and mark Milestone 8 complete
+- [x] #nextaction #project/griddle Update README: explain filters + views workflow
+- [x] #nextaction #project/griddle Push commits and mark Milestone 8 complete
 
 **Acceptance criteria:**
 - User can open Filter Popup and set filters on any dimension

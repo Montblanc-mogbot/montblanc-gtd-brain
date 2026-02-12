@@ -3,6 +3,7 @@
 > Capture new tasks here. Keep it as a single list of checkbox items.
 
 ## Tasks
+- [x] #nextaction #project/griddle Complete Milestone 8 (Filters + Views System) - DONE (filters popup + views + persistence)
 - [x] #nextaction Configure model fallback: Codex primary with Kimi fallback (to manage usage limits) - DONE
 - [x] #nextaction Fix gateway offline status visibility - gateway token saved to Desktop, dashboard at http://127.0.0.1:18789/
 - [x] #nextaction Verify Obsidian installation and accessibility for Matt - DONE (Flatpak v1.11.7)
