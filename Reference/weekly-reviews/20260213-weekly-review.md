@@ -1,18 +1,18 @@
-# Weekly Review — 20260213
+# Weekly Review - 20260213
 
 ## Get Clear
 - [ ] Close open loops (anything on your mind) into Inbox
 - [x] Clear Inbox (goal: Inbox only contains **open** tasks)
-  - [ ] Move/convert items into Projects as needed
-  - [x] Copy checked-off Inbox items into this doc under “Completed Items”
+  - [x] Move/convert items into Projects as needed
+  - [x] Copy checked-off Inbox items into this doc under "Completed Items"
   - [x] Delete checked-off items from Inbox
-- [ ] Create any new project hubs needed
+- [x] Create any new project hubs needed (none — consolidated structured-json-editor into griddle)
 - [ ] Archive any completed projects (move project folder → Reference/finished-projects)
 
 ## Generate Weekly Tasks (recurring)
 > Create any tasks that should happen every week and put them in Inbox (or directly in a project hub).
 - [ ] Review the previous weekly review and copy forward any still-relevant recurring tasks
-- [ ] Add this week’s recurring tasks to Inbox (leave unchecked)
+- [ ] Add this week's recurring tasks to Inbox (leave unchecked)
   - [ ] <weekly task 1>
   - [ ] <weekly task 2>
   - [ ] <weekly task 3>
@@ -30,7 +30,7 @@
   - [ ] #focus <action 1>
   - [ ] #focus <action 2>
   - [ ] #focus <action 3>
-- [ ] Note whether last week’s focused actions were completed
+- [ ] Note whether last week's focused actions were completed
 
 ## Maintenance (meta)
 - [ ] Review this weekly review and update durable context as needed:
@@ -38,7 +38,7 @@
   - [ ] HEARTBEAT.md (what to check proactively)
   - [ ] USER.md (preferences, ongoing work)
   - [ ] MEMORY.md / daily memory files (distill what matters)
-- [ ] Quick sanity check: GitHub sync job is running and repo reflects changes
+- [x] Quick sanity check: GitHub sync job is running and repo reflects changes — **FIXED** (SSH auth working, pushed latest commits)
 
 ## Completed Items
 > Paste/copy completed items from Inbox (and/or projects) here as your weekly record.
@@ -46,10 +46,10 @@
 
 ### From Inbox (auto-captured)
 
--  #nextaction Generate SSH key for this machine + prep GitHub deploy/auth steps for GTD brain sync — DONE (pubkey generated)
+-  #nextaction Generate SSH key for this machine + prep GitHub deploy/auth steps for GTD brain sync - DONE (pubkey generated)
 -  #nextaction #project/griddle Add ability to delete records in Full Records view - DONE (per-row delete + delete-all button)
 -  #nextaction #project/griddle Persist resizable drawer width across open/close (Entry/Full Records/Bulk) - DONE
--  #nextaction #project/griddle Implement “include empty items on axes” for date dimensions (date range domain) so filtered pivots keep empty date columns - DONE (pivot domain + schema editor UI)
+-  #nextaction #project/griddle Implement "include empty items on axes" for date dimensions (date range domain) so filtered pivots keep empty date columns - DONE (pivot domain + schema editor UI)
 -  #nextaction #project/griddle Complete Milestone 8 (Filters + Views System) - DONE (filters popup + views + persistence)
 -  #nextaction Configure model fallback: Codex primary with Kimi fallback (to manage usage limits) - DONE
 -  #nextaction Fix gateway offline status visibility - gateway token saved to Desktop, dashboard at http://127.0.0.1:18789/
@@ -65,3 +65,6 @@
 -  HEARTBEAT.md enhanced with execution rules - 2026-02-09
 -  MEMORY.md created - 2026-02-09
 -  Status posting to #automation-log active - 2026-02-09
+-  GitHub sync auth fixed — SSH working, pushed all pending commits - 2026-02-13
+-  Consolidated duplicate project: `structured-json-editor` merged into `griddle` - 2026-02-13
+-  Added Moghome Discord avatar tasks to active work - 2026-02-13

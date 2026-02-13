@@ -297,6 +297,9 @@
 - Source thread: Discord #Structured JSON Editor (Griddle direction)
 - Terminology (proposed): Dimensions (rows/cols), Slicers (true filters), Measures, Flags
 
+## Origins
+This project started as "Structured JSON Editor" (schema-driven JSON data entry). After requirements clarification, it evolved into Griddle — a pivot-centric data entry tool. All original planning discussions from the Discord thread have been incorporated into the milestone plan below.
+
 ### Future Enhancements / Backlog (captured in milestones below)
 - [x] #nextaction #project/griddle Allow changing date format and data format overall within the griddle settings
 - [x] #nextaction #project/griddle View full records in bulk edit
