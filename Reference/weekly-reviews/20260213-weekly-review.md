@@ -1,28 +1,25 @@
 # Weekly Review - 20260213
 
 ## Get Clear
-- [ ] Close open loops (anything on your mind) into Inbox
+- [x] Close open loops (anything on your mind) into Inbox (captured TBH Month End project)
 - [x] Clear Inbox (goal: Inbox only contains **open** tasks)
   - [x] Move/convert items into Projects as needed
   - [x] Copy checked-off Inbox items into this doc under "Completed Items"
   - [x] Delete checked-off items from Inbox
-- [x] Create any new project hubs needed (none — consolidated structured-json-editor into griddle)
-- [ ] Archive any completed projects (move project folder → Reference/finished-projects)
+- [x] Create any new project hubs needed (consolidated structured-json-editor into griddle, created TBH Month End Procedures)
+- [x] Archive any completed projects (none to archive — all active)
 
 ## Generate Weekly Tasks (recurring)
 > Create any tasks that should happen every week and put them in Inbox (or directly in a project hub).
-- [ ] Review the previous weekly review and copy forward any still-relevant recurring tasks
-- [ ] Add this week's recurring tasks to Inbox (leave unchecked)
-  - [ ] <weekly task 1>
-  - [ ] <weekly task 2>
-  - [ ] <weekly task 3>
+- [x] Review the previous weekly review and copy forward any still-relevant recurring tasks (none identified)
+- [x] Add this week's recurring tasks to Inbox (leave unchecked) (none — employee feedback will drive Griddle work)
 
 ## Get Current
-- [ ] Mark done / delete / clarify any todos (scan Inbox + active project hubs)
-- [ ] Ensure every active project has at least one Next Action
-- [ ] Review Next Actions
-- [ ] Review Waiting For
-- [ ] Review Someday / Maybe
+- [x] Mark done / delete / clarify any todos (scanned Inbox + all active project hubs)
+- [x] Ensure every active project has at least one Next Action (Griddle: awaiting feedback; Linux Ricing: 3 waitingfor; Moghome: avatar tasks; TBH Month End: 5 next actions)
+- [x] Review Next Actions (3 focus items set for next week)
+- [x] Review Waiting For (4 items: avatar x2, terminal colors, tmux theme, TBH Python overview)
+- [x] Review Someday / Maybe (all projects have someday items captured)
 
 ## Get Focused
 - [x] Add a #focus tag to 3 items that are tagged #nextaction
@@ -30,14 +27,21 @@
   - [x] #focus Collect and synthesize Griddle feedback from employee testing (next week)
   - [x] #focus Plan TBH Month End procedures project (tax workflow + process docs)
   - [x] #focus Design undo/redo system for Griddle (prep for post-feedback implementation)
-- [ ] Note whether last week's focused actions were completed
+- [x] Note whether last week's focused actions were completed
+
+**Last Week's Focus (20260206):**
+- [ ] #focus Set Montblanc avatar everywhere — **NOT COMPLETED** (moved to waitingfor)
+- [ ] #focus Set Ptyxis terminal colors — **NOT COMPLETED** (moved to waitingfor)
+- [ ] #focus tmux theme — **NOT COMPLETED** (moved to waitingfor)
+
+*All 3 items still waiting on Matt; no blockers on my end*
 
 ## Maintenance (meta)
-- [ ] Review this weekly review and update durable context as needed:
-  - [ ] SOUL.md (behavior/style rules)
-  - [ ] HEARTBEAT.md (what to check proactively)
-  - [ ] USER.md (preferences, ongoing work)
-  - [ ] MEMORY.md / daily memory files (distill what matters)
+- [x] Review this weekly review and update durable context as needed:
+  - [x] SOUL.md (behavior/style rules) — reviewed, no changes needed
+  - [x] HEARTBEAT.md (what to check proactively) — reviewed, no changes needed
+  - [x] USER.md (preferences, ongoing work) — reviewed, no changes needed
+  - [x] MEMORY.md / daily memory files (distill what matters) — updated Griddle status + added TBH project
 - [x] Quick sanity check: GitHub sync job is running and repo reflects changes — **FIXED** (SSH auth working, pushed latest commits)
 
 ## Completed Items

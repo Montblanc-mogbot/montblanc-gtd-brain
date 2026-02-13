@@ -17,15 +17,20 @@
 - Code repos: github.com/Montblanc-mogbot/*
 
 ## Active Projects
-1. **Griddle** - Schema-driven pivot table + data entry tool (Milestone 1)
+1. **Griddle** - Schema-driven pivot table + data entry tool (Milestone 8 complete)
    - Repo: github.com/Montblanc-mogbot/griddle
    - Tech: Vite + React + TypeScript
-   - Status: Pivot compute + basic UI done, needs polish
+   - Status: Filters + Views system done, awaiting user feedback
 
 2. **Linux Ricing** - Montblanc FFTA theme
    - WhiteSur theme applied
    - Dash to Dock enabled
    - Pending: Avatar, terminal colors, tmux theme
+
+3. **TBH Month End Procedures** - NEW (2026-02-13)
+   - Document tax workflow for MD/WV/PA/VA
+   - Sensitive data handling planned
+   - Waiting on Matt for Python script overview
 
 ## Key Decisions
 - Model: Codex primary with Kimi fallback (usage management)
