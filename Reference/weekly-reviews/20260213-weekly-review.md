@@ -43,3 +43,25 @@
 ## Completed Items
 > Paste/copy completed items from Inbox (and/or projects) here as your weekly record.
 
+
+### From Inbox (auto-captured)
+
+-  #nextaction Generate SSH key for this machine + prep GitHub deploy/auth steps for GTD brain sync — DONE (pubkey generated)
+-  #nextaction #project/griddle Add ability to delete records in Full Records view - DONE (per-row delete + delete-all button)
+-  #nextaction #project/griddle Persist resizable drawer width across open/close (Entry/Full Records/Bulk) - DONE
+-  #nextaction #project/griddle Implement “include empty items on axes” for date dimensions (date range domain) so filtered pivots keep empty date columns - DONE (pivot domain + schema editor UI)
+-  #nextaction #project/griddle Complete Milestone 8 (Filters + Views System) - DONE (filters popup + views + persistence)
+-  #nextaction Configure model fallback: Codex primary with Kimi fallback (to manage usage limits) - DONE
+-  #nextaction Fix gateway offline status visibility - gateway token saved to Desktop, dashboard at http://127.0.0.1:18789/
+-  #nextaction Verify Obsidian installation and accessibility for Matt - DONE (Flatpak v1.11.7)
+-  #nextaction Enable memory search in config (needs OpenAI API key or local embedding setup) - DONE (local embeddings with nomic-embed-text)
+-  #nextaction Enhance HEARTBEAT.md: add daily memory review + stale task detection (>7 days) - DONE
+-  #nextaction Create/update MEMORY.md with distilled knowledge from daily notes - DONE
+-  #nextaction Figure out a way for Matt to know if I'm currently working on something (status/indicator/notifications) - DONE (posting to #automation-log)
+-  #nextaction #project/structured-json-editor Kickoff: clarify requirements + success criteria (in thread) - DONE
+-  Model fallback configured (Codex primary / Kimi fallback) - 2026-02-09
+-  Gateway status visibility fixed - token on Desktop - 2026-02-09
+-  Obsidian verified - 2026-02-09
+-  HEARTBEAT.md enhanced with execution rules - 2026-02-09
+-  MEMORY.md created - 2026-02-09
+-  Status posting to #automation-log active - 2026-02-09
