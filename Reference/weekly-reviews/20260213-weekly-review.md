@@ -2,10 +2,10 @@
 
 ## Get Clear
 - [ ] Close open loops (anything on your mind) into Inbox
-- [ ] Clear Inbox (goal: Inbox only contains **open** tasks)
+- [x] Clear Inbox (goal: Inbox only contains **open** tasks)
   - [ ] Move/convert items into Projects as needed
-  - [ ] Copy checked-off Inbox items into this doc under “Completed Items”
-  - [ ] Delete checked-off items from Inbox
+  - [x] Copy checked-off Inbox items into this doc under “Completed Items”
+  - [x] Delete checked-off items from Inbox
 - [ ] Create any new project hubs needed
 - [ ] Archive any completed projects (move project folder → Reference/finished-projects)
 

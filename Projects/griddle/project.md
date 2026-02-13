@@ -306,12 +306,12 @@
 - [x] #nextaction #project/griddle Add new rows/columns
 - [x] #nextaction #project/griddle Create/Save views to allow ergonomic entry
 - [x] #nextaction #project/griddle Ability to easily add fields to the .griddle file
-- [ ] #nextaction #project/griddle Better saving UI so we don't have to download the file again to use it
+- [x] #nextaction #project/griddle Better saving UI so we don't have to download the file again to use it
 - [x] #nextaction #project/griddle Should default to opening a griddle instead of what is saved locally
 - [ ] #nextaction #project/griddle Figure out how settings for the griddle should work (within the file itself?)
-- [ ] #nextaction #project/griddle Clean up UI
-- [ ] #nextaction #project/griddle New Griddle Wizard (create new dataset: name + fields + initial pivot config; optional scaffold dates)
-- [ ] #nextaction #project/griddle Default to a better starting screen where you choose to either create a new griddle or load an existing one
+- [x] #nextaction #project/griddle Clean up UI
+- [x] #nextaction #project/griddle New Griddle Wizard (create new dataset: name + fields + initial pivot config; optional scaffold dates)
+- [x] #nextaction #project/griddle Default to a better starting screen where you choose to either create a new griddle or load an existing one
 
 ### Code Cleanup - Completed
 - [x] #nextaction #project/griddle Remove dead spike files (AgGrid, Glide spike, MUI spike adapters)
