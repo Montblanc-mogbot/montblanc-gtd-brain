@@ -25,11 +25,11 @@
 - [ ] Review Someday / Maybe
 
 ## Get Focused
-- [ ] Add a #focus tag to 3 items that are tagged #nextaction
-- [ ] List those focused actions here:
-  - [ ] #focus <action 1>
-  - [ ] #focus <action 2>
-  - [ ] #focus <action 3>
+- [x] Add a #focus tag to 3 items that are tagged #nextaction
+- [x] List those focused actions here:
+  - [x] #focus Collect and synthesize Griddle feedback from employee testing (next week)
+  - [x] #focus Plan TBH Month End procedures project (tax workflow + process docs)
+  - [x] #focus Design undo/redo system for Griddle (prep for post-feedback implementation)
 - [ ] Note whether last week's focused actions were completed
 
 ## Maintenance (meta)

@@ -17,8 +17,8 @@
 - [x] #waitingfor #project/moghome-discord-setup You: assign the bot an Admin role (done)
 
 ## Next Actions (new)
-- [ ] #nextaction #project/moghome-discord-setup Set Montblanc bot avatar (use `Reference/avatars/montblanc-avatar-zoom-1024.png`)
-- [ ] #nextaction #project/moghome-discord-setup Set server/channel icon for Moghome
+- [ ] #waitingfor #project/moghome-discord-setup Set Montblanc bot avatar — use `Reference/avatars/montblanc-avatar-zoom-1024.png` (manual: Discord Developer Portal → Bot → Avatar)
+- [ ] #waitingfor #project/moghome-discord-setup Set server/channel icon for Moghome (manual)
 
 ## Someday / Maybe
 - [ ] #someday #project/moghome-discord-setup Add a private "scratch" channel for quick dumps and cleanup
