@@ -316,8 +316,41 @@ This project started as "Structured JSON Editor" (schema-driven JSON data entry)
 - [x] #nextaction #project/griddle New Griddle Wizard (create new dataset: name + fields + initial pivot config; optional scaffold dates)
 - [x] #nextaction #project/griddle Default to a better starting screen where you choose to either create a new griddle or load an existing one
 
-### Code Cleanup - Completed
-- [x] #nextaction #project/griddle Remove dead spike files (AgGrid, Glide spike, MUI spike adapters)
-- [x] #nextaction #project/griddle Remove unused components (DatasetImportExport, FastDetailsForm, FastEntryForm, GlidePivotHeader, SelectionInspector)
-- [x] #nextaction #project/griddle Verify all tests pass after cleanup
-- [x] #nextaction #project/griddle Verify build succeeds after cleanup
+### Phase 9 — Undo/Redo System
+**Goal:** Implement a robust undo/redo system using the Command pattern.
+
+**Design Doc:** `docs/undo-redo-design.md`
+
+#### Phase 9a: Core Infrastructure
+- [ ] #nextaction #project/grille Create `useUndoRedo` hook with history management
+- [ ] #nextaction #project/grille Implement `UpdateRecordCommand` for single record edits
+- [ ] #nextaction #project/grille Implement `AddRecordCommand` for new records
+- [ ] #nextaction #project/grille Implement `DeleteRecordCommand` for record deletion
+- [ ] #nextaction #project/grille Add keyboard shortcuts (Ctrl+Z, Ctrl+Y / Cmd+Z, Cmd+Shift+Z)
+- [ ] #nextaction #project/grille Wire undo/redo into Entry panel
+- [ ] #nextaction #project/grille Add Edit menu with Undo/Redo items
+
+#### Phase 9b: Schema Commands
+- [ ] #nextaction #project/grille Implement `AddFieldCommand`
+- [ ] #nextaction #project/grille Implement `UpdateFieldCommand`
+- [ ] #nextaction #project/grille Implement `DeleteFieldCommand` with data migration
+- [ ] #nextaction #project/grille Add toast notifications for undo/redo actions
+
+#### Phase 9c: Pivot & Filter Commands
+- [ ] #nextaction #project/grille Implement `SetPivotDimensionsCommand`
+- [ ] #nextaction #project/grille Implement `UpdateFilterSetCommand`
+- [ ] #nextaction #project/grille Implement `CreateViewCommand`
+- [ ] #nextaction #project/grille Optional: History panel sidebar
+
+#### Phase 9d: Polish
+- [ ] #someday #project/grille Persist undo history across reloads (localStorage)
+- [ ] #someday #project/grille Performance optimization for large datasets
+- [ ] #someday #project/grille Visual highlights on affected cells during undo/redo
+
+**Acceptance Criteria:**
+- All user-initiated data changes can be undone/redone
+- Keyboard shortcuts work as expected
+- Visual feedback confirms undo/redo actions
+- History limited to 100 commands (configurable)
+- Memory usage remains reasonable for large datasets
+
