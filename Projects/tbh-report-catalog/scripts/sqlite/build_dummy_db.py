@@ -10,7 +10,12 @@ from pathlib import Path
 
 DB_PATH = Path(__file__).parent.parent.parent / "data" / "command_alkon_dummy.db"
 DATA_DIR = Path(__file__).parent.parent.parent / "data"
+
+# Raw extract samples (copied into Projects/tbh-report-catalog/data/)
 ITRN_CSV_PATH = DATA_DIR / "itrn_sample.csv"
+TICK_CSV_PATH = DATA_DIR / "tick_sample.csv"
+TKTL_CSV_PATH = DATA_DIR / "tktl_sample.csv"
+ORDR_CSV_PATH = DATA_DIR / "ordr_sample.csv"
 
 
 def _read_csv_header(path: Path):
@@ -20,17 +25,32 @@ def _read_csv_header(path: Path):
         reader = csv.reader(f)
         return next(reader)
 
+
+def _create_table_from_csv_header(cursor: sqlite3.Cursor, table_name: str, csv_path: Path, fallback_columns: list[str]):
+    """Create a SQLite table with TEXT columns matching the CSV header.
+
+    We intentionally use TEXT for raw extracts to avoid fighting type inference.
+    Normalization/analytics layers can do typed parsing.
+    """
+    cols = _read_csv_header(csv_path)
+    if cols is None:
+        quoted_cols = [f'"{c}" TEXT' for c in fallback_columns]
+    else:
+        quoted_cols = [f'"{c}" TEXT' for c in cols]
+
+    cursor.execute(f"CREATE TABLE {table_name} (\n        {',\n        '.join(quoted_cols)}\n    )")
+
 def init_database():
     """Create fresh database with schema."""
     DB_PATH.parent.mkdir(exist_ok=True)
-    
+
     if DB_PATH.exists():
         DB_PATH.unlink()
         print(f"Removed existing: {DB_PATH}")
-    
+
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-    
+
     # ORDL table schema (Order Detail) - January 2025 sample
     cursor.execute('''
     CREATE TABLE ordl (
@@ -106,21 +126,38 @@ def init_database():
     )
     ''')
 
-    # ITRN table schema (Invoice Transactions File)
+    # ITRN / TICK / TKTL / ORDR schemas
     # We generate schema directly from the CSV header to avoid hand-maintaining 100+ columns.
-    itrn_cols = _read_csv_header(ITRN_CSV_PATH)
-    if itrn_cols is None:
-        # Keep the DB build working even if the ITRN file isn't present.
-        cursor.execute('''
-        CREATE TABLE itrn (
-            invc_code TEXT,
-            trans_type TEXT,
-            trans_date TEXT
-        )
-        ''')
-    else:
-        quoted_cols = [f'"{c}" TEXT' for c in itrn_cols]
-        cursor.execute(f"CREATE TABLE itrn (\n        {',\n        '.join(quoted_cols)}\n    )")
+    _create_table_from_csv_header(cursor, "itrn", ITRN_CSV_PATH, fallback_columns=[
+        "invc_code",
+        "trans_type",
+        "trans_date",
+    ])
+
+    # Primary dispatch tables
+    _create_table_from_csv_header(cursor, "tick", TICK_CSV_PATH, fallback_columns=[
+        "order_date",
+        "order_code",
+        "tkt_code",
+        "tkt_date",
+        "ship_plant_code",
+    ])
+    _create_table_from_csv_header(cursor, "tktl", TKTL_CSV_PATH, fallback_columns=[
+        "order_date",
+        "order_code",
+        "tkt_code",
+        "order_intrnl_line_num",
+        "ext_price_amt",
+        "ship_plant_code",
+    ])
+
+    # Order header (needed for authoritative order context)
+    _create_table_from_csv_header(cursor, "ordr", ORDR_CSV_PATH, fallback_columns=[
+        "order_date",
+        "order_code",
+        "cust_code",
+        "cust_name",
+    ])
 
     conn.commit()
     conn.close()
@@ -329,9 +366,7 @@ def load_imst():
     return rows_inserted
 
 
-def load_itrn():
-    """Load ITRN (Invoice Transactions File) sample data."""
-    csv_path = ITRN_CSV_PATH
+def _load_csv_to_table(table_name: str, csv_path: Path) -> int:
     if not csv_path.exists():
         print(f"Warning: {csv_path} not found")
         return 0
@@ -339,7 +374,7 @@ def load_itrn():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
-    cursor.execute("DELETE FROM itrn")
+    cursor.execute(f"DELETE FROM {table_name}")
 
     with open(csv_path, 'r', encoding='utf-8') as f:
         reader = csv.DictReader(f, delimiter=',')
@@ -348,7 +383,7 @@ def load_itrn():
         quoted_columns = [f'"{c}"' for c in columns]
         placeholders = ','.join(['?' for _ in columns])
 
-        insert_sql = f"INSERT INTO itrn ({','.join(quoted_columns)}) VALUES ({placeholders})"
+        insert_sql = f"INSERT INTO {table_name} ({','.join(quoted_columns)}) VALUES ({placeholders})"
 
         rows_inserted = 0
         for row in reader:
@@ -359,8 +394,28 @@ def load_itrn():
         conn.commit()
 
     conn.close()
-    print(f"Loaded {rows_inserted} rows into itrn")
+    print(f"Loaded {rows_inserted} rows into {table_name}")
     return rows_inserted
+
+
+def load_itrn():
+    """Load ITRN (Invoice Transactions File) sample data."""
+    return _load_csv_to_table("itrn", ITRN_CSV_PATH)
+
+
+def load_tick():
+    """Load TICK (Ticket Header) sample data."""
+    return _load_csv_to_table("tick", TICK_CSV_PATH)
+
+
+def load_tktl():
+    """Load TKTL (Ticket Line) sample data."""
+    return _load_csv_to_table("tktl", TKTL_CSV_PATH)
+
+
+def load_ordr():
+    """Load ORDR (Order Header) sample data."""
+    return _load_csv_to_table("ordr", ORDR_CSV_PATH)
 
 def show_stats():
     """Show database stats."""
@@ -398,6 +453,21 @@ def show_stats():
     cursor.execute("SELECT COUNT(*) FROM itrn")
     count = cursor.fetchone()[0]
     print(f"ITRN rows: {count}")
+
+    # TICK stats
+    cursor.execute("SELECT COUNT(*) FROM tick")
+    count = cursor.fetchone()[0]
+    print(f"TICK rows: {count}")
+
+    # TKTL stats
+    cursor.execute("SELECT COUNT(*) FROM tktl")
+    count = cursor.fetchone()[0]
+    print(f"TKTL rows: {count}")
+
+    # ORDR stats
+    cursor.execute("SELECT COUNT(*) FROM ordr")
+    count = cursor.fetchone()[0]
+    print(f"ORDR rows: {count}")
     
     # ORDL summary
     cursor.execute('''
@@ -484,5 +554,8 @@ if __name__ == "__main__":
     load_cust()
     load_imst()
     load_itrn()
+    load_tick()
+    load_tktl()
+    load_ordr()
     show_stats()
     print(f"\nDatabase ready: {DB_PATH}")
