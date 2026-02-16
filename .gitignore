@@ -7,3 +7,8 @@ Reference/attachments/
 .obsidian/workspace.json
 
 Projects/griddle/repo/
+
+# TBH report catalog build artifacts + outputs
+Projects/tbh-report-catalog/src/**/bin/
+Projects/tbh-report-catalog/src/**/obj/
+Projects/tbh-report-catalog/normalized/
