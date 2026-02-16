@@ -10,6 +10,15 @@ from pathlib import Path
 
 DB_PATH = Path(__file__).parent.parent.parent / "data" / "command_alkon_dummy.db"
 DATA_DIR = Path(__file__).parent.parent.parent / "data"
+ITRN_CSV_PATH = DATA_DIR / "itrn_sample.csv"
+
+
+def _read_csv_header(path: Path):
+    if not path.exists():
+        return None
+    with open(path, 'r', encoding='utf-8', newline='') as f:
+        reader = csv.reader(f)
+        return next(reader)
 
 def init_database():
     """Create fresh database with schema."""
@@ -96,6 +105,22 @@ def init_database():
         print_on_tkt_flag INTEGER, const_flag INTEGER, update_date TEXT
     )
     ''')
+
+    # ITRN table schema (Invoice Transactions File)
+    # We generate schema directly from the CSV header to avoid hand-maintaining 100+ columns.
+    itrn_cols = _read_csv_header(ITRN_CSV_PATH)
+    if itrn_cols is None:
+        # Keep the DB build working even if the ITRN file isn't present.
+        cursor.execute('''
+        CREATE TABLE itrn (
+            invc_code TEXT,
+            trans_type TEXT,
+            trans_date TEXT
+        )
+        ''')
+    else:
+        quoted_cols = [f'"{c}" TEXT' for c in itrn_cols]
+        cursor.execute(f"CREATE TABLE itrn (\n        {',\n        '.join(quoted_cols)}\n    )")
 
     conn.commit()
     conn.close()
@@ -303,6 +328,40 @@ def load_imst():
     print(f"Loaded {rows_inserted} rows into imst")
     return rows_inserted
 
+
+def load_itrn():
+    """Load ITRN (Invoice Transactions File) sample data."""
+    csv_path = ITRN_CSV_PATH
+    if not csv_path.exists():
+        print(f"Warning: {csv_path} not found")
+        return 0
+
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+
+    cursor.execute("DELETE FROM itrn")
+
+    with open(csv_path, 'r', encoding='utf-8') as f:
+        reader = csv.DictReader(f, delimiter=',')
+
+        columns = reader.fieldnames
+        quoted_columns = [f'"{c}"' for c in columns]
+        placeholders = ','.join(['?' for _ in columns])
+
+        insert_sql = f"INSERT INTO itrn ({','.join(quoted_columns)}) VALUES ({placeholders})"
+
+        rows_inserted = 0
+        for row in reader:
+            values = [None if v == "(null)" else v for v in row.values()]
+            cursor.execute(insert_sql, values)
+            rows_inserted += 1
+
+        conn.commit()
+
+    conn.close()
+    print(f"Loaded {rows_inserted} rows into itrn")
+    return rows_inserted
+
 def show_stats():
     """Show database stats."""
     conn = sqlite3.connect(DB_PATH)
@@ -334,6 +393,11 @@ def show_stats():
     cursor.execute("SELECT COUNT(*) FROM imst")
     count = cursor.fetchone()[0]
     print(f"IMST rows: {count}")
+
+    # ITRN stats
+    cursor.execute("SELECT COUNT(*) FROM itrn")
+    count = cursor.fetchone()[0]
+    print(f"ITRN rows: {count}")
     
     # ORDL summary
     cursor.execute('''
@@ -419,5 +483,6 @@ if __name__ == "__main__":
     load_plnt()
     load_cust()
     load_imst()
+    load_itrn()
     show_stats()
     print(f"\nDatabase ready: {DB_PATH}")
