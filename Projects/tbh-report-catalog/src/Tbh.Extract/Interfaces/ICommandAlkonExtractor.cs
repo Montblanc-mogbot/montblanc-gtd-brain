@@ -52,6 +52,15 @@ public interface ICommandAlkonExtractor
         CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Extract ITRN transactions for a date range.
+    /// Billing/AR-oriented export used for reconciliation with dispatch.
+    /// </summary>
+    Task<IEnumerable<ItrnRecord>> ExtractItrnAsync(
+        DateTime startDate,
+        DateTime endDate,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Extract sales detail for a date range.
     /// NOTE: Currently backed by ORDL in the dummy DB; being phased out for dispatch-first reporting.
     /// </summary>

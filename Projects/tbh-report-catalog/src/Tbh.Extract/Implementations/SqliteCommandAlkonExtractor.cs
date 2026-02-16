@@ -292,6 +292,82 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
         return records;
     }
 
+    public async Task<IEnumerable<ItrnRecord>> ExtractItrnAsync(
+        DateTime startDate,
+        DateTime endDate,
+        CancellationToken cancellationToken = default)
+    {
+        var records = new List<ItrnRecord>();
+
+        using var connection = new SqliteConnection(_connectionString);
+        await connection.OpenAsync(cancellationToken);
+
+        // ITRN export was imported as a raw table with TEXT columns.
+        // Filter by trans_date when present.
+        using var command = connection.CreateCommand();
+        command.CommandText = @"
+            SELECT
+                batch_date,
+                batch_num,
+                batch_seq,
+                unique_num,
+                cust_code,
+                ship_cust_code,
+                trans_type,
+                trans_date,
+                plant_code,
+                comp_code,
+                invc_code,
+                ar_adj_code,
+                pretax_amt,
+                tax_amt,
+                pmt_amt,
+                check_amt,
+                cost_amt,
+                po,
+                proj_code,
+                modified_date
+            FROM itrn_raw
+            WHERE trans_date IS NOT NULL
+              AND date(trans_date) >= date(@startDate)
+              AND date(trans_date) < date(@endDate)
+            ORDER BY trans_date, invc_code, unique_num
+        ";
+
+        command.Parameters.AddWithValue("@startDate", startDate.ToString("yyyy-MM-dd"));
+        command.Parameters.AddWithValue("@endDate", endDate.ToString("yyyy-MM-dd"));
+
+        using var reader = await command.ExecuteReaderAsync(cancellationToken);
+        while (await reader.ReadAsync(cancellationToken))
+        {
+            records.Add(new ItrnRecord
+            {
+                BatchDate = GetDateTimeFromText(reader, 0),
+                BatchNum = GetString(reader, 1),
+                BatchSeq = GetString(reader, 2),
+                UniqueNum = GetString(reader, 3),
+                CustomerCode = GetString(reader, 4),
+                ShipCustomerCode = GetString(reader, 5),
+                TransactionType = GetString(reader, 6),
+                TransactionDate = GetDateTimeFromText(reader, 7),
+                PlantCode = GetString(reader, 8),
+                CompanyCode = GetString(reader, 9),
+                InvoiceCode = GetString(reader, 10),
+                ArAdjustmentCode = GetString(reader, 11),
+                PretaxAmount = GetDecimalFromText(reader, 12),
+                TaxAmount = GetDecimalFromText(reader, 13),
+                PaymentAmount = GetDecimalFromText(reader, 14),
+                CheckAmount = GetDecimalFromText(reader, 15),
+                CostAmount = GetDecimalFromText(reader, 16),
+                Po = GetString(reader, 17),
+                ProjectCode = GetString(reader, 18),
+                ModifiedDate = GetDateTimeFromText(reader, 19),
+            });
+        }
+
+        return records;
+    }
+
     public async Task<IEnumerable<SalesDetailRecord>> ExtractSalesDetailAsync(
         DateTime startDate, 
         DateTime endDate, 

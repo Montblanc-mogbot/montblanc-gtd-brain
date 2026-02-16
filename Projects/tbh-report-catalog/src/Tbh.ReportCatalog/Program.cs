@@ -16,18 +16,24 @@ class Program
         Console.WriteLine("===========================================\n");
         
         // Path to dummy database
-        var dbPath = Path.Combine(
-            AppDomain.CurrentDomain.BaseDirectory, 
-            "..", "..", "..", "..", "..", "data", "command_alkon_dummy.db");
-        dbPath = Path.GetFullPath(dbPath);
-        
-        if (!File.Exists(dbPath))
+        // Prefer the newer TBH dummy sqlite (built from ITRN CSV import), otherwise fall back.
+        var projectRoot = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", ".."));
+
+        var dbCandidates = new[]
         {
-            Console.WriteLine($"Database not found: {dbPath}");
-            Console.WriteLine("Run: python scripts/sqlite/build_dummy_db.py");
+            Path.Combine(projectRoot, "data", "tbh_dummy.sqlite"),
+            Path.Combine(projectRoot, "data", "command_alkon_dummy.db"),
+        };
+
+        var dbPath = dbCandidates.FirstOrDefault(File.Exists);
+        if (dbPath is null)
+        {
+            Console.WriteLine("No dummy database found. Expected one of:");
+            foreach (var p in dbCandidates) Console.WriteLine($"  - {p}");
+            Console.WriteLine("Hint: run: python tools/import_itrn_csv_to_sqlite.py --csv data/itrn_sample.csv --db data/tbh_dummy.sqlite --table itrn_raw --drop");
             return;
         }
-        
+
         Console.WriteLine($"Using database: {dbPath}\n");
         
         // Create extractor
@@ -39,18 +45,29 @@ class Program
         
         Console.WriteLine($"Extracting normalized dispatch datasets: {startDate:yyyy-MM-dd} to {endDate:yyyy-MM-dd}");
 
-        var tickRaw = (await extractor.ExtractTicketsAsync(startDate, endDate)).ToList();
-        var tktlRaw = (await extractor.ExtractTicketLinesAsync(startDate, endDate)).ToList();
-        var ordrRaw = (await extractor.ExtractOrdersAsync(startDate, endDate)).ToList();
+        // Dispatch-side extracts (TICK/TKTL/ORDR). Not all dummy DBs include these tables.
+        List<Tbh.Normalize.NormalizedTicket> tick = [];
+        List<Tbh.Normalize.NormalizedTicketLine> tktl = [];
+        List<Tbh.Normalize.NormalizedOrderHeader> ordr = [];
 
-        var tick = tickRaw.Select(CommandAlkonDispatchNormalizer.Normalize).ToList();
-        var tktl = tktlRaw.Select(CommandAlkonDispatchNormalizer.Normalize).ToList();
-        var ordr = ordrRaw.Select(CommandAlkonDispatchNormalizer.Normalize).ToList();
+        try
+        {
+            var tickRaw = (await extractor.ExtractTicketsAsync(startDate, endDate)).ToList();
+            var tktlRaw = (await extractor.ExtractTicketLinesAsync(startDate, endDate)).ToList();
+            var ordrRaw = (await extractor.ExtractOrdersAsync(startDate, endDate)).ToList();
+
+            tick = tickRaw.Select(CommandAlkonDispatchNormalizer.Normalize).ToList();
+            tktl = tktlRaw.Select(CommandAlkonDispatchNormalizer.Normalize).ToList();
+            ordr = ordrRaw.Select(CommandAlkonDispatchNormalizer.Normalize).ToList();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"  Dispatch export skipped (missing tables?): {ex.Message}");
+        }
 
         // Normalized CSV output convention:
         //   YYYYMM(DD) ReportName
         // Use day only when the date range is not a clean whole-month window.
-        var projectRoot = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", ".."));
         var normalizedDir = Path.Combine(projectRoot, "normalized");
         Directory.CreateDirectory(normalizedDir);
 
@@ -100,63 +117,106 @@ class Program
 
         Console.WriteLine($"  TICK: {tick.Count} rows -> {tickOut}");
         Console.WriteLine($"  TKTL: {tktl.Count} rows -> {tktlOut}");
-        Console.WriteLine($"  ORDR: {ordr.Count} rows -> {ordrOut}\n");
+        Console.WriteLine($"  ORDR: {ordr.Count} rows -> {ordrOut}");
 
-        Console.WriteLine($"Extracting sales detail (legacy ORDL-backed): {startDate:yyyy-MM-dd} to {endDate:yyyy-MM-dd}");
-
-        // Extract data
-        var salesDetails = await extractor.ExtractSalesDetailAsync(startDate, endDate);
-        var salesList = salesDetails.ToList();
-
-        Console.WriteLine($"  Retrieved {salesList.Count} records\n");
-        
-        // Build Plant Performance analytics
-        Console.WriteLine("Building Plant Performance analytics...");
-        var builder = new PlantPerformanceBuilder();
-        var plantPerformance = builder.Build(salesList);
-        
-        var perfList = plantPerformance.ToList();
-        Console.WriteLine($"  Generated {perfList.Count} plant-month records\n");
-        
-        // Display results
-        Console.WriteLine("=== Plant Performance Summary ===");
-        Console.WriteLine(string.Format("{0,-8} {1,-8} {2,-12} {3,-14} {4,-14} {5}", "Plant", "Month", "Volume", "Revenue", "Material Cost", "Margin %"));
-        Console.WriteLine(new string('-', 80));
-        
-        foreach (var pp in perfList.OrderBy(p => p.PlantCode).ThenBy(p => p.AccountingPeriod))
+        // ITRN normalization/export (Billing/AR transactions)
+        try
         {
-            var margin = pp.Revenue > 0 
-                ? (pp.Revenue - (pp.EstimatedMaterialCost)) / pp.Revenue * 100 
-                : 0;
-            
-            var month = new DateTime(pp.AccountingYear, pp.AccountingPeriod, 1);
-            Console.WriteLine($"{pp.PlantCode,-8} {month:MM/yyyy,-8} {pp.TotalYards,-12:N2} ${pp.Revenue,-14:N2} ${pp.EstimatedMaterialCost,-14:N2} {margin,6:F1}%");
+            var itrnRaw = (await extractor.ExtractItrnAsync(startDate, endDate)).ToList();
+            var itrn = itrnRaw.Select(CommandAlkonItrnNormalizer.Normalize).ToList();
+
+            var itrnOut = Path.Combine(normalizedDir, $"{prefix} Itrn.csv");
+            await NormalizedCsvWriter.WriteAsync(itrn, itrnOut,
+            [
+                ("trans_date", r => r.TransactionDate?.ToString("yyyy-MM-dd") ?? ""),
+                ("acct_year", r => r.AccountingYear?.ToString() ?? ""),
+                ("acct_period", r => r.AccountingPeriod?.ToString() ?? ""),
+                ("plant_code", r => r.PlantCode),
+                ("raw_plant_code", r => r.RawPlantCode ?? ""),
+                ("cust_code", r => r.CustomerCode ?? ""),
+                ("ship_cust_code", r => r.ShipCustomerCode ?? ""),
+                ("invc_code", r => r.InvoiceCode ?? ""),
+                ("trans_type", r => r.TransactionType ?? ""),
+                ("ar_adj_code", r => r.ArAdjustmentCode ?? ""),
+                ("pretax_amt", r => r.PretaxAmount.ToString()),
+                ("tax_amt", r => r.TaxAmount.ToString()),
+                ("total_amt", r => r.TotalAmount.ToString()),
+                ("pmt_amt", r => r.PaymentAmount.ToString()),
+                ("check_amt", r => r.CheckAmount.ToString()),
+                ("proj_code", r => r.ProjectCode ?? ""),
+                ("po", r => r.Po ?? ""),
+                ("unique_num", r => r.UniqueNum ?? ""),
+            ]);
+
+            Console.WriteLine($"  ITRN: {itrn.Count} rows -> {itrnOut}\n");
         }
-        
-        Console.WriteLine();
-        
-        // Generate Excel report
-        var outputPath = Path.Combine(
-            AppDomain.CurrentDomain.BaseDirectory,
-            $"PlantPerformance_{startDate:yyyyMMdd}_{endDate:yyyyMMdd}.xlsx");
-        
-        Console.WriteLine($"Generating Excel report: {outputPath}");
-        
-        var excelGenerator = new PlantPerformanceExcelGenerator();
-        await excelGenerator.GenerateAsync(perfList, outputPath);
-        
-        Console.WriteLine("  Done!\n");
-        
-        // Summary stats
-        var totalRevenue = perfList.Sum(p => p.Revenue);
-        var totalMatlCost = perfList.Sum(p => p.EstimatedMaterialCost);
-        var totalVolume = perfList.Sum(p => p.TotalYards);
-        var overallMargin = totalRevenue > 0 ? (totalRevenue - totalMatlCost) / totalRevenue * 100 : 0;
-        
-        Console.WriteLine("=== Overall Statistics ===");
-        Console.WriteLine($"Total Volume: {totalVolume:N2} yards");
-        Console.WriteLine($"Total Revenue: ${totalRevenue:N2}");
-        Console.WriteLine($"Total Material Cost: ${totalMatlCost:N2}");
-        Console.WriteLine($"Overall Margin: {overallMargin:F1}%");
+        catch (Exception ex)
+        {
+            Console.WriteLine($"  ITRN export skipped: {ex.Message}\n");
+        }
+
+        try
+        {
+            Console.WriteLine($"Extracting sales detail (legacy ORDL-backed): {startDate:yyyy-MM-dd} to {endDate:yyyy-MM-dd}");
+
+            // Extract data
+            var salesDetails = await extractor.ExtractSalesDetailAsync(startDate, endDate);
+            var salesList = salesDetails.ToList();
+
+            Console.WriteLine($"  Retrieved {salesList.Count} records\n");
+
+            // Build Plant Performance analytics
+            Console.WriteLine("Building Plant Performance analytics...");
+            var builder = new PlantPerformanceBuilder();
+            var plantPerformance = builder.Build(salesList);
+
+            var perfList = plantPerformance.ToList();
+            Console.WriteLine($"  Generated {perfList.Count} plant-month records\n");
+
+            // Display results
+            Console.WriteLine("=== Plant Performance Summary ===");
+            Console.WriteLine(string.Format("{0,-8} {1,-8} {2,-12} {3,-14} {4,-14} {5}", "Plant", "Month", "Volume", "Revenue", "Material Cost", "Margin %"));
+            Console.WriteLine(new string('-', 80));
+
+            foreach (var pp in perfList.OrderBy(p => p.PlantCode).ThenBy(p => p.AccountingPeriod))
+            {
+                var margin = pp.Revenue > 0
+                    ? (pp.Revenue - (pp.EstimatedMaterialCost)) / pp.Revenue * 100
+                    : 0;
+
+                var month = new DateTime(pp.AccountingYear, pp.AccountingPeriod, 1);
+                Console.WriteLine($"{pp.PlantCode,-8} {month:MM/yyyy,-8} {pp.TotalYards,-12:N2} ${pp.Revenue,-14:N2} ${pp.EstimatedMaterialCost,-14:N2} {margin,6:F1}%");
+            }
+
+            Console.WriteLine();
+
+            // Generate Excel report
+            var outputPath = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                $"PlantPerformance_{startDate:yyyyMMdd}_{endDate:yyyyMMdd}.xlsx");
+
+            Console.WriteLine($"Generating Excel report: {outputPath}");
+
+            var excelGenerator = new PlantPerformanceExcelGenerator();
+            await excelGenerator.GenerateAsync(perfList, outputPath);
+
+            Console.WriteLine("  Done!\n");
+
+            // Summary stats
+            var totalRevenue = perfList.Sum(p => p.Revenue);
+            var totalMatlCost = perfList.Sum(p => p.EstimatedMaterialCost);
+            var totalVolume = perfList.Sum(p => p.TotalYards);
+            var overallMargin = totalRevenue > 0 ? (totalRevenue - totalMatlCost) / totalRevenue * 100 : 0;
+
+            Console.WriteLine("=== Overall Statistics ===");
+            Console.WriteLine($"Total Volume: {totalVolume:N2} yards");
+            Console.WriteLine($"Total Revenue: ${totalRevenue:N2}");
+            Console.WriteLine($"Total Material Cost: ${totalMatlCost:N2}");
+            Console.WriteLine($"Overall Margin: {overallMargin:F1}%");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Sales detail / Plant Performance demo skipped (missing legacy tables?): {ex.Message}");
+        }
     }
 }
