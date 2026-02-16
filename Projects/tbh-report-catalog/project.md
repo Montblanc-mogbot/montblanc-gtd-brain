@@ -27,8 +27,17 @@
 - [ ] #nextaction #project/tbh-report-catalog Build CSV normalization pipeline
 - [ ] #nextaction #project/tbh-report-catalog Design Excel report template for Plant Performance
 
+## Schema Analysis Complete
+- **Document:** `docs/schema-analysis.md`
+- **Tables Identified:** 15 core tables across 4 tiers
+- **Key Finding:** `slsd` likely a view/report table; primary sources are `ordl` + `tktc` + `tktl`
+- **NRMCA Price/Yard Source:** `ORDL` table (`price` + `delv_qty`)
+- **Volume Source:** Multiple candidates — need clarification from Matt
+
 ## Waiting On
-- [ ] #waitingfor #project/tbh-report-catalog Matt: Sample data from `slsd`, `plnt` tables (10-20 anonymized rows)
+- [ ] #waitingfor #project/tbh-report-catalog Matt: Confirm `slsd` is table vs view
+- [ ] #waitingfor #project/tbh-report-catalog Matt: Clarify volume source (ORDL vs TKTC vs TKTL)
+- [ ] #waitingfor #project/tbh-report-catalog Matt: Sample data from Tier 1 tables (PLNT, CUST, PROJ, IMST, ORDR, ORDL, TKTC, TKTL)
 - [ ] #waitingfor #project/tbh-report-catalog Matt: GL schema (table names for expenses)
 - [ ] #waitingfor #project/tbh-report-catalog Matt: Confirm plant coding in GL (separate field or embedded in accounts?)
 
