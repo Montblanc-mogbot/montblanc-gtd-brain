@@ -327,11 +327,11 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
                 po,
                 proj_code,
                 modified_date
-            FROM itrn_raw
+            FROM itrn
             WHERE trans_date IS NOT NULL
               AND date(trans_date) >= date(@startDate)
               AND date(trans_date) < date(@endDate)
-            ORDER BY trans_date, invc_code, unique_num
+            ORDER BY trans_date, invc_code
         ";
 
         command.Parameters.AddWithValue("@startDate", startDate.ToString("yyyy-MM-dd"));

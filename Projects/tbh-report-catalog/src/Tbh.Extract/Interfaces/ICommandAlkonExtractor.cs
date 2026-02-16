@@ -13,17 +13,17 @@ public interface ICommandAlkonExtractor
     /// Extract all plants from the plnt table.
     /// </summary>
     Task<IEnumerable<PlantRecord>> ExtractPlantsAsync(CancellationToken cancellationToken = default);
-    
+
     /// <summary>
     /// Extract all customers from the cust table.
     /// </summary>
     Task<IEnumerable<CustomerRecord>> ExtractCustomersAsync(CancellationToken cancellationToken = default);
-    
+
     /// <summary>
     /// Extract all items from the imst table.
     /// </summary>
     Task<IEnumerable<ItemMasterRecord>> ExtractItemsAsync(CancellationToken cancellationToken = default);
-    
+
     /// <summary>
     /// Extract TICK (ticket headers) for a date range.
     /// Primary dispatch truth for plant attribution, invoicing status, etc.

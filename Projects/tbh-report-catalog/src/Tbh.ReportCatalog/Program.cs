@@ -16,13 +16,13 @@ class Program
         Console.WriteLine("===========================================\n");
         
         // Path to dummy database
-        // Prefer the newer TBH dummy sqlite (built from ITRN CSV import), otherwise fall back.
+        // Prefer the unified Command Alkon dummy DB built by scripts/sqlite/build_dummy_db.py
         var projectRoot = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", ".."));
 
         var dbCandidates = new[]
         {
-            Path.Combine(projectRoot, "data", "tbh_dummy.sqlite"),
             Path.Combine(projectRoot, "data", "command_alkon_dummy.db"),
+            Path.Combine(projectRoot, "data", "tbh_dummy.sqlite"),
         };
 
         var dbPath = dbCandidates.FirstOrDefault(File.Exists);
@@ -30,7 +30,7 @@ class Program
         {
             Console.WriteLine("No dummy database found. Expected one of:");
             foreach (var p in dbCandidates) Console.WriteLine($"  - {p}");
-            Console.WriteLine("Hint: run: python tools/import_itrn_csv_to_sqlite.py --csv data/itrn_sample.csv --db data/tbh_dummy.sqlite --table itrn_raw --drop");
+            Console.WriteLine("Hint: run: python scripts/sqlite/build_dummy_db.py");
             return;
         }
 
@@ -43,7 +43,23 @@ class Program
         var startDate = new DateTime(2025, 1, 1);
         var endDate = new DateTime(2025, 2, 1);
         
-        Console.WriteLine($"Extracting normalized dispatch datasets: {startDate:yyyy-MM-dd} to {endDate:yyyy-MM-dd}");
+        Console.WriteLine($"Extracting normalized datasets: {startDate:yyyy-MM-dd} to {endDate:yyyy-MM-dd}");
+
+        // Master data (always present in our dummy DB)
+        var plants = (await extractor.ExtractPlantsAsync())
+            .Select(CommandAlkonMasterDataNormalizer.Normalize)
+            .ToList();
+        var customers = (await extractor.ExtractCustomersAsync())
+            .Select(CommandAlkonMasterDataNormalizer.Normalize)
+            .ToList();
+        var items = (await extractor.ExtractItemsAsync())
+            .Select(CommandAlkonMasterDataNormalizer.Normalize)
+            .ToList();
+
+        // Billing/AR transactions (ITRN)
+        var itrn = (await extractor.ExtractItrnAsync(startDate, endDate))
+            .Select(CommandAlkonItrnNormalizer.Normalize)
+            .ToList();
 
         // Dispatch-side extracts (TICK/TKTL/ORDR). Not all dummy DBs include these tables.
         List<Tbh.Normalize.NormalizedTicket> tick = [];
@@ -78,11 +94,53 @@ class Program
             ? startDate.ToString("yyyyMM")
             : startDate.ToString("yyyyMMdd");
 
+        var plantsOut = Path.Combine(normalizedDir, $"{prefix} Plants.csv");
+        var customersOut = Path.Combine(normalizedDir, $"{prefix} Customers.csv");
+        var itemsOut = Path.Combine(normalizedDir, $"{prefix} Items.csv");
+        var itrnOut = Path.Combine(normalizedDir, $"{prefix} InvoiceTransactions.csv");
+
         var tickOut = Path.Combine(normalizedDir, $"{prefix} Tickets.csv");
         var tktlOut = Path.Combine(normalizedDir, $"{prefix} TicketLines.csv");
         var ordrOut = Path.Combine(normalizedDir, $"{prefix} Orders.csv");
 
         // Keep normalized schemas narrow; add fields only when a downstream report needs them.
+        await NormalizedCsvWriter.WriteAsync(plants, plantsOut,
+        [
+            ("plant_code", r => r.PlantCode),
+            ("short_name", r => r.ShortName),
+            ("name", r => r.Name),
+            ("location", r => r.Location),
+        ]);
+
+        await NormalizedCsvWriter.WriteAsync(customers, customersOut,
+        [
+            ("cust_code", r => r.CustomerCode),
+            ("name", r => r.Name),
+            ("city", r => r.City),
+            ("state", r => r.State),
+        ]);
+
+        await NormalizedCsvWriter.WriteAsync(items, itemsOut,
+        [
+            ("item_code", r => r.ItemCode),
+            ("short_descr", r => r.ShortDescription),
+            ("descr", r => r.Description),
+            ("item_cat", r => r.ItemCategory),
+            ("matl_type", r => r.MaterialType),
+        ]);
+
+        await NormalizedCsvWriter.WriteAsync(itrn, itrnOut,
+        [
+            ("trans_date", r => r.TransactionDate?.ToString("yyyy-MM-dd") ?? ""),
+            ("invc_code", r => r.InvoiceCode ?? ""),
+            ("trans_type", r => r.TransactionType ?? ""),
+            ("cust_code", r => r.CustomerCode ?? ""),
+            ("pretax_amt", r => r.PretaxAmount.ToString()),
+            ("tax_amt", r => r.TaxAmount.ToString()),
+            ("pmt_amt", r => r.PaymentAmount.ToString()),
+            ("check_amt", r => r.CheckAmount.ToString()),
+        ]);
+
         await NormalizedCsvWriter.WriteAsync(tick, tickOut,
         [
             ("order_date", r => r.OrderDate?.ToString("yyyy-MM-dd") ?? ""),
@@ -115,45 +173,57 @@ class Program
             ("proj_code", r => r.ProjectCode),
         ]);
 
+        Console.WriteLine($"  PLNT: {plants.Count} rows -> {plantsOut}");
+        Console.WriteLine($"  CUST: {customers.Count} rows -> {customersOut}");
+        Console.WriteLine($"  IMST: {items.Count} rows -> {itemsOut}");
+        Console.WriteLine($"  ITRN: {itrn.Count} rows -> {itrnOut}");
         Console.WriteLine($"  TICK: {tick.Count} rows -> {tickOut}");
         Console.WriteLine($"  TKTL: {tktl.Count} rows -> {tktlOut}");
-        Console.WriteLine($"  ORDR: {ordr.Count} rows -> {ordrOut}");
+        Console.WriteLine($"  ORDR: {ordr.Count} rows -> {ordrOut}\n");
 
-        // ITRN normalization/export (Billing/AR transactions)
-        try
-        {
-            var itrnRaw = (await extractor.ExtractItrnAsync(startDate, endDate)).ToList();
-            var itrn = itrnRaw.Select(CommandAlkonItrnNormalizer.Normalize).ToList();
+        // === Analytical datasets (each answers one business question well) ===
+        var analyticsDir = Path.Combine(projectRoot, "analytics");
+        Directory.CreateDirectory(analyticsDir);
 
-            var itrnOut = Path.Combine(normalizedDir, $"{prefix} Itrn.csv");
-            await NormalizedCsvWriter.WriteAsync(itrn, itrnOut,
-            [
-                ("trans_date", r => r.TransactionDate?.ToString("yyyy-MM-dd") ?? ""),
-                ("acct_year", r => r.AccountingYear?.ToString() ?? ""),
-                ("acct_period", r => r.AccountingPeriod?.ToString() ?? ""),
-                ("plant_code", r => r.PlantCode),
-                ("raw_plant_code", r => r.RawPlantCode ?? ""),
-                ("cust_code", r => r.CustomerCode ?? ""),
-                ("ship_cust_code", r => r.ShipCustomerCode ?? ""),
-                ("invc_code", r => r.InvoiceCode ?? ""),
-                ("trans_type", r => r.TransactionType ?? ""),
-                ("ar_adj_code", r => r.ArAdjustmentCode ?? ""),
-                ("pretax_amt", r => r.PretaxAmount.ToString()),
-                ("tax_amt", r => r.TaxAmount.ToString()),
-                ("total_amt", r => r.TotalAmount.ToString()),
-                ("pmt_amt", r => r.PaymentAmount.ToString()),
-                ("check_amt", r => r.CheckAmount.ToString()),
-                ("proj_code", r => r.ProjectCode ?? ""),
-                ("po", r => r.Po ?? ""),
-                ("unique_num", r => r.UniqueNum ?? ""),
-            ]);
+        var dispatchPlantDay = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchPlantDay(tktl).ToList();
+        var dispatchPlantMonth = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchPlantMonth(tktl).ToList();
+        var dispatchInvoiceTotals = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchInvoiceTotals(tick, tktl).ToList();
+        var dispatchVsArRecon = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchVsArInvoiceRecon(dispatchInvoiceTotals, itrn).ToList();
 
-            Console.WriteLine($"  ITRN: {itrn.Count} rows -> {itrnOut}\n");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"  ITRN export skipped: {ex.Message}\n");
-        }
+        var plantDayOut = Path.Combine(analyticsDir, $"{prefix} DispatchPlantDay.csv");
+        var plantMonthOut = Path.Combine(analyticsDir, $"{prefix} DispatchPlantMonth.csv");
+        var reconOut = Path.Combine(analyticsDir, $"{prefix} DispatchVsAR_ByInvoice.csv");
+
+        await NormalizedCsvWriter.WriteAsync(dispatchPlantDay, plantDayOut,
+        [
+            ("day", r => r.Day.ToString("yyyy-MM-dd")),
+            ("plant_code", r => r.PlantCode),
+            ("delv_qty", r => r.DeliveredQty.ToString()),
+            ("revenue", r => r.Revenue.ToString()),
+            ("ticket_line_count", r => r.TicketLineCount.ToString()),
+        ]);
+
+        await NormalizedCsvWriter.WriteAsync(dispatchPlantMonth, plantMonthOut,
+        [
+            ("acct_year", r => r.AccountingYear.ToString()),
+            ("acct_period", r => r.AccountingPeriod.ToString()),
+            ("plant_code", r => r.PlantCode),
+            ("delv_qty", r => r.DeliveredQty.ToString()),
+            ("revenue", r => r.Revenue.ToString()),
+            ("ticket_line_count", r => r.TicketLineCount.ToString()),
+        ]);
+
+        await NormalizedCsvWriter.WriteAsync(dispatchVsArRecon, reconOut,
+        [
+            ("invc_code", r => r.InvoiceCode),
+            ("dispatch_revenue", r => r.DispatchRevenue.ToString()),
+            ("ar_total", r => r.ArTotalAmount.ToString()),
+            ("difference", r => r.Difference.ToString()),
+        ]);
+
+        Console.WriteLine($"  ANALYTICS: {dispatchPlantDay.Count} rows -> {plantDayOut}");
+        Console.WriteLine($"  ANALYTICS: {dispatchPlantMonth.Count} rows -> {plantMonthOut}");
+        Console.WriteLine($"  ANALYTICS: {dispatchVsArRecon.Count} rows -> {reconOut}\n");
 
         try
         {
