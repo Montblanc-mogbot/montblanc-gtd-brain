@@ -89,12 +89,18 @@ dotnet run --project src/Tbh.ReportCatalog
 
 ### Command Alkon — Primary Tables
 
-| Table | Purpose | Key Fields |
-|-------|---------|------------|
-| `slsd` | Sales detail (volume, revenue, costs) | `ship_plant_code`, `tkt_date`, `delv_qty`, `ext_price_amt`, `ext_matl_cost_amt` |
-| `plnt` | Plant master | `plant_code`, `name`, `short_name` |
-| `tkt` | Ticket header | `tkt_date`, `tkt_code`, `plant_code` |
-| `tktd` | Ticket detail | Line items per ticket |
+**Design Decision:** Use `slsd` as the **primary source** for volume, revenue, and costs because it matches the Command reports that the board will compare against.
+
+| Table | Purpose | Key Fields | Priority |
+|-------|---------|------------|----------|
+| `slsd` | **Sales detail (PRIMARY SOURCE)** | `ship_plant_code`, `tkt_date`, `delv_qty`, `ext_price_amt`, `ext_matl_cost_amt` | Required |
+| `plnt` | Plant master | `plant_code`, `name`, `short_name` | Required |
+| `cust` | Customer master | `cust_code`, `name`, `sort_name` | Required |
+| `imst` | Item/product master | `item_code`, `descr`, `item_cat` | Required |
+| `ordr` | Order headers | `order_date`, `order_code`, `cust_code`, `proj_code` | Validation |
+| `ordl` | Order lines | `delv_qty`, `price` | Validation |
+| `tktc` | Ticket charges | `ext_price_amt`, `ext_matl_cost_amt` | Validation |
+| `proj` | Project master | `proj_code`, `proj_name` | Drill-down |
 
 ### GL Database — Future Integration
 

@@ -1,18 +1,9 @@
-using Tbh.Analytics.Models;
-
 namespace Tbh.Reports.Interfaces;
 
 /// <summary>
-/// Interface for generating Excel reports.
-/// Implementations use EPPlus to create formatted, professional reports.
+/// Interface for Excel report generators.
 /// </summary>
-public interface IExcelReportGenerator
+public interface IExcelReportGenerator<TData>
 {
-    /// <summary>
-    /// Generates a Plant Performance Excel report.
-    /// </summary>
-    Task GeneratePlantPerformanceReportAsync(
-        IEnumerable<PlantPerformanceRecord> records,
-        string outputPath,
-        CancellationToken cancellationToken = default);
+    Task GenerateAsync(IEnumerable<TData> data, string outputPath);
 }

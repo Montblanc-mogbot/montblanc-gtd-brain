@@ -1,0 +1,181 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Analytics/Tbh.Analytics.csproj": {}
+  },
+  "projects": {
+    "/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Analytics/Tbh.Analytics.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Analytics/Tbh.Analytics.csproj",
+        "projectName": "Tbh.Analytics",
+        "projectPath": "/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Analytics/Tbh.Analytics.csproj",
+        "packagesPath": "/home/montblanc/.nuget/packages/",
+        "outputPath": "/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Analytics/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/montblanc/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Normalize/Tbh.Normalize.csproj": {
+                "projectPath": "/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Normalize/Tbh.Normalize.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/8.0.123/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Extract/Tbh.Extract.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Extract/Tbh.Extract.csproj",
+        "projectName": "Tbh.Extract",
+        "projectPath": "/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Extract/Tbh.Extract.csproj",
+        "packagesPath": "/home/montblanc/.nuget/packages/",
+        "outputPath": "/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Extract/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/montblanc/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Data.Sqlite": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/8.0.123/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Normalize/Tbh.Normalize.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Normalize/Tbh.Normalize.csproj",
+        "projectName": "Tbh.Normalize",
+        "projectPath": "/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Normalize/Tbh.Normalize.csproj",
+        "packagesPath": "/home/montblanc/.nuget/packages/",
+        "outputPath": "/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Normalize/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/montblanc/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Extract/Tbh.Extract.csproj": {
+                "projectPath": "/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Extract/Tbh.Extract.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib64/dotnet/sdk/8.0.123/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

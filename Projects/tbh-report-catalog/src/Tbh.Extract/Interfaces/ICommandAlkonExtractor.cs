@@ -15,6 +15,16 @@ public interface ICommandAlkonExtractor
     Task<IEnumerable<PlantRecord>> ExtractPlantsAsync(CancellationToken cancellationToken = default);
     
     /// <summary>
+    /// Extract all customers from the cust table.
+    /// </summary>
+    Task<IEnumerable<CustomerRecord>> ExtractCustomersAsync(CancellationToken cancellationToken = default);
+    
+    /// <summary>
+    /// Extract all items from the imst table.
+    /// </summary>
+    Task<IEnumerable<ItemMasterRecord>> ExtractItemsAsync(CancellationToken cancellationToken = default);
+    
+    /// <summary>
     /// Extract sales detail for a date range.
     /// This is the primary source for volume and revenue by plant.
     /// </summary>

@@ -10,4 +10,5 @@ public record PlantRecord
     public string? ShortName { get; init; }
     public string? CompanyCode { get; init; }
     public string? LocationCode { get; init; }
+    public string? Location { get; init; }
 }

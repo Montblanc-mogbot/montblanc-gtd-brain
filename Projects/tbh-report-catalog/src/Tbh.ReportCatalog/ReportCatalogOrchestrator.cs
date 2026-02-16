@@ -2,7 +2,6 @@ using Tbh.Analytics.Builders;
 using Tbh.Analytics.Models;
 using Tbh.Extract.Interfaces;
 using Tbh.Extract.Models.CommandAlkon;
-using Tbh.Normalize;
 using Tbh.Reports.Interfaces;
 
 namespace Tbh.ReportCatalog;
@@ -19,11 +18,11 @@ namespace Tbh.ReportCatalog;
 public class ReportCatalogOrchestrator
 {
     private readonly ICommandAlkonExtractor _commandExtractor;
-    private readonly IExcelReportGenerator _excelGenerator;
+    private readonly IExcelReportGenerator<PlantPerformanceRecord> _excelGenerator;
     
     public ReportCatalogOrchestrator(
         ICommandAlkonExtractor commandExtractor,
-        IExcelReportGenerator excelGenerator)
+        IExcelReportGenerator<PlantPerformanceRecord> excelGenerator)
     {
         _commandExtractor = commandExtractor;
         _excelGenerator = excelGenerator;
@@ -48,24 +47,16 @@ public class ReportCatalogOrchestrator
         Console.WriteLine($"  - Loaded {plants.Count()} plants");
         Console.WriteLine($"  - Loaded {salesDetail.Count()} sales detail records");
         
-        // Step 2: Normalize (Layer 2)
-        Console.WriteLine("Normalizing data...");
-        var normalized = salesDetail
-            .Select(CommandAlkonNormalizer.Normalize)
-            .ToList();
-        
-        Console.WriteLine($"  - Normalized {normalized.Count} records");
-        
-        // Step 3: Analytics (Layer 3)
+        // Step 2: Analytics (Layer 3) - simplified direct build
         Console.WriteLine("Building Plant Performance dataset...");
-        var builder = new PlantPerformanceBuilder(plants);
-        var plantPerformance = builder.Build(normalized).ToList();
+        var builder = new PlantPerformanceBuilder();
+        var plantPerformance = builder.Build(salesDetail).ToList();
         
         Console.WriteLine($"  - Generated {plantPerformance.Count} plant/period records");
         
-        // Step 4: Reports (Layer 4)
+        // Step 3: Reports (Layer 4)
         Console.WriteLine($"Generating Excel report: {outputPath}");
-        await _excelGenerator.GeneratePlantPerformanceReportAsync(plantPerformance, outputPath, cancellationToken);
+        await _excelGenerator.GenerateAsync(plantPerformance, outputPath);
         
         Console.WriteLine("Report generation complete.");
     }

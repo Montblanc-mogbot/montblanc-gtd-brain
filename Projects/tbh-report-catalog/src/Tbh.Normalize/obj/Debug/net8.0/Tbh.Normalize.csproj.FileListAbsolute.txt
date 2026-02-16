@@ -1,0 +1,16 @@
+/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Normalize/bin/Debug/net8.0/Tbh.Normalize.deps.json
+/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Normalize/bin/Debug/net8.0/Tbh.Normalize.dll
+/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Normalize/bin/Debug/net8.0/Tbh.Normalize.pdb
+/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Normalize/bin/Debug/net8.0/Tbh.Extract.dll
+/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Normalize/bin/Debug/net8.0/Tbh.Extract.pdb
+/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Normalize/obj/Debug/net8.0/Tbh.Normalize.csproj.AssemblyReference.cache
+/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Normalize/obj/Debug/net8.0/Tbh.Normalize.GeneratedMSBuildEditorConfig.editorconfig
+/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Normalize/obj/Debug/net8.0/Tbh.Normalize.AssemblyInfoInputs.cache
+/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Normalize/obj/Debug/net8.0/Tbh.Normalize.AssemblyInfo.cs
+/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Normalize/obj/Debug/net8.0/Tbh.Normalize.csproj.CoreCompileInputs.cache
+/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Normalize/obj/Debug/net8.0/Tbh.Normalize.sourcelink.json
+/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Normalize/obj/Debug/net8.0/Tbh.Normalize.csproj.CopyComplete
+/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Normalize/obj/Debug/net8.0/Tbh.Normalize.dll
+/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Normalize/obj/Debug/net8.0/refint/Tbh.Normalize.dll
+/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Normalize/obj/Debug/net8.0/Tbh.Normalize.pdb
+/home/montblanc/.openclaw/workspace/Projects/tbh-report-catalog/src/Tbh.Normalize/obj/Debug/net8.0/ref/Tbh.Normalize.dll

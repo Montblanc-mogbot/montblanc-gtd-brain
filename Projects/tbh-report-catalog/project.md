@@ -20,38 +20,71 @@
 - Current treasurer isn't focused on reporting/analytics
 - Matt stepping into CFO role needs clear, trustworthy data
 
-## Next Actions
-- [ ] #nextaction #project/tbh-report-catalog Create C# project skeleton with layered architecture
-- [ ] #nextaction #project/tbh-report-catalog Define PlantPerformance analytical dataset model
-- [ ] #nextaction #project/tbh-report-catalog Create extraction interfaces (for Matt to implement queries)
-- [ ] #nextaction #project/tbh-report-catalog Build CSV normalization pipeline
-- [ ] #nextaction #project/tbh-report-catalog Design Excel report template for Plant Performance
+## Sample Data Available
+- **SLSD**: 1000 rows (March 1-4, 2025)
+  - 6 plants, 70 customers
+  - 6,085 yards, $363,250 revenue
+- **Database**: SQLite dummy at `data/command_alkon_dummy.db`
 
-## Schema Analysis Complete
-- **Document:** `docs/schema-analysis.md`
-- **Tables Identified:** 15 core tables across 4 tiers
-- **Key Finding:** `slsd` likely a view/report table; primary sources are `ordl` + `tktc` + `tktl`
-- **NRMCA Price/Yard Source:** `ORDL` table (`price` + `delv_qty`)
-- **Volume Source:** Multiple candidates — need clarification from Matt
+## Current Implementation
 
-## Waiting On
-- [ ] #waitingfor #project/tbh-report-catalog Matt: Confirm `slsd` is table vs view
-- [ ] #waitingfor #project/tbh-report-catalog Matt: Clarify volume source (ORDL vs TKTC vs TKTL)
-- [ ] #waitingfor #project/tbh-report-catalog Matt: Sample data from Tier 1 tables (PLNT, CUST, PROJ, IMST, ORDR, ORDL, TKTC, TKTL)
-- [ ] #waitingfor #project/tbh-report-catalog Matt: GL schema (table names for expenses)
-- [ ] #waitingfor #project/tbh-report-catalog Matt: Confirm plant coding in GL (separate field or embedded in accounts?)
+### ✅ Completed
+1. **Dummy Database** (`data/command_alkon_dummy.db`)
+   - SQLite database with SLSD sample data
+   - Python build script: `scripts/sqlite/build_dummy_db.py`
 
-## Someday / Maybe
-- [ ] #someday #project/tbh-report-catalog Automate extraction pipeline (scheduled monthly pulls)
-- [ ] #someday #project/tbh-report-catalog Build data quality / reconciliation alerts
-- [ ] #someday #project/tbh-report-catalog Griddle integration for interactive operations reports
-- [ ] #someday #project/tbh-report-catalog Add Fuel Economics dataset
+2. **SQLite Extractor** (`src/Tbh.Extract/Implementations/`)
+   - `SqliteCommandAlkonExtractor` - reads from dummy DB
+   - Maps all SLSD columns to C# models
 
-## Notes / Context
-- `slsd` (Sales Detail) has estimated costs — useful for operational reporting, but GL is source of truth for financials
-- Reconciliation view will bridge: Command estimates vs GL actuals
-- Each analytical dataset answers ONE business question well
-- Normalized data must be explainable to an auditor in plain English
+3. **Plant Performance Builder** (`src/Tbh.Analytics/Builders/`)
+   - Groups data by plant and month
+   - Calculates: volume, revenue, material/haul/overhead costs
+   - Computes contribution margin and margin %
+
+4. **Excel Generator** (`src/Tbh.Reports/Generators/`)
+   - `PlantPerformanceExcelGenerator` using EPPlus
+   - Formatted with headers, totals row, currency formatting
+
+5. **Demo Program** (`src/Tbh.ReportCatalog/Program.cs`)
+   - Connects to dummy database
+   - Extracts March 2025 data
+   - Generates Plant Performance analytics
+   - Exports to Excel
+
+### 🔄 Next Actions
+
+- [ ] #nextaction #project/tbh-report-catalog Get additional table samples:
+  - PLNT (plant master with names)
+  - CUST (customer master)
+  - IMST (item master)
+  - TKTC (ticket costs - if different from SLSD)
+- [ ] #nextaction #project/tbh-report-catalog Run `scripts/run-plant-performance.sh` to generate first report
+- [ ] #nextaction #project/tbh-report-catalog Validate SLSD data matches Command's native reports
+- [ ] #nextaction #project/tbh-report-catalog Create GL database schema extractor
+
+### 📁 Key Files
+
+```
+Projects/tbh-report-catalog/
+├── data/
+│   ├── command_alkon_dummy.db     # SQLite dummy database
+│   └── slsd_sample.csv            # Raw sample data (tab-delimited)
+├── scripts/
+│   ├── sqlite/
+│   │   └── build_dummy_db.py      # Rebuilds dummy DB from CSV
+│   └── run-plant-performance.sh   # Build & run demo
+├── src/
+│   ├── Tbh.Extract/
+│   │   └── Implementations/
+│   │       └── SqliteCommandAlkonExtractor.cs
+│   ├── Tbh.Analytics/
+│   │   └── Builders/
+│   │       └── PlantPerformanceBuilder.cs
+│   └── Tbh.Reports/
+│       └── Generators/
+│           └── PlantPerformanceExcelGenerator.cs
+```
 
 ## Schema Notes
 
