@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Tbh.Analytics")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4e35fa26dc140242dabe344d91533b150828fcde")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+348b36628d3a9fc17427386171b04a9676e159ff")]
 [assembly: System.Reflection.AssemblyProductAttribute("Tbh.Analytics")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Tbh.Analytics")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

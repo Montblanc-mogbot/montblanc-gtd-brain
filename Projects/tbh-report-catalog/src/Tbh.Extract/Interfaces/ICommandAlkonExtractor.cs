@@ -25,20 +25,47 @@ public interface ICommandAlkonExtractor
     Task<IEnumerable<ItemMasterRecord>> ExtractItemsAsync(CancellationToken cancellationToken = default);
     
     /// <summary>
+    /// Extract TICK (ticket headers) for a date range.
+    /// Primary dispatch truth for plant attribution, invoicing status, etc.
+    /// </summary>
+    Task<IEnumerable<TicketRecord>> ExtractTicketsAsync(
+        DateTime startDate,
+        DateTime endDate,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Extract TKTL (ticket lines) for a date range.
+    /// Primary dispatch truth for delivered revenue (ext_price_amt).
+    /// </summary>
+    Task<IEnumerable<TicketLineRecord>> ExtractTicketLinesAsync(
+        DateTime startDate,
+        DateTime endDate,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Extract ORDR (order headers) for a date range.
+    /// Used for customer/order context and authoritative order_date.
+    /// </summary>
+    Task<IEnumerable<OrderHeaderRecord>> ExtractOrdersAsync(
+        DateTime startDate,
+        DateTime endDate,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Extract sales detail for a date range.
-    /// This is the primary source for volume and revenue by plant.
+    /// NOTE: Currently backed by ORDL in the dummy DB; being phased out for dispatch-first reporting.
     /// </summary>
     Task<IEnumerable<SalesDetailRecord>> ExtractSalesDetailAsync(
-        DateTime startDate, 
-        DateTime endDate, 
+        DateTime startDate,
+        DateTime endDate,
         CancellationToken cancellationToken = default);
-    
+
     /// <summary>
     /// Export sales detail to CSV (for audit trail and offline processing).
     /// </summary>
     Task ExportSalesDetailToCsvAsync(
-        DateTime startDate, 
-        DateTime endDate, 
+        DateTime startDate,
+        DateTime endDate,
         string outputPath,
         CancellationToken cancellationToken = default);
 }

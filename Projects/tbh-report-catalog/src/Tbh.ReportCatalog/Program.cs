@@ -3,6 +3,8 @@ using Tbh.Extract.Interfaces;
 using Tbh.Analytics.Builders;
 using Tbh.Analytics.Models;
 using Tbh.Reports.Generators;
+using Tbh.Normalize;
+using Tbh.Normalize.Csv;
 
 namespace Tbh.ReportCatalog;
 
@@ -35,12 +37,77 @@ class Program
         var startDate = new DateTime(2025, 1, 1);
         var endDate = new DateTime(2025, 2, 1);
         
-        Console.WriteLine($"Extracting sales detail: {startDate:yyyy-MM-dd} to {endDate:yyyy-MM-dd}");
-        
+        Console.WriteLine($"Extracting normalized dispatch datasets: {startDate:yyyy-MM-dd} to {endDate:yyyy-MM-dd}");
+
+        var tickRaw = (await extractor.ExtractTicketsAsync(startDate, endDate)).ToList();
+        var tktlRaw = (await extractor.ExtractTicketLinesAsync(startDate, endDate)).ToList();
+        var ordrRaw = (await extractor.ExtractOrdersAsync(startDate, endDate)).ToList();
+
+        var tick = tickRaw.Select(CommandAlkonDispatchNormalizer.Normalize).ToList();
+        var tktl = tktlRaw.Select(CommandAlkonDispatchNormalizer.Normalize).ToList();
+        var ordr = ordrRaw.Select(CommandAlkonDispatchNormalizer.Normalize).ToList();
+
+        // Normalized CSV output convention:
+        //   YYYYMM(DD) ReportName
+        // Use day only when the date range is not a clean whole-month window.
+        var projectRoot = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", ".."));
+        var normalizedDir = Path.Combine(projectRoot, "normalized");
+        Directory.CreateDirectory(normalizedDir);
+
+        static bool IsWholeMonthWindow(DateTime start, DateTime end) =>
+            start.Day == 1 && end.Day == 1 && end == start.AddMonths(1);
+
+        var prefix = IsWholeMonthWindow(startDate, endDate)
+            ? startDate.ToString("yyyyMM")
+            : startDate.ToString("yyyyMMdd");
+
+        var tickOut = Path.Combine(normalizedDir, $"{prefix} Tickets.csv");
+        var tktlOut = Path.Combine(normalizedDir, $"{prefix} TicketLines.csv");
+        var ordrOut = Path.Combine(normalizedDir, $"{prefix} Orders.csv");
+
+        // Keep normalized schemas narrow; add fields only when a downstream report needs them.
+        await NormalizedCsvWriter.WriteAsync(tick, tickOut,
+        [
+            ("order_date", r => r.OrderDate?.ToString("yyyy-MM-dd") ?? ""),
+            ("order_code", r => r.OrderCode),
+            ("tkt_code", r => r.TicketCode),
+            ("tkt_date", r => r.TicketDate?.ToString("yyyy-MM-dd") ?? ""),
+            ("ship_plant_code", r => r.ShipPlantCode),
+            ("invc_flag", r => r.InvcFlag),
+            ("invc_code", r => r.InvcCode),
+        ]);
+
+        await NormalizedCsvWriter.WriteAsync(tktl, tktlOut,
+        [
+            ("order_date", r => r.OrderDate?.ToString("yyyy-MM-dd") ?? ""),
+            ("order_code", r => r.OrderCode),
+            ("tkt_code", r => r.TicketCode),
+            ("order_intrnl_line_num", r => r.OrderInternalLineNum?.ToString() ?? ""),
+            ("ship_plant_code", r => r.ShipPlantCode),
+            ("delv_qty", r => r.DeliveredQty?.ToString() ?? ""),
+            ("delv_qty_uom", r => r.DeliveredQtyUom),
+            ("ext_price_amt", r => r.ExtendedPriceAmount?.ToString() ?? ""),
+        ]);
+
+        await NormalizedCsvWriter.WriteAsync(ordr, ordrOut,
+        [
+            ("order_date", r => r.OrderDate?.ToString("yyyy-MM-dd") ?? ""),
+            ("order_code", r => r.OrderCode),
+            ("cust_code", r => r.CustomerCode),
+            ("cust_name", r => r.CustomerName),
+            ("proj_code", r => r.ProjectCode),
+        ]);
+
+        Console.WriteLine($"  TICK: {tick.Count} rows -> {tickOut}");
+        Console.WriteLine($"  TKTL: {tktl.Count} rows -> {tktlOut}");
+        Console.WriteLine($"  ORDR: {ordr.Count} rows -> {ordrOut}\n");
+
+        Console.WriteLine($"Extracting sales detail (legacy ORDL-backed): {startDate:yyyy-MM-dd} to {endDate:yyyy-MM-dd}");
+
         // Extract data
         var salesDetails = await extractor.ExtractSalesDetailAsync(startDate, endDate);
         var salesList = salesDetails.ToList();
-        
+
         Console.WriteLine($"  Retrieved {salesList.Count} records\n");
         
         // Build Plant Performance analytics

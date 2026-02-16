@@ -6,6 +6,7 @@
 - [x] #focus #nextaction #project/tbh-report-catalog Review Report Catalog README and finalize architecture — DONE: created comprehensive README with architecture diagram, analytical datasets, reconciliation framework, and normalization rules
 - [x] #focus #nextaction #project/tbh-report-catalog Create C# project skeleton with layered architecture — DONE: Full solution with 5 projects (Extract, Normalize, Analytics, Reports, ReportCatalog)
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: Sample data from slsd, plnt tables (10-20 anonymized rows)
+- [ ] #focus #nextaction #project/tbh-report-catalog Implement normalization layer for dispatch primary tables (TICK/TKTL/ORDR + ITRN) and export clean normalized CSVs for analytics
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: GL schema (table names for expenses)
 - [ ] #focus #waitingfor Collect and synthesize Griddle feedback from employee testing (waiting for employees to submit feedback)
 - [x] #focus #nextaction #project/tbh-report-catalog Add ITRN CSV into SQLite dummy DB + draft CFO Dispatch/Billing report layout — DONE: imported itrn_sample.csv into data/tbh_dummy.sqlite; drafted docs/cfo-dispatch-billing-report-layout.md

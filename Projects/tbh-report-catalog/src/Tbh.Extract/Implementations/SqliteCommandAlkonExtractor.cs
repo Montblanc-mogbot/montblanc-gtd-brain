@@ -10,6 +10,12 @@ namespace Tbh.Extract.Implementations;
 /// </summary>
 public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
 {
+    private static readonly string[] SupportedDateFormats =
+    [
+        "yyyy-MM-dd HH:mm:ss",
+        "yyyy-MM-dd",
+    ];
+
     private readonly string _connectionString;
 
     public SqliteCommandAlkonExtractor(string databasePath)
@@ -129,6 +135,163 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
         return items;
     }
 
+    public async Task<IEnumerable<TicketRecord>> ExtractTicketsAsync(
+        DateTime startDate,
+        DateTime endDate,
+        CancellationToken cancellationToken = default)
+    {
+        var records = new List<TicketRecord>();
+
+        using var connection = new SqliteConnection(_connectionString);
+        await connection.OpenAsync(cancellationToken);
+
+        using var command = connection.CreateCommand();
+        command.CommandText = @"
+            SELECT
+                order_date,
+                order_code,
+                tkt_code,
+                tkt_date,
+                ship_plant_code,
+                ship_plant_loc_code,
+                invc_flag,
+                invc_code,
+                invc_date,
+                invc_seq_num,
+                tkt_status,
+                update_date
+            FROM tick
+            WHERE date(order_date) >= date(@startDate)
+              AND date(order_date) < date(@endDate)
+            ORDER BY order_date, order_code, tkt_code
+        ";
+
+        command.Parameters.AddWithValue("@startDate", startDate.ToString("yyyy-MM-dd"));
+        command.Parameters.AddWithValue("@endDate", endDate.ToString("yyyy-MM-dd"));
+
+        using var reader = await command.ExecuteReaderAsync(cancellationToken);
+        while (await reader.ReadAsync(cancellationToken))
+        {
+            records.Add(new TicketRecord
+            {
+                OrderDate = GetDateTimeFromText(reader, 0),
+                OrderCode = GetString(reader, 1),
+                TicketCode = GetString(reader, 2),
+                TicketDate = GetDateTimeFromText(reader, 3),
+                ShipPlantCode = GetString(reader, 4),
+                ShipPlantLocCode = GetString(reader, 5),
+                InvcFlag = GetString(reader, 6),
+                InvcCode = GetString(reader, 7),
+                InvcDate = GetDateTimeFromText(reader, 8),
+                InvcSeqNum = GetIntFromText(reader, 9),
+                TicketStatus = GetString(reader, 10),
+                UpdateDate = GetDateTimeFromText(reader, 11),
+            });
+        }
+
+        return records;
+    }
+
+    public async Task<IEnumerable<TicketLineRecord>> ExtractTicketLinesAsync(
+        DateTime startDate,
+        DateTime endDate,
+        CancellationToken cancellationToken = default)
+    {
+        var records = new List<TicketLineRecord>();
+
+        using var connection = new SqliteConnection(_connectionString);
+        await connection.OpenAsync(cancellationToken);
+
+        using var command = connection.CreateCommand();
+        command.CommandText = @"
+            SELECT
+                order_date,
+                order_code,
+                tkt_code,
+                order_intrnl_line_num,
+                delv_qty,
+                delv_qty_uom,
+                ship_plant_code,
+                ext_price_amt,
+                update_date
+            FROM tktl
+            WHERE date(order_date) >= date(@startDate)
+              AND date(order_date) < date(@endDate)
+            ORDER BY order_date, order_code, tkt_code, order_intrnl_line_num
+        ";
+
+        command.Parameters.AddWithValue("@startDate", startDate.ToString("yyyy-MM-dd"));
+        command.Parameters.AddWithValue("@endDate", endDate.ToString("yyyy-MM-dd"));
+
+        using var reader = await command.ExecuteReaderAsync(cancellationToken);
+        while (await reader.ReadAsync(cancellationToken))
+        {
+            records.Add(new TicketLineRecord
+            {
+                OrderDate = GetDateTimeFromText(reader, 0),
+                OrderCode = GetString(reader, 1),
+                TicketCode = GetString(reader, 2),
+                OrderInternalLineNum = GetIntFromText(reader, 3),
+                DeliveredQty = GetDecimalFromText(reader, 4),
+                DeliveredQtyUom = GetString(reader, 5),
+                ShipPlantCode = GetString(reader, 6),
+                ExtendedPriceAmount = GetDecimalFromText(reader, 7),
+                UpdateDate = GetDateTimeFromText(reader, 8),
+            });
+        }
+
+        return records;
+    }
+
+    public async Task<IEnumerable<OrderHeaderRecord>> ExtractOrdersAsync(
+        DateTime startDate,
+        DateTime endDate,
+        CancellationToken cancellationToken = default)
+    {
+        var records = new List<OrderHeaderRecord>();
+
+        using var connection = new SqliteConnection(_connectionString);
+        await connection.OpenAsync(cancellationToken);
+
+        using var command = connection.CreateCommand();
+        command.CommandText = @"
+            SELECT
+                order_date,
+                order_code,
+                cust_code,
+                cust_name,
+                ship_to_plant_code,
+                zone_code,
+                proj_code,
+                update_date
+            FROM ordr
+            WHERE date(order_date) >= date(@startDate)
+              AND date(order_date) < date(@endDate)
+            ORDER BY order_date, order_code
+        ";
+
+        command.Parameters.AddWithValue("@startDate", startDate.ToString("yyyy-MM-dd"));
+        command.Parameters.AddWithValue("@endDate", endDate.ToString("yyyy-MM-dd"));
+
+        using var reader = await command.ExecuteReaderAsync(cancellationToken);
+        while (await reader.ReadAsync(cancellationToken))
+        {
+            records.Add(new OrderHeaderRecord
+            {
+                OrderDate = GetDateTimeFromText(reader, 0),
+                OrderCode = GetString(reader, 1),
+                CustomerCode = GetString(reader, 2),
+                CustomerName = GetString(reader, 3),
+                ShipToPlantCode = GetString(reader, 4),
+                ZoneCode = GetString(reader, 5),
+                ProjectCode = GetString(reader, 6),
+                UpdateDate = GetDateTimeFromText(reader, 7),
+            });
+        }
+
+        return records;
+    }
+
     public async Task<IEnumerable<SalesDetailRecord>> ExtractSalesDetailAsync(
         DateTime startDate, 
         DateTime endDate, 
@@ -227,12 +390,39 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
         };
     }
 
-    private static DateTime? GetDateTime(SqliteDataReader r, int i) => 
+    private static DateTime? GetDateTime(SqliteDataReader r, int i) =>
         r.IsDBNull(i) ? null : r.GetDateTime(i);
-    
-    private static string? GetString(SqliteDataReader r, int i) => 
+
+    private static string? GetString(SqliteDataReader r, int i) =>
         r.IsDBNull(i) ? null : r.GetString(i)?.Trim();
-    
-    private static decimal? GetDecimal(SqliteDataReader r, int i) => 
+
+    private static decimal? GetDecimal(SqliteDataReader r, int i) =>
         r.IsDBNull(i) ? null : (decimal)r.GetDouble(i);
+
+    private static DateTime? GetDateTimeFromText(SqliteDataReader r, int i)
+    {
+        var s = GetString(r, i);
+        if (string.IsNullOrWhiteSpace(s)) return null;
+        if (DateTime.TryParseExact(s.Trim(), SupportedDateFormats, System.Globalization.CultureInfo.InvariantCulture,
+                System.Globalization.DateTimeStyles.AssumeLocal, out var dt))
+        {
+            return dt;
+        }
+        if (DateTime.TryParse(s.Trim(), out var fallback)) return fallback;
+        return null;
+    }
+
+    private static int? GetIntFromText(SqliteDataReader r, int i)
+    {
+        var s = GetString(r, i);
+        if (string.IsNullOrWhiteSpace(s)) return null;
+        return int.TryParse(s.Trim(), out var n) ? n : null;
+    }
+
+    private static decimal? GetDecimalFromText(SqliteDataReader r, int i)
+    {
+        var s = GetString(r, i);
+        if (string.IsNullOrWhiteSpace(s)) return null;
+        return decimal.TryParse(s.Trim(), out var n) ? n : null;
+    }
 }
