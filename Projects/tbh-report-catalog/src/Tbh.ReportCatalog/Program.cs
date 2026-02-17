@@ -39,9 +39,18 @@ class Program
         // Create extractor
         ICommandAlkonExtractor extractor = new SqliteCommandAlkonExtractor(dbPath);
         
-        // Define reporting period (locked to January 2025 for initial validation)
-        var startDate = new DateTime(2025, 1, 1);
-        var endDate = new DateTime(2025, 2, 1);
+        // Parse reporting period from args or default to January 2025
+        DateTime startDate, endDate;
+        if (args.Length >= 2 && DateTime.TryParse(args[0], out var s) && DateTime.TryParse(args[1], out var e))
+        {
+            startDate = s;
+            endDate = e;
+        }
+        else
+        {
+            startDate = new DateTime(2025, 1, 1);
+            endDate = new DateTime(2025, 2, 1);
+        }
         
         Console.WriteLine($"Extracting normalized datasets: {startDate:yyyy-MM-dd} to {endDate:yyyy-MM-dd}");
 
