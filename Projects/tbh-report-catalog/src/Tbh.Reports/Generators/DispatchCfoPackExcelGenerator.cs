@@ -32,8 +32,8 @@ public class DispatchCfoPackExcelGenerator
             .ToDictionary(g => g.Key, g => g.First().ShortName.Length > 0 ? g.First().ShortName : g.First().Name);
 
         AddCover(package, startDate, endDate);
-        AddDispatchPlantDay(package, ticketLines, plantNameByCode);
-        AddDispatchPlantMonth(package, ticketLines, plantNameByCode);
+        AddDispatchPlantDay(package, tickets, ticketLines, plantNameByCode);
+        AddDispatchPlantMonth(package, tickets, ticketLines, plantNameByCode);
         AddDispatchVsArByInvoice(package, tickets, ticketLines, itrn);
 
         Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
@@ -62,7 +62,7 @@ public class DispatchCfoPackExcelGenerator
         ws.Cells.AutoFitColumns();
     }
 
-    private static void AddDispatchPlantDay(ExcelPackage package, IReadOnlyList<NormalizedTicketLine> ticketLines, Dictionary<string, string> plantNameByCode)
+    private static void AddDispatchPlantDay(ExcelPackage package, IReadOnlyList<NormalizedTicket> tickets, IReadOnlyList<NormalizedTicketLine> ticketLines, Dictionary<string, string> plantNameByCode)
     {
         var ws = package.Workbook.Worksheets.Add("Dispatch Plant Day");
 
@@ -74,7 +74,7 @@ public class DispatchCfoPackExcelGenerator
             "CYARD",
         };
 
-        var rows = DispatchAnalyticsBuilders.BuildDispatchPlantDay(ticketLines, concreteUoms).ToList();
+        var rows = DispatchAnalyticsBuilders.BuildDispatchPlantDay(tickets, ticketLines, concreteUoms).ToList();
 
         var headers = new[] { "Day", "Plant", "Plant Name", "Delivered Qty", "Concrete Delivered Qty", "Revenue", "Ticket Lines" };
         for (var i = 0; i < headers.Length; i++)
@@ -106,7 +106,7 @@ public class DispatchCfoPackExcelGenerator
         ws.Cells.AutoFitColumns();
     }
 
-    private static void AddDispatchPlantMonth(ExcelPackage package, IReadOnlyList<NormalizedTicketLine> ticketLines, Dictionary<string, string> plantNameByCode)
+    private static void AddDispatchPlantMonth(ExcelPackage package, IReadOnlyList<NormalizedTicket> tickets, IReadOnlyList<NormalizedTicketLine> ticketLines, Dictionary<string, string> plantNameByCode)
     {
         var ws = package.Workbook.Worksheets.Add("Dispatch Plant Month");
 
@@ -118,7 +118,7 @@ public class DispatchCfoPackExcelGenerator
             "CYARD",
         };
 
-        var rows = DispatchAnalyticsBuilders.BuildDispatchPlantMonth(ticketLines, concreteUoms).ToList();
+        var rows = DispatchAnalyticsBuilders.BuildDispatchPlantMonth(tickets, ticketLines, concreteUoms).ToList();
 
         var headers = new[] { "Year", "Period", "Plant", "Plant Name", "Delivered Qty", "Concrete Delivered Qty", "Revenue", "Ticket Lines" };
         for (var i = 0; i < headers.Length; i++)

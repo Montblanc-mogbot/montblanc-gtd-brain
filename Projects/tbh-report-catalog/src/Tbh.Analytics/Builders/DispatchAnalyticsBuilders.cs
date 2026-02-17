@@ -9,19 +9,51 @@ public static class DispatchAnalyticsBuilders
     /// Source of truth: TKTL.ext_price_amt and TKTL.delv_qty.
     /// </summary>
     public static IEnumerable<DispatchPlantDay> BuildDispatchPlantDay(
+        IEnumerable<NormalizedTicket> tickets,
         IEnumerable<NormalizedTicketLine> lines,
         ISet<string> concreteUoms)
     {
-        return lines
+        // Join lines -> ticket header to apply removal filter and prefer header plant/date.
+        var ticketIndex = tickets
+            .Where(t => t.OrderDate != null)
+            .ToDictionary(
+                t => (Day: t.OrderDate!.Value.Date, t.OrderCode, t.TicketCode),
+                t => t);
+
+        var enriched = lines
             .Where(l => l.OrderDate != null)
-            .GroupBy(l => new { Day = l.OrderDate!.Value.Date, Plant = l.ShipPlantCode })
+            .Select(l =>
+            {
+                var day = l.OrderDate!.Value.Date;
+                ticketIndex.TryGetValue((day, l.OrderCode, l.TicketCode), out var t);
+
+                var remove = t?.RemoveReasonCode ?? string.Empty;
+                var isRemoved = !string.IsNullOrWhiteSpace(remove);
+
+                var plant = t?.ShipPlantCode ?? l.ShipPlantCode;
+                var ticketDay = (t?.TicketDate ?? t?.OrderDate ?? l.OrderDate)!.Value.Date;
+
+                return new
+                {
+                    TicketDay = ticketDay,
+                    Plant = plant,
+                    DeliveredQtyUom = l.DeliveredQtyUom,
+                    DeliveredQty = l.DeliveredQty ?? 0m,
+                    Revenue = l.ExtendedPriceAmount ?? 0m,
+                    isRemoved
+                };
+            })
+            .Where(x => !x.isRemoved);
+
+        return enriched
+            .GroupBy(x => new { x.TicketDay, x.Plant })
             .Select(g => new DispatchPlantDay
             {
-                Day = g.Key.Day,
+                Day = g.Key.TicketDay,
                 PlantCode = g.Key.Plant,
-                DeliveredQty = g.Sum(x => x.DeliveredQty ?? 0m),
-                ConcreteDeliveredQty = g.Where(x => concreteUoms.Contains(x.DeliveredQtyUom)).Sum(x => x.DeliveredQty ?? 0m),
-                Revenue = g.Sum(x => x.ExtendedPriceAmount ?? 0m),
+                DeliveredQty = g.Sum(x => x.DeliveredQty),
+                ConcreteDeliveredQty = g.Where(x => concreteUoms.Contains(x.DeliveredQtyUom)).Sum(x => x.DeliveredQty),
+                Revenue = g.Sum(x => x.Revenue),
                 TicketLineCount = g.Count(),
             })
             .OrderBy(r => r.Day)
@@ -106,20 +138,52 @@ public static class DispatchAnalyticsBuilders
     /// Business question: "How much did we deliver by plant for the month?"
     /// </summary>
     public static IEnumerable<DispatchPlantMonth> BuildDispatchPlantMonth(
+        IEnumerable<NormalizedTicket> tickets,
         IEnumerable<NormalizedTicketLine> lines,
         ISet<string> concreteUoms)
     {
-        return lines
+        // Join lines -> ticket header to apply removal filter and prefer header plant/date.
+        var ticketIndex = tickets
+            .Where(t => t.OrderDate != null)
+            .ToDictionary(
+                t => (Day: t.OrderDate!.Value.Date, t.OrderCode, t.TicketCode),
+                t => t);
+
+        var enriched = lines
             .Where(l => l.OrderDate != null)
-            .GroupBy(l => new { Year = l.OrderDate!.Value.Year, Month = l.OrderDate!.Value.Month, Plant = l.ShipPlantCode })
+            .Select(l =>
+            {
+                var day = l.OrderDate!.Value.Date;
+                ticketIndex.TryGetValue((day, l.OrderCode, l.TicketCode), out var t);
+
+                var remove = t?.RemoveReasonCode ?? string.Empty;
+                var isRemoved = !string.IsNullOrWhiteSpace(remove);
+
+                var plant = t?.ShipPlantCode ?? l.ShipPlantCode;
+                var ticketDay = (t?.TicketDate ?? t?.OrderDate ?? l.OrderDate)!.Value.Date;
+
+                return new
+                {
+                    TicketDay = ticketDay,
+                    Plant = plant,
+                    DeliveredQtyUom = l.DeliveredQtyUom,
+                    DeliveredQty = l.DeliveredQty ?? 0m,
+                    Revenue = l.ExtendedPriceAmount ?? 0m,
+                    isRemoved
+                };
+            })
+            .Where(x => !x.isRemoved);
+
+        return enriched
+            .GroupBy(x => new { x.TicketDay.Year, x.TicketDay.Month, x.Plant })
             .Select(g => new DispatchPlantMonth
             {
                 AccountingYear = g.Key.Year,
                 AccountingPeriod = g.Key.Month,
                 PlantCode = g.Key.Plant,
-                DeliveredQty = g.Sum(x => x.DeliveredQty ?? 0m),
-                ConcreteDeliveredQty = g.Where(x => concreteUoms.Contains(x.DeliveredQtyUom)).Sum(x => x.DeliveredQty ?? 0m),
-                Revenue = g.Sum(x => x.ExtendedPriceAmount ?? 0m),
+                DeliveredQty = g.Sum(x => x.DeliveredQty),
+                ConcreteDeliveredQty = g.Where(x => concreteUoms.Contains(x.DeliveredQtyUom)).Sum(x => x.DeliveredQty),
+                Revenue = g.Sum(x => x.Revenue),
                 TicketLineCount = g.Count(),
             })
             .OrderBy(r => r.AccountingYear)

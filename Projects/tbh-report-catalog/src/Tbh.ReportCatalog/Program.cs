@@ -211,8 +211,8 @@ class Program
             "CYARD",
         };
 
-        var dispatchPlantDay = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchPlantDay(tktl, concreteUoms).ToList();
-        var dispatchPlantMonth = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchPlantMonth(tktl, concreteUoms).ToList();
+        var dispatchPlantDay = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchPlantDay(tick, tktl, concreteUoms).ToList();
+        var dispatchPlantMonth = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchPlantMonth(tick, tktl, concreteUoms).ToList();
         var dispatchInvoiceTotals = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchInvoiceTotals(tick, tktl).ToList();
         var dispatchVsArRecon = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchVsArInvoiceRecon(dispatchInvoiceTotals, itrn).ToList();
 
