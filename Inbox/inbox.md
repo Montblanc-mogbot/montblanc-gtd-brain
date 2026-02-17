@@ -8,6 +8,7 @@
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: Sample data from slsd, plnt tables (10-20 anonymized rows)
 - [x] #focus #nextaction #project/tbh-report-catalog Implement normalization layer for dispatch primary tables (TICK/TKTL/ORDR + ITRN) and export clean normalized CSVs for analytics — DONE: added ITRN extract+normalize+CSV export; dispatch CSV export already present; demo now skips missing tables gracefully
 - [x] #focus #nextaction #project/tbh-report-catalog Integrate UOMS into pipeline: add normalized Uoms CSV export + update analytics to compute concrete yards via UOM filter (start with uom=40003) and add a DispatchUomSummary verification CSV — DONE: extractor+normalized export, concrete_delv_qty added, DispatchUomSummary added; commit e070fc9
+- [x] #focus #nextaction #project/tbh-report-catalog Update DispatchPlantDay analytic: drop delv_qty, rename concrete_delv_qty→quantity, use ticket_count (distinct tickets), add unique_truck_count (distinct truck_code) — DONE: added truck_code to tickets; updated analytics+report; commit ed96414
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: upload `export_out.zip` (zipped export_out folder) to TBH Report Catalog Discord thread so I can ingest full exports
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: GL schema (table names for expenses)
 - [ ] #focus #waitingfor Collect and synthesize Griddle feedback from employee testing (waiting for employees to submit feedback)
