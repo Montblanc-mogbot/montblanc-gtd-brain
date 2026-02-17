@@ -81,6 +81,13 @@ class Program
             tick = tickRaw.Select(CommandAlkonDispatchNormalizer.Normalize).ToList();
             tktl = tktlRaw.Select(CommandAlkonDispatchNormalizer.Normalize).ToList();
             ordr = ordrRaw.Select(CommandAlkonDispatchNormalizer.Normalize).ToList();
+
+            // Normalization: exclude removed tickets and their lines (auditable filter)
+            tick = tick.Where(t => string.IsNullOrWhiteSpace(t.RemoveReasonCode)).ToList();
+            var validTicketKeys = new HashSet<(DateTime?, string, string)>(
+                tick.Select(t => (t.OrderDate, t.OrderCode, t.TicketCode))
+            );
+            tktl = tktl.Where(l => validTicketKeys.Contains((l.OrderDate, l.OrderCode, l.TicketCode))).ToList();
         }
         catch (Exception ex)
         {
