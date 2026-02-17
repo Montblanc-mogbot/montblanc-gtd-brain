@@ -178,6 +178,7 @@ class Program
             ("tkt_code", r => r.TicketCode),
             ("tkt_date", r => r.TicketDate?.ToString("yyyy-MM-dd") ?? ""),
             ("ship_plant_code", r => r.ShipPlantCode),
+            ("truck_code", r => r.TruckCode),
             ("remove_rsn_code", r => r.RemoveReasonCode),
             ("invc_flag", r => r.InvcFlag),
             ("invc_code", r => r.InvcCode),
@@ -283,10 +284,10 @@ class Program
         [
             ("day", r => r.Day.ToString("yyyy-MM-dd")),
             ("plant_code", r => r.PlantCode),
-            ("delv_qty", r => r.DeliveredQty.ToString()),
-            ("concrete_delv_qty", r => r.ConcreteDeliveredQty.ToString()),
+            ("quantity", r => r.Quantity.ToString()),
             ("revenue", r => r.Revenue.ToString()),
-            ("ticket_line_count", r => r.TicketLineCount.ToString()),
+            ("ticket_count", r => r.TicketCount.ToString()),
+            ("unique_truck_count", r => r.UniqueTruckCount.ToString()),
         ]);
 
         await NormalizedCsvWriter.WriteAsync(dispatchPlantMonth, plantMonthOut,

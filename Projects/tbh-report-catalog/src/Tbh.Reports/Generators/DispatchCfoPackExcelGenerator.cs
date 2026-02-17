@@ -76,7 +76,7 @@ public class DispatchCfoPackExcelGenerator
 
         var rows = DispatchAnalyticsBuilders.BuildDispatchPlantDay(tickets, ticketLines, concreteUoms).ToList();
 
-        var headers = new[] { "Day", "Plant", "Plant Name", "Delivered Qty", "Concrete Delivered Qty", "Revenue", "Ticket Lines" };
+        var headers = new[] { "Day", "Plant", "Plant Name", "Quantity", "Revenue", "Ticket Count", "Unique Truck Count" };
         for (var i = 0; i < headers.Length; i++)
         {
             var cell = ws.Cells[1, i + 1];
@@ -94,13 +94,12 @@ public class DispatchCfoPackExcelGenerator
             ws.Cells[excelRow, 1].Style.Numberformat.Format = "yyyy-mm-dd";
             ws.Cells[excelRow, 2].Value = row.PlantCode;
             ws.Cells[excelRow, 3].Value = plantNameByCode.TryGetValue(row.PlantCode, out var name) ? name : "";
-            ws.Cells[excelRow, 4].Value = (double)row.DeliveredQty;
+            ws.Cells[excelRow, 4].Value = (double)row.Quantity;
             ws.Cells[excelRow, 4].Style.Numberformat.Format = "#,##0.00";
-            ws.Cells[excelRow, 5].Value = (double)row.ConcreteDeliveredQty;
-            ws.Cells[excelRow, 5].Style.Numberformat.Format = "#,##0.00";
-            ws.Cells[excelRow, 6].Value = (double)row.Revenue;
-            ws.Cells[excelRow, 6].Style.Numberformat.Format = "$#,##0.00";
-            ws.Cells[excelRow, 7].Value = row.TicketLineCount;
+            ws.Cells[excelRow, 5].Value = (double)row.Revenue;
+            ws.Cells[excelRow, 5].Style.Numberformat.Format = "$#,##0.00";
+            ws.Cells[excelRow, 6].Value = row.TicketCount;
+            ws.Cells[excelRow, 7].Value = row.UniqueTruckCount;
         }
 
         ws.Cells.AutoFitColumns();

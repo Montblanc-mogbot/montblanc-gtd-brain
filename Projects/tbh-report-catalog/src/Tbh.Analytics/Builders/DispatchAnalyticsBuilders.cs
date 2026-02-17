@@ -37,6 +37,8 @@ public static class DispatchAnalyticsBuilders
                 {
                     TicketDay = ticketDay,
                     Plant = plant,
+                    TicketCode = l.TicketCode,
+                    TruckCode = t?.TruckCode ?? string.Empty,
                     DeliveredQtyUom = l.DeliveredQtyUom,
                     DeliveredQty = l.DeliveredQty ?? 0m,
                     Revenue = l.ExtendedPriceAmount ?? 0m,
@@ -51,10 +53,10 @@ public static class DispatchAnalyticsBuilders
             {
                 Day = g.Key.TicketDay,
                 PlantCode = g.Key.Plant,
-                DeliveredQty = g.Sum(x => x.DeliveredQty),
-                ConcreteDeliveredQty = g.Where(x => concreteUoms.Contains(x.DeliveredQtyUom)).Sum(x => x.DeliveredQty),
+                Quantity = g.Where(x => concreteUoms.Contains(x.DeliveredQtyUom)).Sum(x => x.DeliveredQty),
                 Revenue = g.Sum(x => x.Revenue),
-                TicketLineCount = g.Count(),
+                TicketCount = g.Select(x => x.TicketCode).Where(x => !string.IsNullOrWhiteSpace(x)).Distinct().Count(),
+                UniqueTruckCount = g.Select(x => x.TruckCode).Where(x => !string.IsNullOrWhiteSpace(x)).Distinct().Count(),
             })
             .OrderBy(r => r.Day)
             .ThenBy(r => r.PlantCode);
@@ -266,10 +268,14 @@ public record DispatchPlantDay
 {
     public DateTime Day { get; init; }
     public string PlantCode { get; init; } = string.Empty;
-    public decimal DeliveredQty { get; init; }
-    public decimal ConcreteDeliveredQty { get; init; }
+
+    // Concrete yards only (UOM-filtered).
+    public decimal Quantity { get; init; }
+
     public decimal Revenue { get; init; }
-    public int TicketLineCount { get; init; }
+
+    public int TicketCount { get; init; }
+    public int UniqueTruckCount { get; init; }
 }
 
 public record DispatchLoadsVolumeByDayPlant

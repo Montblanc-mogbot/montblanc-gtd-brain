@@ -26,6 +26,7 @@ public static class CommandAlkonDispatchNormalizer
             TicketDate = r.TicketDate,
             ShipPlantCode = NormalizePlantCode(r.ShipPlantCode),
             RawShipPlantCode = r.ShipPlantCode,
+            TruckCode = NormalizeCode(r.TruckCode).ToUpperInvariant(),
             RemoveReasonCode = NormalizeCode(r.RemoveReasonCode),
             InvcFlag = NormalizeCode(r.InvcFlag),
             InvcCode = NormalizeCode(r.InvcCode),
@@ -81,6 +82,8 @@ public record NormalizedTicket
 
     public string ShipPlantCode { get; init; } = string.Empty;
     public string? RawShipPlantCode { get; init; }
+
+    public string TruckCode { get; init; } = string.Empty;
 
     public string RemoveReasonCode { get; init; } = string.Empty;
 

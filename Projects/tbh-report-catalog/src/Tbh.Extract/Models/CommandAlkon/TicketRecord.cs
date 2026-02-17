@@ -15,6 +15,8 @@ public record TicketRecord
     public string? ShipPlantCode { get; init; }
     public string? ShipPlantLocCode { get; init; }
 
+    public string? TruckCode { get; init; }
+
     /// <summary>
     /// When present, the ticket was removed/voided for this reason.
     /// For analytics, tickets with a non-null/non-empty remove_rsn_code should be excluded.
