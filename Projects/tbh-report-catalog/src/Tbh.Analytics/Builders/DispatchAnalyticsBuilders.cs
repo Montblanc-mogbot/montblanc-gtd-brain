@@ -8,7 +8,9 @@ public static class DispatchAnalyticsBuilders
     /// Business question: "How much did we deliver (volume + $) by plant each day?"
     /// Source of truth: TKTL.ext_price_amt and TKTL.delv_qty.
     /// </summary>
-    public static IEnumerable<DispatchPlantDay> BuildDispatchPlantDay(IEnumerable<NormalizedTicketLine> lines)
+    public static IEnumerable<DispatchPlantDay> BuildDispatchPlantDay(
+        IEnumerable<NormalizedTicketLine> lines,
+        ISet<string> concreteUoms)
     {
         return lines
             .Where(l => l.OrderDate != null)
@@ -18,6 +20,7 @@ public static class DispatchAnalyticsBuilders
                 Day = g.Key.Day,
                 PlantCode = g.Key.Plant,
                 DeliveredQty = g.Sum(x => x.DeliveredQty ?? 0m),
+                ConcreteDeliveredQty = g.Where(x => concreteUoms.Contains(x.DeliveredQtyUom)).Sum(x => x.DeliveredQty ?? 0m),
                 Revenue = g.Sum(x => x.ExtendedPriceAmount ?? 0m),
                 TicketLineCount = g.Count(),
             })
@@ -102,7 +105,9 @@ public static class DispatchAnalyticsBuilders
     /// <summary>
     /// Business question: "How much did we deliver by plant for the month?"
     /// </summary>
-    public static IEnumerable<DispatchPlantMonth> BuildDispatchPlantMonth(IEnumerable<NormalizedTicketLine> lines)
+    public static IEnumerable<DispatchPlantMonth> BuildDispatchPlantMonth(
+        IEnumerable<NormalizedTicketLine> lines,
+        ISet<string> concreteUoms)
     {
         return lines
             .Where(l => l.OrderDate != null)
@@ -113,6 +118,7 @@ public static class DispatchAnalyticsBuilders
                 AccountingPeriod = g.Key.Month,
                 PlantCode = g.Key.Plant,
                 DeliveredQty = g.Sum(x => x.DeliveredQty ?? 0m),
+                ConcreteDeliveredQty = g.Where(x => concreteUoms.Contains(x.DeliveredQtyUom)).Sum(x => x.DeliveredQty ?? 0m),
                 Revenue = g.Sum(x => x.ExtendedPriceAmount ?? 0m),
                 TicketLineCount = g.Count(),
             })
@@ -197,6 +203,7 @@ public record DispatchPlantDay
     public DateTime Day { get; init; }
     public string PlantCode { get; init; } = string.Empty;
     public decimal DeliveredQty { get; init; }
+    public decimal ConcreteDeliveredQty { get; init; }
     public decimal Revenue { get; init; }
     public int TicketLineCount { get; init; }
 }
@@ -220,6 +227,7 @@ public record DispatchPlantMonth
     public int AccountingPeriod { get; init; }
     public string PlantCode { get; init; } = string.Empty;
     public decimal DeliveredQty { get; init; }
+    public decimal ConcreteDeliveredQty { get; init; }
     public decimal Revenue { get; init; }
     public int TicketLineCount { get; init; }
 }

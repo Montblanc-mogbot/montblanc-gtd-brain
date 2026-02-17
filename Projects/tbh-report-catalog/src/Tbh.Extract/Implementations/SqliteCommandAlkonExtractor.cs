@@ -135,6 +135,34 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
         return items;
     }
 
+    public async Task<IEnumerable<UomRecord>> ExtractUomsAsync(CancellationToken cancellationToken = default)
+    {
+        var uoms = new List<UomRecord>();
+
+        using var connection = new SqliteConnection(_connectionString);
+        await connection.OpenAsync(cancellationToken);
+
+        using var command = connection.CreateCommand();
+        command.CommandText = @"
+            SELECT uom, descr, abbr
+            FROM uoms
+            ORDER BY uom
+        ";
+
+        using var reader = await command.ExecuteReaderAsync(cancellationToken);
+        while (await reader.ReadAsync(cancellationToken))
+        {
+            uoms.Add(new UomRecord
+            {
+                UomCode = reader.IsDBNull(0) ? string.Empty : reader.GetString(0)?.Trim() ?? string.Empty,
+                Name = reader.IsDBNull(1) ? null : reader.GetString(1)?.Trim(),
+                Abbreviation = reader.IsDBNull(2) ? null : reader.GetString(2)?.Trim(),
+            });
+        }
+
+        return uoms;
+    }
+
     public async Task<IEnumerable<TicketRecord>> ExtractTicketsAsync(
         DateTime startDate,
         DateTime endDate,

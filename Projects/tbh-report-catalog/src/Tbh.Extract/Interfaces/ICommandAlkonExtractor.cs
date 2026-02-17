@@ -25,6 +25,11 @@ public interface ICommandAlkonExtractor
     Task<IEnumerable<ItemMasterRecord>> ExtractItemsAsync(CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Extract all units of measure from the uoms table.
+    /// </summary>
+    Task<IEnumerable<UomRecord>> ExtractUomsAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Extract TICK (ticket headers) for a date range.
     /// Primary dispatch truth for plant attribution, invoicing status, etc.
     /// </summary>

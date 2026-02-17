@@ -55,6 +55,9 @@ class Program
         var items = (await extractor.ExtractItemsAsync())
             .Select(CommandAlkonMasterDataNormalizer.Normalize)
             .ToList();
+        var uoms = (await extractor.ExtractUomsAsync())
+            .Select(CommandAlkonMasterDataNormalizer.Normalize)
+            .ToList();
 
         // Billing/AR transactions (ITRN)
         var itrn = (await extractor.ExtractItrnAsync(startDate, endDate))
@@ -98,6 +101,7 @@ class Program
         var customersOut = Path.Combine(normalizedDir, $"{prefix} Customers.csv");
         var itemsOut = Path.Combine(normalizedDir, $"{prefix} Items.csv");
         var itrnOut = Path.Combine(normalizedDir, $"{prefix} InvoiceTransactions.csv");
+        var uomsOut = Path.Combine(normalizedDir, $"{prefix} Uoms.csv");
 
         var tickOut = Path.Combine(normalizedDir, $"{prefix} Tickets.csv");
         var tktlOut = Path.Combine(normalizedDir, $"{prefix} TicketLines.csv");
@@ -127,6 +131,13 @@ class Program
             ("descr", r => r.Description),
             ("item_cat", r => r.ItemCategory),
             ("matl_type", r => r.MaterialType),
+        ]);
+
+        await NormalizedCsvWriter.WriteAsync(uoms, uomsOut,
+        [
+            ("uom", r => r.UomCode),
+            ("name", r => r.Name),
+            ("abbr", r => r.Abbreviation),
         ]);
 
         await NormalizedCsvWriter.WriteAsync(itrn, itrnOut,
@@ -178,6 +189,7 @@ class Program
         Console.WriteLine($"  PLNT: {plants.Count} rows -> {plantsOut}");
         Console.WriteLine($"  CUST: {customers.Count} rows -> {customersOut}");
         Console.WriteLine($"  IMST: {items.Count} rows -> {itemsOut}");
+        Console.WriteLine($"  UOMS: {uoms.Count} rows -> {uomsOut}");
         Console.WriteLine($"  ITRN: {itrn.Count} rows -> {itrnOut}");
         Console.WriteLine($"  TICK: {tick.Count} rows -> {tickOut}");
         Console.WriteLine($"  TKTL: {tktl.Count} rows -> {tktlOut}");
@@ -186,11 +198,6 @@ class Program
         // === Analytical datasets (each answers one business question well) ===
         var analyticsDir = Path.Combine(projectRoot, "analytics");
         Directory.CreateDirectory(analyticsDir);
-
-        var dispatchPlantDay = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchPlantDay(tktl).ToList();
-        var dispatchPlantMonth = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchPlantMonth(tktl).ToList();
-        var dispatchInvoiceTotals = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchInvoiceTotals(tick, tktl).ToList();
-        var dispatchVsArRecon = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchVsArInvoiceRecon(dispatchInvoiceTotals, itrn).ToList();
 
         var concreteUoms = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
@@ -201,6 +208,15 @@ class Program
             "CYARD",
         };
 
+        var dispatchPlantDay = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchPlantDay(tktl, concreteUoms).ToList();
+        var dispatchPlantMonth = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchPlantMonth(tktl, concreteUoms).ToList();
+        var dispatchInvoiceTotals = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchInvoiceTotals(tick, tktl).ToList();
+        var dispatchVsArRecon = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchVsArInvoiceRecon(dispatchInvoiceTotals, itrn).ToList();
+
+        var dispatchUomSummary = Tbh.Analytics.Builders.DispatchUomSummaryBuilder
+            .BuildDispatchUomSummary(tick, tktl)
+            .ToList();
+
         var loadsVolByDayPlant = Tbh.Analytics.Builders.DispatchAnalyticsBuilders
             .BuildDispatchLoadsVolumeByDayPlant(tick, tktl, ordr, concreteUoms)
             .ToList();
@@ -209,12 +225,14 @@ class Program
         var plantMonthOut = Path.Combine(analyticsDir, $"{prefix} DispatchPlantMonth.csv");
         var reconOut = Path.Combine(analyticsDir, $"{prefix} DispatchVsAR_ByInvoice.csv");
         var loadsVolOut = Path.Combine(analyticsDir, $"{prefix} DispatchLoadsVolumeByDayPlant_ProductLine_Uom.csv");
+        var uomSummaryOut = Path.Combine(analyticsDir, $"{prefix} DispatchUomSummary.csv");
 
         await NormalizedCsvWriter.WriteAsync(dispatchPlantDay, plantDayOut,
         [
             ("day", r => r.Day.ToString("yyyy-MM-dd")),
             ("plant_code", r => r.PlantCode),
             ("delv_qty", r => r.DeliveredQty.ToString()),
+            ("concrete_delv_qty", r => r.ConcreteDeliveredQty.ToString()),
             ("revenue", r => r.Revenue.ToString()),
             ("ticket_line_count", r => r.TicketLineCount.ToString()),
         ]);
@@ -225,6 +243,7 @@ class Program
             ("acct_period", r => r.AccountingPeriod.ToString()),
             ("plant_code", r => r.PlantCode),
             ("delv_qty", r => r.DeliveredQty.ToString()),
+            ("concrete_delv_qty", r => r.ConcreteDeliveredQty.ToString()),
             ("revenue", r => r.Revenue.ToString()),
             ("ticket_line_count", r => r.TicketLineCount.ToString()),
         ]);
@@ -249,10 +268,21 @@ class Program
             ("ticket_line_count", r => r.TicketLineCount.ToString()),
         ]);
 
+        await NormalizedCsvWriter.WriteAsync(dispatchUomSummary, uomSummaryOut,
+        [
+            ("day", r => r.Day.ToString("yyyy-MM-dd")),
+            ("plant_code", r => r.PlantCode),
+            ("delv_qty_uom", r => r.DeliveredQtyUom),
+            ("delv_qty", r => r.DeliveredQty.ToString()),
+            ("revenue", r => r.Revenue.ToString()),
+            ("ticket_line_count", r => r.TicketLineCount.ToString()),
+        ]);
+
         Console.WriteLine($"  ANALYTICS: {dispatchPlantDay.Count} rows -> {plantDayOut}");
         Console.WriteLine($"  ANALYTICS: {dispatchPlantMonth.Count} rows -> {plantMonthOut}");
         Console.WriteLine($"  ANALYTICS: {dispatchVsArRecon.Count} rows -> {reconOut}");
-        Console.WriteLine($"  ANALYTICS: {loadsVolByDayPlant.Count} rows -> {loadsVolOut}\n");
+        Console.WriteLine($"  ANALYTICS: {loadsVolByDayPlant.Count} rows -> {loadsVolOut}");
+        Console.WriteLine($"  ANALYTICS: {dispatchUomSummary.Count} rows -> {uomSummaryOut}\n");
 
         try
         {

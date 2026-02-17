@@ -65,9 +65,18 @@ public class DispatchCfoPackExcelGenerator
     private static void AddDispatchPlantDay(ExcelPackage package, IReadOnlyList<NormalizedTicketLine> ticketLines, Dictionary<string, string> plantNameByCode)
     {
         var ws = package.Workbook.Worksheets.Add("Dispatch Plant Day");
-        var rows = DispatchAnalyticsBuilders.BuildDispatchPlantDay(ticketLines).ToList();
 
-        var headers = new[] { "Day", "Plant", "Plant Name", "Delivered Qty", "Revenue", "Ticket Lines" };
+        var concreteUoms = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            "40003",
+            "40005",
+            "CY",
+            "CYARD",
+        };
+
+        var rows = DispatchAnalyticsBuilders.BuildDispatchPlantDay(ticketLines, concreteUoms).ToList();
+
+        var headers = new[] { "Day", "Plant", "Plant Name", "Delivered Qty", "Concrete Delivered Qty", "Revenue", "Ticket Lines" };
         for (var i = 0; i < headers.Length; i++)
         {
             var cell = ws.Cells[1, i + 1];
@@ -87,9 +96,11 @@ public class DispatchCfoPackExcelGenerator
             ws.Cells[excelRow, 3].Value = plantNameByCode.TryGetValue(row.PlantCode, out var name) ? name : "";
             ws.Cells[excelRow, 4].Value = (double)row.DeliveredQty;
             ws.Cells[excelRow, 4].Style.Numberformat.Format = "#,##0.00";
-            ws.Cells[excelRow, 5].Value = (double)row.Revenue;
-            ws.Cells[excelRow, 5].Style.Numberformat.Format = "$#,##0.00";
-            ws.Cells[excelRow, 6].Value = row.TicketLineCount;
+            ws.Cells[excelRow, 5].Value = (double)row.ConcreteDeliveredQty;
+            ws.Cells[excelRow, 5].Style.Numberformat.Format = "#,##0.00";
+            ws.Cells[excelRow, 6].Value = (double)row.Revenue;
+            ws.Cells[excelRow, 6].Style.Numberformat.Format = "$#,##0.00";
+            ws.Cells[excelRow, 7].Value = row.TicketLineCount;
         }
 
         ws.Cells.AutoFitColumns();
@@ -98,9 +109,18 @@ public class DispatchCfoPackExcelGenerator
     private static void AddDispatchPlantMonth(ExcelPackage package, IReadOnlyList<NormalizedTicketLine> ticketLines, Dictionary<string, string> plantNameByCode)
     {
         var ws = package.Workbook.Worksheets.Add("Dispatch Plant Month");
-        var rows = DispatchAnalyticsBuilders.BuildDispatchPlantMonth(ticketLines).ToList();
 
-        var headers = new[] { "Year", "Period", "Plant", "Plant Name", "Delivered Qty", "Revenue", "Ticket Lines" };
+        var concreteUoms = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            "40003",
+            "40005",
+            "CY",
+            "CYARD",
+        };
+
+        var rows = DispatchAnalyticsBuilders.BuildDispatchPlantMonth(ticketLines, concreteUoms).ToList();
+
+        var headers = new[] { "Year", "Period", "Plant", "Plant Name", "Delivered Qty", "Concrete Delivered Qty", "Revenue", "Ticket Lines" };
         for (var i = 0; i < headers.Length; i++)
         {
             var cell = ws.Cells[1, i + 1];
@@ -120,9 +140,11 @@ public class DispatchCfoPackExcelGenerator
             ws.Cells[excelRow, 4].Value = plantNameByCode.TryGetValue(row.PlantCode, out var name) ? name : "";
             ws.Cells[excelRow, 5].Value = (double)row.DeliveredQty;
             ws.Cells[excelRow, 5].Style.Numberformat.Format = "#,##0.00";
-            ws.Cells[excelRow, 6].Value = (double)row.Revenue;
-            ws.Cells[excelRow, 6].Style.Numberformat.Format = "$#,##0.00";
-            ws.Cells[excelRow, 7].Value = row.TicketLineCount;
+            ws.Cells[excelRow, 6].Value = (double)row.ConcreteDeliveredQty;
+            ws.Cells[excelRow, 6].Style.Numberformat.Format = "#,##0.00";
+            ws.Cells[excelRow, 7].Value = (double)row.Revenue;
+            ws.Cells[excelRow, 7].Style.Numberformat.Format = "$#,##0.00";
+            ws.Cells[excelRow, 8].Value = row.TicketLineCount;
         }
 
         ws.Cells.AutoFitColumns();

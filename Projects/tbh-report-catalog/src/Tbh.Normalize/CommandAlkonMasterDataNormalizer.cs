@@ -41,6 +41,16 @@ public static class CommandAlkonMasterDataNormalizer
             PriceUom = Norm(r.PriceUom).ToUpperInvariant(),
         };
     }
+
+    public static NormalizedUom Normalize(UomRecord r)
+    {
+        return new NormalizedUom
+        {
+            UomCode = Norm(r.UomCode).ToUpperInvariant(),
+            Name = Norm(r.Name),
+            Abbreviation = Norm(r.Abbreviation).ToUpperInvariant(),
+        };
+    }
 }
 
 public record NormalizedPlant
@@ -70,4 +80,11 @@ public record NormalizedItem
 
     public string OrderUom { get; init; } = string.Empty;
     public string PriceUom { get; init; } = string.Empty;
+}
+
+public record NormalizedUom
+{
+    public string UomCode { get; init; } = string.Empty;
+    public string Name { get; init; } = string.Empty;
+    public string Abbreviation { get; init; } = string.Empty;
 }
