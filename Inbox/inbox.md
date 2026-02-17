@@ -10,7 +10,7 @@
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: GL schema (table names for expenses)
 - [ ] #focus #waitingfor Collect and synthesize Griddle feedback from employee testing (waiting for employees to submit feedback)
 - [x] #focus #nextaction #project/tbh-report-catalog Add ITRN CSV into SQLite dummy DB + draft CFO Dispatch/Billing report layout — DONE: imported itrn_sample.csv into data/tbh_dummy.sqlite; drafted docs/cfo-dispatch-billing-report-layout.md
-- [ ] #focus #nextaction #project/tbh-month-end-procedures Plan TBH Month End procedures project (tax workflow + process docs) — IN PROGRESS: created planning.md template, blocked on web search API + Python script overview
+- [ ] #focus #waitingfor #project/tbh-month-end-procedures Plan TBH Month End procedures project (tax workflow + process docs) — BLOCKED: need Python script overview + web search/browser access for state deadline research
 - [x] #focus #nextaction Design undo/redo system for Griddle (prep for implementation) — DONE (design doc at `Projects/griddle/docs/undo-redo-design.md`)
 - [ ] #waitingfor #project/moghome-discord-setup Set Montblanc bot avatar and server/channel icon (manual: requires Discord Developer Portal access)
 - [ ] #waitingfor #project/linux-ricing-montblanc-fft Set Montblanc avatar (Discord/OpenClaw)
