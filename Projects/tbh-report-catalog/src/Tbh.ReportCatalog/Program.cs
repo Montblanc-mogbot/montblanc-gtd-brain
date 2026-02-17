@@ -64,6 +64,9 @@ class Program
             .Select(CommandAlkonItrnNormalizer.Normalize)
             .ToList();
 
+        // AR trial balance / open items (ARTB) - optional alternate AR truth
+        var artb = (await extractor.ExtractArtbAsync(startDate, endDate)).ToList();
+
         // Dispatch-side extracts (TICK/TKTL/ORDR). Not all dummy DBs include these tables.
         List<Tbh.Normalize.NormalizedTicket> tick = [];
         List<Tbh.Normalize.NormalizedTicketLine> tktl = [];
@@ -213,6 +216,37 @@ class Program
         var dispatchInvoiceTotals = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchInvoiceTotals(tick, tktl).ToList();
         var dispatchVsArRecon = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchVsArInvoiceRecon(dispatchInvoiceTotals, itrn).ToList();
 
+        // ARTB-based AR totals (alternate view)
+        var arByInvoiceArtb = artb
+            .Where(r => r.PrimaryTransactionType == "11")
+            .Where(r => !string.IsNullOrWhiteSpace(r.InvoiceCode))
+            .GroupBy(r => r.InvoiceCode!.Trim())
+            .Select(g => new
+            {
+                InvoiceCode = g.Key,
+                Sales = g.Sum(x => x.SalesAmount ?? 0m),
+                Tax = g.Sum(x => x.TaxAmount ?? 0m),
+            })
+            .ToDictionary(x => x.InvoiceCode);
+
+        var dispatchVsArtbRecon = dispatchInvoiceTotals
+            .Select(d =>
+            {
+                arByInvoiceArtb.TryGetValue(d.InvoiceCode, out var ar);
+                var arTotal = (ar?.Sales ?? 0m) + (ar?.Tax ?? 0m);
+                return new
+                {
+                    d.InvoiceCode,
+                    DispatchRevenue = d.DispatchRevenue,
+                    ArtbSales = ar?.Sales ?? 0m,
+                    ArtbTax = ar?.Tax ?? 0m,
+                    ArtbTotal = arTotal,
+                    Difference = d.DispatchRevenue - arTotal,
+                };
+            })
+            .OrderBy(r => r.InvoiceCode)
+            .ToList();
+
         var dispatchUomSummary = Tbh.Analytics.Builders.DispatchUomSummaryBuilder
             .BuildDispatchUomSummary(tick, tktl)
             .ToList();
@@ -224,7 +258,9 @@ class Program
         var plantDayOut = Path.Combine(analyticsDir, $"{prefix} DispatchPlantDay.csv");
         var plantMonthOut = Path.Combine(analyticsDir, $"{prefix} DispatchPlantMonth.csv");
         var reconOut = Path.Combine(analyticsDir, $"{prefix} DispatchVsAR_ByInvoice.csv");
+        var reconArtbOut = Path.Combine(analyticsDir, $"{prefix} DispatchVsAR_ByInvoice_ARTB.csv");
         var loadsVolOut = Path.Combine(analyticsDir, $"{prefix} DispatchLoadsVolumeByDayPlant_ProductLine_Uom.csv");
+        var arArtbOut = Path.Combine(analyticsDir, $"{prefix} ARInvoiceTotals_ARTB.csv");
         var uomSummaryOut = Path.Combine(analyticsDir, $"{prefix} DispatchUomSummary.csv");
 
         await NormalizedCsvWriter.WriteAsync(dispatchPlantDay, plantDayOut,
@@ -256,6 +292,24 @@ class Program
             ("difference", r => r.Difference.ToString()),
         ]);
 
+        await NormalizedCsvWriter.WriteAsync(dispatchVsArtbRecon, reconArtbOut,
+        [
+            ("invc_code", r => r.InvoiceCode),
+            ("dispatch_revenue", r => r.DispatchRevenue.ToString()),
+            ("artb_sales_amt", r => r.ArtbSales.ToString()),
+            ("artb_tax_amt", r => r.ArtbTax.ToString()),
+            ("artb_total", r => r.ArtbTotal.ToString()),
+            ("difference", r => r.Difference.ToString()),
+        ]);
+
+        await NormalizedCsvWriter.WriteAsync(arByInvoiceArtb.OrderBy(kv => kv.Key).Select(kv => kv.Value), arArtbOut,
+        [
+            ("invc_code", r => r.InvoiceCode),
+            ("sales_amt", r => r.Sales.ToString()),
+            ("tax_amt", r => r.Tax.ToString()),
+            ("total", r => (r.Sales + r.Tax).ToString()),
+        ]);
+
         await NormalizedCsvWriter.WriteAsync(loadsVolByDayPlant, loadsVolOut,
         [
             ("day", r => r.Day.ToString("yyyy-MM-dd")),
@@ -281,6 +335,8 @@ class Program
         Console.WriteLine($"  ANALYTICS: {dispatchPlantDay.Count} rows -> {plantDayOut}");
         Console.WriteLine($"  ANALYTICS: {dispatchPlantMonth.Count} rows -> {plantMonthOut}");
         Console.WriteLine($"  ANALYTICS: {dispatchVsArRecon.Count} rows -> {reconOut}");
+        Console.WriteLine($"  ANALYTICS: {dispatchVsArtbRecon.Count} rows -> {reconArtbOut}");
+        Console.WriteLine($"  ANALYTICS: {arByInvoiceArtb.Count} rows -> {arArtbOut}");
         Console.WriteLine($"  ANALYTICS: {loadsVolByDayPlant.Count} rows -> {loadsVolOut}");
         Console.WriteLine($"  ANALYTICS: {dispatchUomSummary.Count} rows -> {uomSummaryOut}\n");
 

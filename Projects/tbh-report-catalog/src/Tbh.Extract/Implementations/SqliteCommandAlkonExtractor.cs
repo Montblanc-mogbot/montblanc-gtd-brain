@@ -400,6 +400,52 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
         return records;
     }
 
+    public async Task<IEnumerable<ArtbRecord>> ExtractArtbAsync(
+        DateTime startDate,
+        DateTime endDate,
+        CancellationToken cancellationToken = default)
+    {
+        var records = new List<ArtbRecord>();
+
+        using var connection = new SqliteConnection(_connectionString);
+        await connection.OpenAsync(cancellationToken);
+
+        using var command = connection.CreateCommand();
+        command.CommandText = @"
+            SELECT
+                cust_code,
+                item_ref_code,
+                trans_date,
+                prim_trans_type,
+                sales_amt,
+                tax_amt
+            FROM artb
+            WHERE trans_date IS NOT NULL
+              AND date(trans_date) >= date(@startDate)
+              AND date(trans_date) < date(@endDate)
+            ORDER BY trans_date, item_ref_code
+        ";
+
+        command.Parameters.AddWithValue("@startDate", startDate.ToString("yyyy-MM-dd"));
+        command.Parameters.AddWithValue("@endDate", endDate.ToString("yyyy-MM-dd"));
+
+        using var reader = await command.ExecuteReaderAsync(cancellationToken);
+        while (await reader.ReadAsync(cancellationToken))
+        {
+            records.Add(new ArtbRecord
+            {
+                CustomerCode = GetString(reader, 0),
+                InvoiceCode = GetString(reader, 1),
+                TransactionDate = GetDateTimeFromText(reader, 2),
+                PrimaryTransactionType = GetString(reader, 3),
+                SalesAmount = GetDecimalFromText(reader, 4),
+                TaxAmount = GetDecimalFromText(reader, 5),
+            });
+        }
+
+        return records;
+    }
+
     public async Task<IEnumerable<SalesDetailRecord>> ExtractSalesDetailAsync(
         DateTime startDate, 
         DateTime endDate, 

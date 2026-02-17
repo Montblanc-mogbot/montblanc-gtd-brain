@@ -66,6 +66,15 @@ public interface ICommandAlkonExtractor
         CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Extract ARTB (AR trial balance / open items) for a date range.
+    /// Alternate AR source that may be better suited for reconciliation.
+    /// </summary>
+    Task<IEnumerable<ArtbRecord>> ExtractArtbAsync(
+        DateTime startDate,
+        DateTime endDate,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Extract sales detail for a date range.
     /// NOTE: Currently backed by ORDL in the dummy DB; being phased out for dispatch-first reporting.
     /// </summary>
