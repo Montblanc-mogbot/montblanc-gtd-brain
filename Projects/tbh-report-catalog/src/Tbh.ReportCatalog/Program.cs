@@ -39,7 +39,7 @@ class Program
         // Create extractor
         ICommandAlkonExtractor extractor = new SqliteCommandAlkonExtractor(dbPath);
         
-        // Define reporting period (January 2025 to match ORDL sample)
+        // Define reporting period (locked to January 2025 for initial validation)
         var startDate = new DateTime(2025, 1, 1);
         var endDate = new DateTime(2025, 2, 1);
         
@@ -260,7 +260,7 @@ class Program
 
             Console.WriteLine();
 
-            // Generate Excel report
+            // Generate Excel report (legacy Plant Performance demo)
             var outputPath = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
                 $"PlantPerformance_{startDate:yyyyMMdd}_{endDate:yyyyMMdd}.xlsx");
@@ -269,6 +269,18 @@ class Program
 
             var excelGenerator = new PlantPerformanceExcelGenerator();
             await excelGenerator.GenerateAsync(perfList, outputPath);
+
+            Console.WriteLine("  Done!\n");
+
+            // Generate dispatch/billing validation pack (January 2025)
+            var reportsDir = Path.Combine(projectRoot, "reports");
+            Directory.CreateDirectory(reportsDir);
+
+            var dispatchPackPath = Path.Combine(reportsDir, "202501 DispatchBilling Verification Pack.xlsx");
+            Console.WriteLine($"Generating Excel report: {dispatchPackPath}");
+
+            var dispatchPack = new Tbh.Reports.Generators.DispatchCfoPackExcelGenerator();
+            await dispatchPack.GenerateAsync(startDate, endDate, plants, tick, tktl, itrn, dispatchPackPath);
 
             Console.WriteLine("  Done!\n");
 
