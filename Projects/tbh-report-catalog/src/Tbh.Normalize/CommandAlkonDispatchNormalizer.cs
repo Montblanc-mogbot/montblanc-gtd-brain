@@ -26,6 +26,7 @@ public static class CommandAlkonDispatchNormalizer
             TicketDate = r.TicketDate,
             ShipPlantCode = NormalizePlantCode(r.ShipPlantCode),
             RawShipPlantCode = r.ShipPlantCode,
+            RemoveReasonCode = NormalizeCode(r.RemoveReasonCode),
             InvcFlag = NormalizeCode(r.InvcFlag),
             InvcCode = NormalizeCode(r.InvcCode),
             InvcDate = r.InvcDate,
@@ -58,6 +59,7 @@ public static class CommandAlkonDispatchNormalizer
         {
             OrderDate = r.OrderDate,
             OrderCode = NormalizeCode(r.OrderCode),
+            ProductLineCode = NormalizeCode(r.ProductLineCode),
             CustomerCode = NormalizeCode(r.CustomerCode),
             CustomerName = NormalizeCode(r.CustomerName),
             ShipToPlantCode = NormalizePlantCode(r.ShipToPlantCode),
@@ -79,6 +81,8 @@ public record NormalizedTicket
 
     public string ShipPlantCode { get; init; } = string.Empty;
     public string? RawShipPlantCode { get; init; }
+
+    public string RemoveReasonCode { get; init; } = string.Empty;
 
     public string InvcFlag { get; init; } = string.Empty;
     public string InvcCode { get; init; } = string.Empty;
@@ -113,6 +117,8 @@ public record NormalizedOrderHeader
 {
     public DateTime? OrderDate { get; init; }
     public string OrderCode { get; init; } = string.Empty;
+
+    public string ProductLineCode { get; init; } = string.Empty;
 
     public string CustomerCode { get; init; } = string.Empty;
     public string CustomerName { get; init; } = string.Empty;

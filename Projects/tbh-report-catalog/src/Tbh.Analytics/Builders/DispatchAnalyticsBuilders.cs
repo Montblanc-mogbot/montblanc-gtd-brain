@@ -26,6 +26,80 @@ public static class DispatchAnalyticsBuilders
     }
 
     /// <summary>
+    /// Sanity dataset: Loads + volume by day by plant, with splits by product line + UOM.
+    /// 
+    /// - Excludes removed tickets (TICK.remove_rsn_code).
+    /// - Loads = distinct (order_date, order_code, tkt_code) in the group.
+    /// - Concrete volume = sum(delv_qty) only where delv_qty_uom is in concreteUoms.
+    /// </summary>
+    public static IEnumerable<DispatchLoadsVolumeByDayPlant> BuildDispatchLoadsVolumeByDayPlant(
+        IEnumerable<NormalizedTicket> tickets,
+        IEnumerable<NormalizedTicketLine> lines,
+        IEnumerable<NormalizedOrderHeader> orders,
+        ISet<string> concreteUoms)
+    {
+        var ticketIndex = tickets
+            .Where(t => t.OrderDate != null)
+            .ToDictionary(
+                t => (Day: t.OrderDate!.Value.Date, t.OrderCode, t.TicketCode),
+                t => t);
+
+        var orderIndex = orders
+            .Where(o => o.OrderDate != null)
+            .ToDictionary(
+                o => (Day: o.OrderDate!.Value.Date, o.OrderCode),
+                o => o);
+
+        var enriched = lines
+            .Where(l => l.OrderDate != null)
+            .Select(l =>
+            {
+                var day = l.OrderDate!.Value.Date;
+
+                ticketIndex.TryGetValue((day, l.OrderCode, l.TicketCode), out var t);
+                orderIndex.TryGetValue((day, l.OrderCode), out var o);
+
+                var remove = t?.RemoveReasonCode ?? string.Empty;
+                var isRemoved = !string.IsNullOrWhiteSpace(remove);
+
+                // Use header plant/date when present; otherwise fallback to line.
+                var plant = t?.ShipPlantCode ?? l.ShipPlantCode;
+                var ticketDay = (t?.TicketDate ?? t?.OrderDate ?? l.OrderDate)!.Value.Date;
+
+                return new
+                {
+                    TicketDay = ticketDay,
+                    Plant = plant,
+                    ProdLine = o?.ProductLineCode ?? string.Empty,
+                    Uom = l.DeliveredQtyUom,
+                    DeliveredQty = l.DeliveredQty ?? 0m,
+                    Revenue = l.ExtendedPriceAmount ?? 0m,
+                    isRemoved,
+                    LoadKey = (day, l.OrderCode, l.TicketCode)
+                };
+            })
+            .Where(x => !x.isRemoved);
+
+        return enriched
+            .GroupBy(x => new { x.TicketDay, x.Plant, x.ProdLine, x.Uom })
+            .Select(g => new DispatchLoadsVolumeByDayPlant
+            {
+                Day = g.Key.TicketDay,
+                PlantCode = g.Key.Plant,
+                ProductLineCode = g.Key.ProdLine,
+                DeliveredQtyUom = g.Key.Uom,
+                Loads = g.Select(x => x.LoadKey).Distinct().Count(),
+                ConcreteDeliveredQty = concreteUoms.Contains(g.Key.Uom) ? g.Sum(x => x.DeliveredQty) : 0m,
+                Revenue = g.Sum(x => x.Revenue),
+                TicketLineCount = g.Count(),
+            })
+            .OrderBy(r => r.Day)
+            .ThenBy(r => r.PlantCode)
+            .ThenBy(r => r.ProductLineCode)
+            .ThenBy(r => r.DeliveredQtyUom);
+    }
+
+    /// <summary>
     /// Business question: "How much did we deliver by plant for the month?"
     /// </summary>
     public static IEnumerable<DispatchPlantMonth> BuildDispatchPlantMonth(IEnumerable<NormalizedTicketLine> lines)
@@ -123,6 +197,19 @@ public record DispatchPlantDay
     public DateTime Day { get; init; }
     public string PlantCode { get; init; } = string.Empty;
     public decimal DeliveredQty { get; init; }
+    public decimal Revenue { get; init; }
+    public int TicketLineCount { get; init; }
+}
+
+public record DispatchLoadsVolumeByDayPlant
+{
+    public DateTime Day { get; init; }
+    public string PlantCode { get; init; } = string.Empty;
+    public string ProductLineCode { get; init; } = string.Empty;
+    public string DeliveredQtyUom { get; init; } = string.Empty;
+
+    public int Loads { get; init; }
+    public decimal ConcreteDeliveredQty { get; init; }
     public decimal Revenue { get; init; }
     public int TicketLineCount { get; init; }
 }

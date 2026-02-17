@@ -9,6 +9,8 @@ public record OrderHeaderRecord
     public DateTime? OrderDate { get; init; }
     public string? OrderCode { get; init; }
 
+    public string? ProductLineCode { get; init; }
+
     public string? CustomerCode { get; init; }
     public string? CustomerName { get; init; }
 

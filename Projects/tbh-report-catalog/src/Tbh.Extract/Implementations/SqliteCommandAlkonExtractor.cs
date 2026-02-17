@@ -154,6 +154,7 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
                 tkt_date,
                 ship_plant_code,
                 ship_plant_loc_code,
+                remove_rsn_code,
                 invc_flag,
                 invc_code,
                 invc_date,
@@ -180,12 +181,13 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
                 TicketDate = GetDateTimeFromText(reader, 3),
                 ShipPlantCode = GetString(reader, 4),
                 ShipPlantLocCode = GetString(reader, 5),
-                InvcFlag = GetString(reader, 6),
-                InvcCode = GetString(reader, 7),
-                InvcDate = GetDateTimeFromText(reader, 8),
-                InvcSeqNum = GetIntFromText(reader, 9),
-                TicketStatus = GetString(reader, 10),
-                UpdateDate = GetDateTimeFromText(reader, 11),
+                RemoveReasonCode = GetString(reader, 6),
+                InvcFlag = GetString(reader, 7),
+                InvcCode = GetString(reader, 8),
+                InvcDate = GetDateTimeFromText(reader, 9),
+                InvcSeqNum = GetIntFromText(reader, 10),
+                TicketStatus = GetString(reader, 11),
+                UpdateDate = GetDateTimeFromText(reader, 12),
             });
         }
 
@@ -258,6 +260,7 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
             SELECT
                 order_date,
                 order_code,
+                prod_line_code,
                 cust_code,
                 cust_name,
                 ship_to_plant_code,
@@ -280,12 +283,13 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
             {
                 OrderDate = GetDateTimeFromText(reader, 0),
                 OrderCode = GetString(reader, 1),
-                CustomerCode = GetString(reader, 2),
-                CustomerName = GetString(reader, 3),
-                ShipToPlantCode = GetString(reader, 4),
-                ZoneCode = GetString(reader, 5),
-                ProjectCode = GetString(reader, 6),
-                UpdateDate = GetDateTimeFromText(reader, 7),
+                ProductLineCode = GetString(reader, 2),
+                CustomerCode = GetString(reader, 3),
+                CustomerName = GetString(reader, 4),
+                ShipToPlantCode = GetString(reader, 5),
+                ZoneCode = GetString(reader, 6),
+                ProjectCode = GetString(reader, 7),
+                UpdateDate = GetDateTimeFromText(reader, 8),
             });
         }
 
