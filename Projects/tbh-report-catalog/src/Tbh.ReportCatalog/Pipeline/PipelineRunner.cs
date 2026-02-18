@@ -298,8 +298,9 @@ public static class PipelineRunner
 
         var invoiceAgingAsOf = DateTime.Today;
         var invoiceAging = InvoiceAgingBuilder.BuildInvoiceAgingByInvoice(invoices, invoiceAgingAsOf).ToList();
+        var customerScoreboardMonth = CustomerScoreboardBuilder.BuildCustomerScoreboardMonth(invoiceAging).ToList();
 
-        await WriteAnalyticsAsync(ctx, manifest, dispatchPlantDay, dispatchPlantMonth, truckDay, truckMonth, plantShippingDaysMonth, invoiceAging, dispatchVsArRecon, dispatchVsArtbRecon, dispatchUomSummary);
+        await WriteAnalyticsAsync(ctx, manifest, dispatchPlantDay, dispatchPlantMonth, truckDay, truckMonth, plantShippingDaysMonth, invoiceAging, customerScoreboardMonth, dispatchVsArRecon, dispatchVsArtbRecon, dispatchUomSummary);
 
         // ---- Layer 4: Reports ----
         Console.WriteLine("\nReports");
@@ -509,6 +510,7 @@ public static class PipelineRunner
         List<TruckUtilizationTruckMonth> truckMonth,
         List<PlantShippingDaysMonth> plantShippingDaysMonth,
         List<InvoiceAgingByInvoice> invoiceAging,
+        List<CustomerScoreboardMonth> customerScoreboardMonth,
         List<DispatchVsArInvoiceRecon> dispatchVsArRecon,
         List<DispatchVsArtbReconRow> dispatchVsArtbRecon,
         List<Tbh.Analytics.Builders.DispatchUomSummary> dispatchUomSummary)
