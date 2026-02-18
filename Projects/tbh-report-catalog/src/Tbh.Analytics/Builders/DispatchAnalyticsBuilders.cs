@@ -201,20 +201,23 @@ public static class DispatchAnalyticsBuilders
         IEnumerable<NormalizedTicket> tickets,
         IEnumerable<NormalizedTicketLine> lines)
     {
-        // Ticket codes are not guaranteed unique across the raw export (sample data shows duplicates).
-        // For reconciliation, we need a stable mapping TicketCode -> InvoiceCode.
-        // Strategy: group by TicketCode and pick the first non-empty invoice code (or empty).
-        var ticketToInvoice = tickets
+        // Ticket codes are not guaranteed unique across the raw export.
+        // For reconciliation, use the composite key (order_date, order_code, tkt_code) to map lines -> invoice.
+        var ticketIndex = tickets
+            .Where(t => t.OrderDate != null)
             .Where(t => !string.IsNullOrWhiteSpace(t.TicketCode))
-            .GroupBy(t => t.TicketCode)
+            .GroupBy(t => (Day: t.OrderDate!.Value.Date, t.OrderCode, t.TicketCode))
             .ToDictionary(
                 g => g.Key,
                 g => g.Select(x => x.InvcCode).FirstOrDefault(x => !string.IsNullOrWhiteSpace(x)) ?? string.Empty);
 
         return lines
+            .Where(l => l.OrderDate != null)
             .Select(l => new
             {
-                InvoiceCode = ticketToInvoice.TryGetValue(l.TicketCode, out var inv) ? inv : string.Empty,
+                InvoiceCode = ticketIndex.TryGetValue((l.OrderDate!.Value.Date, l.OrderCode, l.TicketCode), out var inv)
+                    ? inv
+                    : string.Empty,
                 Revenue = l.ExtendedPriceAmount ?? 0m,
             })
             .Where(x => !string.IsNullOrWhiteSpace(x.InvoiceCode))

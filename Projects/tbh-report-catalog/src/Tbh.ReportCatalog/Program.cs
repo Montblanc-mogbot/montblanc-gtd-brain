@@ -97,6 +97,20 @@ class Program
                 tick.Select(t => (t.OrderDate, t.OrderCode, t.TicketCode))
             );
             tktl = tktl.Where(l => validTicketKeys.Contains((l.OrderDate, l.OrderCode, l.TicketCode))).ToList();
+
+            // Normalization: replace UOM codes with UOM descriptions from UOMS reference table (auditable mapping)
+            var uomNameByCode = uoms
+                .Where(u => !string.IsNullOrWhiteSpace(u.UomCode))
+                .ToDictionary(u => u.UomCode.Trim(), u => u.Name.Trim(), StringComparer.OrdinalIgnoreCase);
+
+            tktl = tktl
+                .Select(l => l with
+                {
+                    DeliveredQtyUom = uomNameByCode.TryGetValue(l.DeliveredQtyUom ?? string.Empty, out var name)
+                        ? name
+                        : l.DeliveredQtyUom
+                })
+                .ToList();
         }
         catch (Exception ex)
         {
@@ -200,7 +214,7 @@ class Program
         [
             ("order_date", r => r.OrderDate?.ToString("yyyy-MM-dd") ?? ""),
             ("order_code", r => r.OrderCode),
-            ("prod_line_code", r => r.ProductLineCode),
+            // prod_line_code removed (not informative in this dataset)
             ("cust_code", r => r.CustomerCode),
             ("cust_name", r => r.CustomerName),
             ("proj_code", r => r.ProjectCode),
@@ -219,17 +233,23 @@ class Program
         var analyticsDir = Path.Combine(projectRoot, "analytics");
         Directory.CreateDirectory(analyticsDir);
 
-        var concreteUoms = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-        {
-            // from UOMS reference table: 40003 is typical cubic yards
-            "40003",
-            "40005",
-            "CY",
-            "CYARD",
-        };
+        // Concrete UOMs are expressed as UOM *descriptions* (because normalization replaces codes with names).
+        // Rule: treat UOMS 40003/40005 as concrete yards, plus any UOM whose abbreviation is "cy".
+        var concreteUoms = new HashSet<string>(
+            uoms
+                .Where(u => u.UomCode is "40003" or "40005" || string.Equals(u.Abbreviation, "cy", StringComparison.OrdinalIgnoreCase))
+                .Select(u => u.Name)
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .Select(x => x.Trim()),
+            StringComparer.OrdinalIgnoreCase);
+
+        // Fallbacks in case a site uses literal text instead of UOMS mapping.
+        concreteUoms.Add("Cubic Yards");
+        concreteUoms.Add("Cubic Yard");
+        concreteUoms.Add("CY");
+        concreteUoms.Add("CYARD");
 
         var dispatchPlantDay = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchPlantDay(tick, tktl, concreteUoms).ToList();
-        var dispatchPlantMonth = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchPlantMonth(tick, tktl, concreteUoms).ToList();
         var dispatchInvoiceTotals = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchInvoiceTotals(tick, tktl).ToList();
         var dispatchVsArRecon = Tbh.Analytics.Builders.DispatchAnalyticsBuilders.BuildDispatchVsArInvoiceRecon(dispatchInvoiceTotals, itrn).ToList();
 
@@ -268,16 +288,9 @@ class Program
             .BuildDispatchUomSummary(tick, tktl)
             .ToList();
 
-        var loadsVolByDayPlant = Tbh.Analytics.Builders.DispatchAnalyticsBuilders
-            .BuildDispatchLoadsVolumeByDayPlant(tick, tktl, ordr, concreteUoms)
-            .ToList();
-
         var plantDayOut = Path.Combine(analyticsDir, $"{prefix} DispatchPlantDay.csv");
-        var plantMonthOut = Path.Combine(analyticsDir, $"{prefix} DispatchPlantMonth.csv");
         var reconOut = Path.Combine(analyticsDir, $"{prefix} DispatchVsAR_ByInvoice.csv");
         var reconArtbOut = Path.Combine(analyticsDir, $"{prefix} DispatchVsAR_ByInvoice_ARTB.csv");
-        var loadsVolOut = Path.Combine(analyticsDir, $"{prefix} DispatchLoadsVolumeByDayPlant_ProductLine_Uom.csv");
-        var arArtbOut = Path.Combine(analyticsDir, $"{prefix} ARInvoiceTotals_ARTB.csv");
         var uomSummaryOut = Path.Combine(analyticsDir, $"{prefix} DispatchUomSummary.csv");
 
         await NormalizedCsvWriter.WriteAsync(dispatchPlantDay, plantDayOut,
@@ -290,16 +303,7 @@ class Program
             ("unique_truck_count", r => r.UniqueTruckCount.ToString()),
         ]);
 
-        await NormalizedCsvWriter.WriteAsync(dispatchPlantMonth, plantMonthOut,
-        [
-            ("acct_year", r => r.AccountingYear.ToString()),
-            ("acct_period", r => r.AccountingPeriod.ToString()),
-            ("plant_code", r => r.PlantCode),
-            ("delv_qty", r => r.DeliveredQty.ToString()),
-            ("concrete_delv_qty", r => r.ConcreteDeliveredQty.ToString()),
-            ("revenue", r => r.Revenue.ToString()),
-            ("ticket_line_count", r => r.TicketLineCount.ToString()),
-        ]);
+        // DispatchPlantMonth removed (extraneous vs daily + month rollups can be produced from DispatchPlantDay when needed).
 
         await NormalizedCsvWriter.WriteAsync(dispatchVsArRecon, reconOut,
         [
@@ -319,25 +323,9 @@ class Program
             ("difference", r => r.Difference.ToString()),
         ]);
 
-        await NormalizedCsvWriter.WriteAsync(arByInvoiceArtb.OrderBy(kv => kv.Key).Select(kv => kv.Value), arArtbOut,
-        [
-            ("invc_code", r => r.InvoiceCode),
-            ("sales_amt", r => r.Sales.ToString()),
-            ("tax_amt", r => r.Tax.ToString()),
-            ("total", r => (r.Sales + r.Tax).ToString()),
-        ]);
+        // ARInvoiceTotals_ARTB removed (redundant; ARTB totals are included directly in DispatchVsAR_ByInvoice_ARTB).
 
-        await NormalizedCsvWriter.WriteAsync(loadsVolByDayPlant, loadsVolOut,
-        [
-            ("day", r => r.Day.ToString("yyyy-MM-dd")),
-            ("plant_code", r => r.PlantCode),
-            ("prod_line_code", r => r.ProductLineCode),
-            ("delv_qty_uom", r => r.DeliveredQtyUom),
-            ("loads", r => r.Loads.ToString()),
-            ("concrete_delv_qty", r => r.ConcreteDeliveredQty.ToString()),
-            ("revenue", r => r.Revenue.ToString()),
-            ("ticket_line_count", r => r.TicketLineCount.ToString()),
-        ]);
+        // DispatchLoadsVolumeByDayPlant_ProductLine_Uom removed (product line is not informative in CA extracts; keep UOM drilldowns in DispatchUomSummary).
 
         await NormalizedCsvWriter.WriteAsync(dispatchUomSummary, uomSummaryOut,
         [
@@ -350,11 +338,8 @@ class Program
         ]);
 
         Console.WriteLine($"  ANALYTICS: {dispatchPlantDay.Count} rows -> {plantDayOut}");
-        Console.WriteLine($"  ANALYTICS: {dispatchPlantMonth.Count} rows -> {plantMonthOut}");
         Console.WriteLine($"  ANALYTICS: {dispatchVsArRecon.Count} rows -> {reconOut}");
         Console.WriteLine($"  ANALYTICS: {dispatchVsArtbRecon.Count} rows -> {reconArtbOut}");
-        Console.WriteLine($"  ANALYTICS: {arByInvoiceArtb.Count} rows -> {arArtbOut}");
-        Console.WriteLine($"  ANALYTICS: {loadsVolByDayPlant.Count} rows -> {loadsVolOut}");
         Console.WriteLine($"  ANALYTICS: {dispatchUomSummary.Count} rows -> {uomSummaryOut}\n");
 
         try

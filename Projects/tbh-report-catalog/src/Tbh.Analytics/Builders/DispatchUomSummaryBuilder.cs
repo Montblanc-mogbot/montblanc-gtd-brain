@@ -46,7 +46,18 @@ public static class DispatchUomSummaryBuilder
             })
             .Where(x => !x.isRemoved);
 
+        // This analytic is intended to explain NON-concrete charges/quantities by UOM.
+        // Concrete volume belongs in DispatchPlantDay (Quantity).
+        var concreteUoms = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            "Cubic Yards",
+            "Cubic Yard",
+            "CY",
+            "CYARD",
+        };
+
         return enriched
+            .Where(x => !concreteUoms.Contains(x.Uom))
             .GroupBy(x => new { x.TicketDay, x.Plant, x.Uom })
             .Select(g => new DispatchUomSummary
             {
