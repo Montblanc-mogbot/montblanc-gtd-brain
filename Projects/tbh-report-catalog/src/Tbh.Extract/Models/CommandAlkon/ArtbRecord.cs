@@ -12,6 +12,11 @@ public record ArtbRecord
 
     public string? PrimaryTransactionType { get; init; } // prim_trans_type
 
+    public DateTime? DueDate { get; init; } // due_date
+    public DateTime? LatestPaymentDate { get; init; } // latest_pmt_date
+
+    public decimal? CurrentBalanceAmount { get; init; } // curr_bal_amt
+
     public decimal? SalesAmount { get; init; } // sales_amt
     public decimal? TaxAmount { get; init; } // tax_amt
 }

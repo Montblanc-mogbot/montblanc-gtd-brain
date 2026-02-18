@@ -275,6 +275,55 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
         return records;
     }
 
+    public async Task<IEnumerable<TicketChargeRecord>> ExtractTicketChargesAsync(
+        DateTime startDate,
+        DateTime endDate,
+        CancellationToken cancellationToken = default)
+    {
+        var records = new List<TicketChargeRecord>();
+
+        using var connection = new SqliteConnection(_connectionString);
+        await connection.OpenAsync(cancellationToken);
+
+        using var command = connection.CreateCommand();
+        command.CommandText = @"
+            SELECT
+                order_date,
+                order_code,
+                tkt_code,
+                tkt_chrg_code,
+                delv_qty,
+                delv_qty_uom,
+                ext_price_amt,
+                update_date
+            FROM tktc
+            WHERE date(order_date) >= date(@startDate)
+              AND date(order_date) < date(@endDate)
+            ORDER BY order_date, order_code, tkt_code, tkt_chrg_intrnl_line_num
+        ";
+
+        command.Parameters.AddWithValue("@startDate", startDate.ToString("yyyy-MM-dd"));
+        command.Parameters.AddWithValue("@endDate", endDate.ToString("yyyy-MM-dd"));
+
+        using var reader = await command.ExecuteReaderAsync(cancellationToken);
+        while (await reader.ReadAsync(cancellationToken))
+        {
+            records.Add(new TicketChargeRecord
+            {
+                OrderDate = GetDateTimeFromText(reader, 0),
+                OrderCode = GetString(reader, 1),
+                TicketCode = GetString(reader, 2),
+                TicketChargeCode = GetString(reader, 3),
+                DeliveredQty = GetDecimalFromText(reader, 4),
+                DeliveredQtyUom = GetString(reader, 5),
+                ExtendedPriceAmount = GetDecimalFromText(reader, 6),
+                UpdateDate = GetDateTimeFromText(reader, 7),
+            });
+        }
+
+        return records;
+    }
+
     public async Task<IEnumerable<OrderHeaderRecord>> ExtractOrdersAsync(
         DateTime startDate,
         DateTime endDate,
@@ -419,6 +468,9 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
                 item_ref_code,
                 trans_date,
                 prim_trans_type,
+                due_date,
+                latest_pmt_date,
+                curr_bal_amt,
                 sales_amt,
                 tax_amt
             FROM artb
@@ -440,8 +492,11 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
                 InvoiceCode = GetString(reader, 1),
                 TransactionDate = GetDateTimeFromText(reader, 2),
                 PrimaryTransactionType = GetString(reader, 3),
-                SalesAmount = GetDecimalFromText(reader, 4),
-                TaxAmount = GetDecimalFromText(reader, 5),
+                DueDate = GetDateTimeFromText(reader, 4),
+                LatestPaymentDate = GetDateTimeFromText(reader, 5),
+                CurrentBalanceAmount = GetDecimalFromText(reader, 6),
+                SalesAmount = GetDecimalFromText(reader, 7),
+                TaxAmount = GetDecimalFromText(reader, 8),
             });
         }
 

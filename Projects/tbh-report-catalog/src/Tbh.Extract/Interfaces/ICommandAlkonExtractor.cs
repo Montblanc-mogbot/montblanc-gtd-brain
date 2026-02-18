@@ -48,6 +48,15 @@ public interface ICommandAlkonExtractor
         CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Extract TKTC (ticket charges/surcharges) for a date range.
+    /// Used to include dispatch-side charges in revenue (fuel, washout, etc.).
+    /// </summary>
+    Task<IEnumerable<TicketChargeRecord>> ExtractTicketChargesAsync(
+        DateTime startDate,
+        DateTime endDate,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Extract ORDR (order headers) for a date range.
     /// Used for customer/order context and authoritative order_date.
     /// </summary>

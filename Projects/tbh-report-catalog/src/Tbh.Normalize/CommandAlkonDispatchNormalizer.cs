@@ -92,6 +92,27 @@ public record NormalizedTicket
     public DateTime? InvcDate { get; init; }
     public int? InvcSeqNum { get; init; }
 
+    /// <summary>
+    /// Dispatch-side product revenue for this ticket (sum of TKTL.ext_price_amt).
+    /// </summary>
+    public decimal TicketProductAmount { get; init; }
+
+    /// <summary>
+    /// Dispatch-side charges/surcharges for this ticket (sum of TKTC.ext_price_amt).
+    /// </summary>
+    public decimal TicketChargeAmount { get; init; }
+
+    /// <summary>
+    /// TicketProductAmount + TicketChargeAmount.
+    /// </summary>
+    public decimal TicketDispatchTotalAmount => TicketProductAmount + TicketChargeAmount;
+
+    /// <summary>
+    /// Convenience status flag derived from ITRN: whether the linked invoice appears fully paid.
+    /// Null when no invoice is linked.
+    /// </summary>
+    public bool? InvoicePaidInFull { get; init; }
+
     public string TicketStatus { get; init; } = string.Empty;
 
     public DateTime? UpdateDate { get; init; }
@@ -131,6 +152,11 @@ public record NormalizedOrderHeader
 
     public string ZoneCode { get; init; } = string.Empty;
     public string ProjectCode { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Derived: distinct ticket count for this order in the run window.
+    /// </summary>
+    public int TicketCount { get; init; }
 
     public DateTime? UpdateDate { get; init; }
 }
