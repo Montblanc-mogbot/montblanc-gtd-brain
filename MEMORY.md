@@ -14,11 +14,14 @@
 - OS: Fedora 43 Workstation (GNOME)
 - OpenClaw workspace: /home/montblanc/.openclaw/workspace/
 - GTD brain repo: github.com/Montblanc-mogbot/montblanc-gtd-brain
-- Code repos: github.com/Montblanc-mogbot/*
+- Local repos directory: /home/montblanc/repos/
+- Code repos: 
+  - github.com/Montblanc-mogbot/griddle (local: /home/montblanc/repos/griddle)
+  - github.com/Montblanc-mogbot/tbh-report-catalog (local: /home/montblanc/repos/tbh-report-catalog)
 
 ## Active Projects
 1. **Griddle** - Schema-driven pivot table + data entry tool (Milestone 8 complete)
-   - Repo: github.com/Montblanc-mogbot/griddle
+   - Repo: github.com/Montblanc-mogbot/griddle (local: /home/montblanc/repos/griddle)
    - Tech: Vite + React + TypeScript
    - Status: Filters + Views system done, awaiting user feedback
 
@@ -27,7 +30,10 @@
    - Dash to Dock enabled
    - Pending: Avatar, terminal colors, tmux theme
 
-3. **TBH Month End Procedures** - NEW (2026-02-13)
+3. **TBH Report Catalog**
+   - Repo: github.com/Montblanc-mogbot/tbh-report-catalog (local: /home/montblanc/repos/tbh-report-catalog)
+
+4. **TBH Month End Procedures** - NEW (2026-02-13)
    - Document tax workflow for MD/WV/PA/VA
    - Sensitive data handling planned
    - Waiting on Matt for Python script overview

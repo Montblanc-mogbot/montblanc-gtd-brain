@@ -39,7 +39,8 @@ This workspace is a lightweight GTD-style brain.
 
 - Canonical files/folders:
   - Inbox: `Inbox/inbox.md`
-  - Active projects: `Projects/*/project.md` (anything not archived)
+  - Active projects (notes only): `Projects/*/project.md` (anything not archived)
+  - Code lives in standalone repos under `/home/montblanc/repos/`
   - Weekly reviews: `Reference/weekly-reviews/`
 - Default routine:
   1) Look for work in **Inbox first**, then in active project hubs.
