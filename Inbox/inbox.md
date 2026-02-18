@@ -5,6 +5,7 @@
 ## Tasks
 - [x] #focus #nextaction #project/tbh-report-catalog Review Report Catalog README and finalize architecture — DONE: created comprehensive README with architecture diagram, analytical datasets, reconciliation framework, and normalization rules
 - [ ] #project/griddle #backlog Remember drag-bar/page split width between sessions
+- [x] #focus #nextaction #project/griddle Bug: horizontal scroll snaps back (likely scroll restoration loop) — FIXED + pushed (commit cec930a)
 - [ ] #project/griddle #backlog Fast entry: styling when notes are present
 - [ ] #project/griddle #backlog Bug: font-only styling showing as none does not render text
 - [ ] #project/griddle #backlog Hide blank row from dummy dates
