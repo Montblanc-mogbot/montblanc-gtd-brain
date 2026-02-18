@@ -254,6 +254,7 @@ public static class PipelineRunner
         concreteUoms.Add("CYARD");
 
         var dispatchPlantDay = DispatchAnalyticsBuilders.BuildDispatchPlantDay(tick, tktl, concreteUoms).ToList();
+        var dispatchPlantMonth = DispatchPlantMonthBuilder.BuildDispatchPlantMonth(tick, tktl, concreteUoms).ToList();
         var dispatchInvoiceTotals = DispatchAnalyticsBuilders.BuildDispatchInvoiceTotals(tick, tktl).ToList();
         var dispatchVsArRecon = DispatchAnalyticsBuilders.BuildDispatchVsArInvoiceRecon(dispatchInvoiceTotals, itrn).ToList();
 
@@ -290,7 +291,7 @@ public static class PipelineRunner
 
         var dispatchUomSummary = DispatchUomSummaryBuilder.BuildDispatchUomSummary(tick, tktl).ToList();
 
-        await WriteAnalyticsAsync(ctx, manifest, dispatchPlantDay, dispatchVsArRecon, dispatchVsArtbRecon, dispatchUomSummary);
+        await WriteAnalyticsAsync(ctx, manifest, dispatchPlantDay, dispatchPlantMonth, dispatchVsArRecon, dispatchVsArtbRecon, dispatchUomSummary);
 
         // ---- Layer 4: Reports ----
         Console.WriteLine("\nReports");
@@ -495,11 +496,13 @@ public static class PipelineRunner
         RunContext ctx,
         RunManifest manifest,
         List<DispatchPlantDay> dispatchPlantDay,
+        List<DispatchPlantMonth> dispatchPlantMonth,
         List<DispatchVsArInvoiceRecon> dispatchVsArRecon,
         List<DispatchVsArtbReconRow> dispatchVsArtbRecon,
         List<Tbh.Analytics.Builders.DispatchUomSummary> dispatchUomSummary)
     {
         var plantDayRun = Path.Combine(ctx.RunAnalyticsDir, $"{ctx.Prefix} DispatchPlantDay.csv");
+        var plantMonthRun = Path.Combine(ctx.RunAnalyticsDir, $"{ctx.Prefix} DispatchPlantMonth.csv");
         var reconRun = Path.Combine(ctx.RunAnalyticsDir, $"{ctx.Prefix} DispatchVsAR_ByInvoice.csv");
         var reconArtbRun = Path.Combine(ctx.RunAnalyticsDir, $"{ctx.Prefix} DispatchVsAR_ByInvoice_ARTB.csv");
         var uomSummaryRun = Path.Combine(ctx.RunAnalyticsDir, $"{ctx.Prefix} DispatchUomSummary.csv");
@@ -511,6 +514,18 @@ public static class PipelineRunner
             ("concrete_cy", r => r.Quantity.ToString()),
             ("dispatch_revenue", r => r.Revenue.ToString()),
             ("loads", r => r.TicketCount.ToString()),
+            ("unique_truck_count", r => r.UniqueTruckCount.ToString()),
+            ("avg_revenue_per_load", r => r.AvgRevenuePerLoad.ToString()),
+            ("avg_cy_per_load", r => r.AvgCyPerLoad.ToString()),
+        ]);
+
+        await NormalizedCsvWriter.WriteAsync(dispatchPlantMonth, plantMonthRun,
+        [
+            ("month", r => r.Month.ToString("yyyy-MM-01")),
+            ("plant_code", r => r.PlantCode),
+            ("concrete_cy", r => r.ConcreteCy.ToString()),
+            ("dispatch_revenue", r => r.DispatchRevenue.ToString()),
+            ("loads", r => r.Loads.ToString()),
             ("unique_truck_count", r => r.UniqueTruckCount.ToString()),
             ("avg_revenue_per_load", r => r.AvgRevenuePerLoad.ToString()),
             ("avg_cy_per_load", r => r.AvgCyPerLoad.ToString()),
@@ -546,6 +561,7 @@ public static class PipelineRunner
 
         // Copy to latest
         PipelineIo.CopyToLatest(plantDayRun, Path.Combine(ctx.LatestAnalyticsDir, Path.GetFileName(plantDayRun)));
+        PipelineIo.CopyToLatest(plantMonthRun, Path.Combine(ctx.LatestAnalyticsDir, Path.GetFileName(plantMonthRun)));
         PipelineIo.CopyToLatest(reconRun, Path.Combine(ctx.LatestAnalyticsDir, Path.GetFileName(reconRun)));
         PipelineIo.CopyToLatest(reconArtbRun, Path.Combine(ctx.LatestAnalyticsDir, Path.GetFileName(reconArtbRun)));
         PipelineIo.CopyToLatest(uomSummaryRun, Path.Combine(ctx.LatestAnalyticsDir, Path.GetFileName(uomSummaryRun)));
@@ -557,6 +573,7 @@ public static class PipelineRunner
         }
 
         Add("DispatchPlantDay", plantDayRun, dispatchPlantDay.Count);
+        Add("DispatchPlantMonth", plantMonthRun, dispatchPlantMonth.Count);
         Add("DispatchVsAR_ByInvoice", reconRun, dispatchVsArRecon.Count);
         Add("DispatchVsAR_ByInvoice_ARTB", reconArtbRun, dispatchVsArtbRecon.Count);
         Add("DispatchUomSummary", uomSummaryRun, dispatchUomSummary.Count);
