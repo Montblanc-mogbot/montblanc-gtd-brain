@@ -308,15 +308,15 @@ public static class PipelineRunner
         Add("Orders", "normalized", ordrRun, ordr.Count);
     }
 
-public sealed record DispatchVsArtbReconRow
-{
-    public string InvoiceCode { get; init; } = string.Empty;
-    public decimal DispatchRevenue { get; init; }
-    public decimal ArtbSales { get; init; }
-    public decimal ArtbTax { get; init; }
-    public decimal ArtbTotal { get; init; }
-    public decimal Difference { get; init; }
-}
+    public sealed record DispatchVsArtbReconRow
+    {
+        public string InvoiceCode { get; init; } = string.Empty;
+        public decimal DispatchRevenue { get; init; }
+        public decimal ArtbSales { get; init; }
+        public decimal ArtbTax { get; init; }
+        public decimal ArtbTotal { get; init; }
+        public decimal Difference { get; init; }
+    }
 
     private static async Task WriteAnalyticsAsync(
         RunContext ctx,

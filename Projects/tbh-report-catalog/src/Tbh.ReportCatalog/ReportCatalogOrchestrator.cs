@@ -19,7 +19,7 @@ public class ReportCatalogOrchestrator
 {
     private readonly ICommandAlkonExtractor _commandExtractor;
     private readonly IExcelReportGenerator<PlantPerformanceRecord> _excelGenerator;
-    
+
     public ReportCatalogOrchestrator(
         ICommandAlkonExtractor commandExtractor,
         IExcelReportGenerator<PlantPerformanceRecord> excelGenerator)
@@ -27,7 +27,7 @@ public class ReportCatalogOrchestrator
         _commandExtractor = commandExtractor;
         _excelGenerator = excelGenerator;
     }
-    
+
     /// <summary>
     /// Generates a Plant Performance report for the specified period.
     /// </summary>
@@ -38,29 +38,29 @@ public class ReportCatalogOrchestrator
         CancellationToken cancellationToken = default)
     {
         Console.WriteLine($"Generating Plant Performance Report for {startDate:yyyy-MM-dd} to {endDate:yyyy-MM-dd}");
-        
+
         // Step 1: Extract (Layer 1)
         Console.WriteLine("Extracting data from Command Alkon...");
         var plants = await _commandExtractor.ExtractPlantsAsync(cancellationToken);
         var salesDetail = await _commandExtractor.ExtractSalesDetailAsync(startDate, endDate, cancellationToken);
-        
+
         Console.WriteLine($"  - Loaded {plants.Count()} plants");
         Console.WriteLine($"  - Loaded {salesDetail.Count()} sales detail records");
-        
+
         // Step 2: Analytics (Layer 3) - simplified direct build
         Console.WriteLine("Building Plant Performance dataset...");
         var builder = new PlantPerformanceBuilder();
         var plantPerformance = builder.Build(salesDetail).ToList();
-        
+
         Console.WriteLine($"  - Generated {plantPerformance.Count} plant/period records");
-        
+
         // Step 3: Reports (Layer 4)
         Console.WriteLine($"Generating Excel report: {outputPath}");
         await _excelGenerator.GenerateAsync(plantPerformance, outputPath);
-        
+
         Console.WriteLine("Report generation complete.");
     }
-    
+
     /// <summary>
     /// Exports raw data to CSV for audit trail.
     /// </summary>

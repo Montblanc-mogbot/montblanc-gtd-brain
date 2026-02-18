@@ -23,11 +23,11 @@ public class PlantPerformanceBuilder
                 Year = s.TicketDate!.Value.Year,
                 Period = s.TicketDate!.Value.Month
             });
-        
+
         foreach (var group in grouped)
         {
             var records = group.ToList();
-            
+
             var totalVolume = records.Sum(r => r.DeliveryQuantity ?? 0);
             var ticketCount = records.Count;
             var revenue = records.Sum(r => (r.ExtendedPriceAmount ?? 0) + (r.AssociatedProductAmount ?? 0) + (r.OtherProductAmount ?? 0));
@@ -36,30 +36,30 @@ public class PlantPerformanceBuilder
             var ovhdCost = records.Sum(r => r.OverheadCostAmount ?? 0);
             var totalCost = matlCost + haulCost + ovhdCost;
             var contributionMargin = revenue - totalCost;
-            
+
             yield return new PlantPerformanceRecord
             {
                 AccountingYear = group.Key.Year,
                 AccountingPeriod = group.Key.Period,
                 PlantCode = group.Key.PlantCode,
                 PlantName = $"Plant {group.Key.PlantCode}",
-                
+
                 TotalYards = totalVolume,
                 TicketCount = ticketCount,
                 AverageYardsPerTicket = ticketCount > 0 ? totalVolume / ticketCount : 0,
-                
+
                 Revenue = revenue,
                 RevenuePerYard = totalVolume > 0 ? revenue / totalVolume : 0,
-                
+
                 EstimatedMaterialCost = matlCost,
                 EstimatedHaulCost = haulCost,
                 EstimatedOverheadCost = ovhdCost,
                 TotalEstimatedCost = totalCost,
-                
+
                 ContributionMargin = contributionMargin,
                 MarginPerYard = totalVolume > 0 ? contributionMargin / totalVolume : 0,
                 MarginPercentage = revenue > 0 ? (contributionMargin / revenue) * 100 : 0,
-                
+
                 GeneratedAt = DateTime.UtcNow,
                 DataSource = "CommandAlkon"
             };

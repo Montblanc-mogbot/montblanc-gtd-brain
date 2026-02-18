@@ -26,10 +26,10 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
     public async Task<IEnumerable<PlantRecord>> ExtractPlantsAsync(CancellationToken cancellationToken = default)
     {
         var plants = new List<PlantRecord>();
-        
+
         using var connection = new SqliteConnection(_connectionString);
         await connection.OpenAsync(cancellationToken);
-        
+
         // Read from PLNT table
         using var command = connection.CreateCommand();
         command.CommandText = @"
@@ -37,14 +37,14 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
             FROM plnt
             ORDER BY plant_code
         ";
-        
+
         using var reader = await command.ExecuteReaderAsync(cancellationToken);
         while (await reader.ReadAsync(cancellationToken))
         {
             var city = reader.IsDBNull(4) ? null : reader.GetString(4)?.Trim();
             var state = reader.IsDBNull(5) ? null : reader.GetString(5)?.Trim();
             var location = city != null && state != null ? $"{city}, {state}" : null;
-            
+
             plants.Add(new PlantRecord
             {
                 PlantCode = reader.GetString(0)?.Trim() ?? string.Empty,
@@ -54,17 +54,17 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
                 Location = location
             });
         }
-        
+
         return plants;
     }
 
     public async Task<IEnumerable<CustomerRecord>> ExtractCustomersAsync(CancellationToken cancellationToken = default)
     {
         var customers = new List<CustomerRecord>();
-        
+
         using var connection = new SqliteConnection(_connectionString);
         await connection.OpenAsync(cancellationToken);
-        
+
         // Read from CUST table - filter active customers
         using var command = connection.CreateCommand();
         command.CommandText = @"
@@ -74,7 +74,7 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
             WHERE inactive_code IS NULL OR inactive_code = '00'
             ORDER BY name
         ";
-        
+
         using var reader = await command.ExecuteReaderAsync(cancellationToken);
         while (await reader.ReadAsync(cancellationToken))
         {
@@ -94,17 +94,17 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
                 InactiveCode = reader.IsDBNull(11) ? null : reader.GetString(11)?.Trim()
             });
         }
-        
+
         return customers;
     }
 
     public async Task<IEnumerable<ItemMasterRecord>> ExtractItemsAsync(CancellationToken cancellationToken = default)
     {
         var items = new List<ItemMasterRecord>();
-        
+
         using var connection = new SqliteConnection(_connectionString);
         await connection.OpenAsync(cancellationToken);
-        
+
         // Read from IMST table
         using var command = connection.CreateCommand();
         command.CommandText = @"
@@ -113,7 +113,7 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
             FROM imst
             ORDER BY item_code
         ";
-        
+
         using var reader = await command.ExecuteReaderAsync(cancellationToken);
         while (await reader.ReadAsync(cancellationToken))
         {
@@ -131,7 +131,7 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
                 IsConstructionItem = !reader.IsDBNull(9) && reader.GetInt32(9) == 1
             });
         }
-        
+
         return items;
     }
 
@@ -449,15 +449,15 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
     }
 
     public async Task<IEnumerable<SalesDetailRecord>> ExtractSalesDetailAsync(
-        DateTime startDate, 
-        DateTime endDate, 
+        DateTime startDate,
+        DateTime endDate,
         CancellationToken cancellationToken = default)
     {
         var records = new List<SalesDetailRecord>();
-        
+
         using var connection = new SqliteConnection(_connectionString);
         await connection.OpenAsync(cancellationToken);
-        
+
         // Query ORDL (Order Detail) with plant from PLNT
         // Default to plant 1 (WRM - Westminster) for now since ORDL doesn't have plant codes
         using var command = connection.CreateCommand();
@@ -481,38 +481,38 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
               AND date(order_date) < date(@endDate)
             ORDER BY order_date, order_code
         ";
-        
+
         command.Parameters.AddWithValue("@startDate", startDate.ToString("yyyy-MM-dd"));
         command.Parameters.AddWithValue("@endDate", endDate.ToString("yyyy-MM-dd"));
-        
+
         using var reader = await command.ExecuteReaderAsync(cancellationToken);
         while (await reader.ReadAsync(cancellationToken))
         {
             records.Add(MapOrderDetail(reader));
         }
-        
+
         return records;
     }
 
     public async Task ExportSalesDetailToCsvAsync(
-        DateTime startDate, 
-        DateTime endDate, 
+        DateTime startDate,
+        DateTime endDate,
         string outputPath,
         CancellationToken cancellationToken = default)
     {
         var records = await ExtractSalesDetailAsync(startDate, endDate, cancellationToken);
-        
+
         var lines = new List<string>
         {
             "OrderDate,Plant,OrderCode,ItemCode,ItemDescription,DeliveryQuantity,Price,ExtendedAmount"
         };
-        
+
         foreach (var r in records)
         {
             var extAmt = (r.DeliveryQuantity ?? 0) * (r.ExtendedPriceAmount ?? 0);
             lines.Add($"{r.OrderDate:yyyy-MM-dd},{r.ShipPlantCode},{r.OrderCode},{r.ItemCode},{r.ItemType},{r.DeliveryQuantity},{r.ExtendedPriceAmount},{extAmt:F2}");
         }
-        
+
         await File.WriteAllLinesAsync(outputPath, lines, cancellationToken);
     }
 
@@ -521,7 +521,7 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
         var orderDate = GetDateTime(r, 0);
         var delvQty = GetDecimal(r, 9) ?? 0;
         var price = GetDecimal(r, 6) ?? 0;
-        
+
         return new SalesDetailRecord
         {
             OrderDate = orderDate,
@@ -532,7 +532,7 @@ public class SqliteCommandAlkonExtractor : ICommandAlkonExtractor
             // This will be refined when we understand usage_code to plant mapping
             ShipPlantCode = "1",
             ShipCompanyCode = "1",
-            PricePlantCode = "1", 
+            PricePlantCode = "1",
             PriceCompanyCode = "1",
             CustomerCode = "CUST",
             ItemCode = GetString(r, 3),
