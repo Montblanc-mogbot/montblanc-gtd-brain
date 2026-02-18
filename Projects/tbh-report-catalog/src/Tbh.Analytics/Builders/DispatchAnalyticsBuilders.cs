@@ -6,57 +6,73 @@ public static class DispatchAnalyticsBuilders
 {
     /// <summary>
     /// Business question: "How much did we deliver (volume + $) by plant each day?"
-    /// Source of truth: TKTL.ext_price_amt and TKTL.delv_qty.
+    /// Source of truth:
+    /// - Volume: TKTL.delv_qty filtered to concrete UOMs.
+    /// - Dispatch revenue: ticket-grain totals (TKTL + TKTC) stored on NormalizedTicket.
     /// </summary>
     public static IEnumerable<DispatchPlantDay> BuildDispatchPlantDay(
         IEnumerable<NormalizedTicket> tickets,
         IEnumerable<NormalizedTicketLine> lines,
         ISet<string> concreteUoms)
     {
-        // Join lines -> ticket header to apply removal filter and prefer header plant/date.
+        // Ticket-grain index (removals are already filtered in normalization, but keep this auditable).
         var ticketIndex = tickets
             .Where(t => t.OrderDate != null)
+            .Where(t => !string.IsNullOrWhiteSpace(t.TicketCode))
             .ToDictionary(
                 t => (Day: t.OrderDate!.Value.Date, t.OrderCode, t.TicketCode),
                 t => t);
 
-        var enriched = lines
+        // Concrete volume by ticket (sum of TKTL concrete lines).
+        var concreteQtyByTicket = lines
             .Where(l => l.OrderDate != null)
-            .Select(l =>
+            .Where(l => concreteUoms.Contains(l.DeliveredQtyUom))
+            .GroupBy(l => (Day: l.OrderDate!.Value.Date, l.OrderCode, l.TicketCode))
+            .ToDictionary(g => g.Key, g => g.Sum(x => x.DeliveredQty ?? 0m));
+
+        // Build one enriched row per ticket, then roll up by day/plant.
+        var enrichedTickets = ticketIndex
+            .Select(kvp =>
             {
-                var day = l.OrderDate!.Value.Date;
-                ticketIndex.TryGetValue((day, l.OrderCode, l.TicketCode), out var t);
+                var key = kvp.Key;
+                var t = kvp.Value;
 
-                var remove = t?.RemoveReasonCode ?? string.Empty;
-                var isRemoved = !string.IsNullOrWhiteSpace(remove);
+                var ticketDay = (t.TicketDate ?? t.OrderDate)!.Value.Date;
+                var plant = t.ShipPlantCode;
 
-                var plant = t?.ShipPlantCode ?? l.ShipPlantCode;
-                var ticketDay = (t?.TicketDate ?? t?.OrderDate ?? l.OrderDate)!.Value.Date;
+                var qty = concreteQtyByTicket.TryGetValue(key, out var q) ? q : 0m;
 
                 return new
                 {
-                    TicketDay = ticketDay,
+                    Day = ticketDay,
                     Plant = plant,
-                    TicketCode = l.TicketCode,
-                    TruckCode = t?.TruckCode ?? string.Empty,
-                    DeliveredQtyUom = l.DeliveredQtyUom,
-                    DeliveredQty = l.DeliveredQty ?? 0m,
-                    Revenue = l.ExtendedPriceAmount ?? 0m,
-                    isRemoved
+                    TicketCode = t.TicketCode,
+                    TruckCode = t.TruckCode,
+                    ConcreteQty = qty,
+                    DispatchRevenue = t.TicketDispatchTotalAmount,
                 };
             })
-            .Where(x => !x.isRemoved);
+            .ToList();
 
-        return enriched
-            .GroupBy(x => new { x.TicketDay, x.Plant })
-            .Select(g => new DispatchPlantDay
+        return enrichedTickets
+            .GroupBy(x => new { x.Day, x.Plant })
+            .Select(g =>
             {
-                Day = g.Key.TicketDay,
-                PlantCode = g.Key.Plant,
-                Quantity = g.Where(x => concreteUoms.Contains(x.DeliveredQtyUom)).Sum(x => x.DeliveredQty),
-                Revenue = g.Sum(x => x.Revenue),
-                TicketCount = g.Select(x => x.TicketCode).Where(x => !string.IsNullOrWhiteSpace(x)).Distinct().Count(),
-                UniqueTruckCount = g.Select(x => x.TruckCode).Where(x => !string.IsNullOrWhiteSpace(x)).Distinct().Count(),
+                var loads = g.Select(x => x.TicketCode).Where(x => !string.IsNullOrWhiteSpace(x)).Distinct().Count();
+                var qty = g.Sum(x => x.ConcreteQty);
+                var rev = g.Sum(x => x.DispatchRevenue);
+
+                return new DispatchPlantDay
+                {
+                    Day = g.Key.Day,
+                    PlantCode = g.Key.Plant,
+                    Quantity = qty,
+                    Revenue = rev,
+                    TicketCount = loads,
+                    UniqueTruckCount = g.Select(x => x.TruckCode).Where(x => !string.IsNullOrWhiteSpace(x)).Distinct().Count(),
+                    AvgRevenuePerLoad = loads > 0 ? rev / loads : 0m,
+                    AvgCyPerLoad = loads > 0 ? qty / loads : 0m,
+                };
             })
             .OrderBy(r => r.Day)
             .ThenBy(r => r.PlantCode);
@@ -148,10 +164,14 @@ public record DispatchPlantDay
     // Concrete yards only (UOM-filtered).
     public decimal Quantity { get; init; }
 
+    // Dispatch revenue (ticket-grain totals: product + charges).
     public decimal Revenue { get; init; }
 
     public int TicketCount { get; init; }
     public int UniqueTruckCount { get; init; }
+
+    public decimal AvgRevenuePerLoad { get; init; }
+    public decimal AvgCyPerLoad { get; init; }
 }
 
 // (Removed) DispatchLoadsVolumeByDayPlant and DispatchPlantMonth records.

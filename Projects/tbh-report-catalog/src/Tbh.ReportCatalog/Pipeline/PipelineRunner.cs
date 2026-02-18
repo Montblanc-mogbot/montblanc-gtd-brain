@@ -508,10 +508,12 @@ public static class PipelineRunner
         [
             ("day", r => r.Day.ToString("yyyy-MM-dd")),
             ("plant_code", r => r.PlantCode),
-            ("quantity", r => r.Quantity.ToString()),
-            ("revenue", r => r.Revenue.ToString()),
-            ("ticket_count", r => r.TicketCount.ToString()),
+            ("concrete_cy", r => r.Quantity.ToString()),
+            ("dispatch_revenue", r => r.Revenue.ToString()),
+            ("loads", r => r.TicketCount.ToString()),
             ("unique_truck_count", r => r.UniqueTruckCount.ToString()),
+            ("avg_revenue_per_load", r => r.AvgRevenuePerLoad.ToString()),
+            ("avg_cy_per_load", r => r.AvgCyPerLoad.ToString()),
         ]);
 
         await NormalizedCsvWriter.WriteAsync(dispatchVsArRecon, reconRun,
