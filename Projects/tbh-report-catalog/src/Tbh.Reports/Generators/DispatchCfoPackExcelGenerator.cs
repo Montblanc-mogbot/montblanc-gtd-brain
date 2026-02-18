@@ -33,7 +33,7 @@ public class DispatchCfoPackExcelGenerator
 
         AddCover(package, startDate, endDate);
         AddDispatchPlantDay(package, tickets, ticketLines, plantNameByCode);
-        AddDispatchPlantMonth(package, tickets, ticketLines, plantNameByCode);
+        // Dispatch Plant Month sheet removed (redundant; can be rolled up from Dispatch Plant Day when needed).
         AddDispatchVsArByInvoice(package, tickets, ticketLines, itrn);
 
         Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
@@ -105,49 +105,7 @@ public class DispatchCfoPackExcelGenerator
         ws.Cells.AutoFitColumns();
     }
 
-    private static void AddDispatchPlantMonth(ExcelPackage package, IReadOnlyList<NormalizedTicket> tickets, IReadOnlyList<NormalizedTicketLine> ticketLines, Dictionary<string, string> plantNameByCode)
-    {
-        var ws = package.Workbook.Worksheets.Add("Dispatch Plant Month");
-
-        var concreteUoms = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-        {
-            "40003",
-            "40005",
-            "CY",
-            "CYARD",
-        };
-
-        var rows = DispatchAnalyticsBuilders.BuildDispatchPlantMonth(tickets, ticketLines, concreteUoms).ToList();
-
-        var headers = new[] { "Year", "Period", "Plant", "Plant Name", "Delivered Qty", "Concrete Delivered Qty", "Revenue", "Ticket Lines" };
-        for (var i = 0; i < headers.Length; i++)
-        {
-            var cell = ws.Cells[1, i + 1];
-            cell.Value = headers[i];
-            cell.Style.Font.Bold = true;
-            cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
-            cell.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightBlue);
-        }
-
-        for (var r = 0; r < rows.Count; r++)
-        {
-            var row = rows[r];
-            var excelRow = r + 2;
-            ws.Cells[excelRow, 1].Value = row.AccountingYear;
-            ws.Cells[excelRow, 2].Value = row.AccountingPeriod;
-            ws.Cells[excelRow, 3].Value = row.PlantCode;
-            ws.Cells[excelRow, 4].Value = plantNameByCode.TryGetValue(row.PlantCode, out var name) ? name : "";
-            ws.Cells[excelRow, 5].Value = (double)row.DeliveredQty;
-            ws.Cells[excelRow, 5].Style.Numberformat.Format = "#,##0.00";
-            ws.Cells[excelRow, 6].Value = (double)row.ConcreteDeliveredQty;
-            ws.Cells[excelRow, 6].Style.Numberformat.Format = "#,##0.00";
-            ws.Cells[excelRow, 7].Value = (double)row.Revenue;
-            ws.Cells[excelRow, 7].Style.Numberformat.Format = "$#,##0.00";
-            ws.Cells[excelRow, 8].Value = row.TicketLineCount;
-        }
-
-        ws.Cells.AutoFitColumns();
-    }
+    // Dispatch Plant Month sheet removed.
 
     private static void AddDispatchVsArByInvoice(ExcelPackage package,
         IReadOnlyList<NormalizedTicket> tickets,

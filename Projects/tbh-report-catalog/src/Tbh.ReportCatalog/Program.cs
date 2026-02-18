@@ -101,14 +101,23 @@ class Program
             // Normalization: replace UOM codes with UOM descriptions from UOMS reference table (auditable mapping)
             var uomNameByCode = uoms
                 .Where(u => !string.IsNullOrWhiteSpace(u.UomCode))
-                .ToDictionary(u => u.UomCode.Trim(), u => u.Name.Trim(), StringComparer.OrdinalIgnoreCase);
+                .ToDictionary(
+                    u => u.UomCode.Trim(),
+                    u => (u.Name ?? string.Empty).Trim(),
+                    StringComparer.OrdinalIgnoreCase);
+
+            string MapUom(string code)
+            {
+                if (string.IsNullOrWhiteSpace(code)) return string.Empty;
+                return uomNameByCode.TryGetValue(code, out var name) && !string.IsNullOrWhiteSpace(name)
+                    ? name
+                    : code;
+            }
 
             tktl = tktl
                 .Select(l => l with
                 {
-                    DeliveredQtyUom = uomNameByCode.TryGetValue(l.DeliveredQtyUom ?? string.Empty, out var name)
-                        ? name
-                        : l.DeliveredQtyUom
+                    DeliveredQtyUom = MapUom(l.DeliveredQtyUom)
                 })
                 .ToList();
         }
