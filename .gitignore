@@ -4,6 +4,10 @@ Reference/attachments/
 # OpenClaw state is outside workspace; keep repo clean
 .DS_Store
 
+# Agent local scratch/state (do not commit)
+.openclaw/
+memory/
+
 .obsidian/workspace.json
 
 Projects/griddle/repo/
@@ -12,3 +16,6 @@ Projects/griddle/repo/
 Projects/tbh-report-catalog/src/**/bin/
 Projects/tbh-report-catalog/src/**/obj/
 Projects/tbh-report-catalog/normalized/
+Projects/tbh-report-catalog/analytics/
+Projects/tbh-report-catalog/reports/
+Projects/tbh-report-catalog/runs/
