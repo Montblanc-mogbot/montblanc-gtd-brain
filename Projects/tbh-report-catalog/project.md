@@ -1,122 +1,160 @@
-# Project: TBH Report Catalog
+# Project: TBH Report Catalog (Command Alkon → CFO Reporting)
 
 - **Created:** 2026-02-16
 - **Status:** Active
-- **Outcome (what done looks like):**
-  - Normalized reporting architecture spanning Command Alkon (Dispatch) and GL (Accounting)
-  - Layered data pipeline (Extract → Normalize → Analyze → Report)
-  - Clear distinction between operational and financial truth
-  - CFO-ready executive reports + drillable operations reports
-  - Handoff-ready documentation for stepping into CFO role
+- **Primary goal:** A stable, auditable reporting catalog that can reconcile **Dispatch → AR → GL** and produce CFO-ready packs.
 
-## Context
-- **Command Alkon** (Dispatch): Volume, revenue, estimated costs via `slsd` table
-- **GL Database** (Accounting): Actual expenses, journal entries
-- **Key Tables Identified:**
-  - `slsd` — Sales detail (volume, revenue, estimated costs by plant)
-  - `plnt` — Plant master (names, codes)
-  - `tkt`/`tktd` — Ticket header/detail
-  - `itrn`/`artb` — Invoice/AR transactions
-- Current treasurer isn't focused on reporting/analytics
-- Matt stepping into CFO role needs clear, trustworthy data
+## 0) Guiding Principles (the “layers”)
 
-## Sample Data Available
-- **SLSD**: 1000 rows (March 1-4, 2025)
-  - 6 plants, 70 customers
-  - 6,085 yards, $363,250 revenue
-- **Database**: SQLite dummy at `data/command_alkon_dummy.db`
+1) **Extract (Layer 1 / Raw)**
+   - “What is in the system.”
+   - No business logic filtering.
+   - Output is raw, table-shaped CSV extracts.
 
-## Current Implementation
+2) **Normalize (Layer 2 / Auditable transforms)**
+   - Only transformations that can be explained to auditors.
+   - Examples: trimming, standardizing keys, excluding removed tickets, mapping codes → descriptions via reference tables.
+   - Output is narrow, well-documented “normalized CSVs” that drive analytics.
 
-### ✅ Completed
-1. **Dummy Database** (`data/command_alkon_dummy.db`)
-   - SQLite database with SLSD sample data
-   - Python build script: `scripts/sqlite/build_dummy_db.py`
+3) **Analytics (Layer 3 / One business question per dataset)**
+   - Each analytic answers exactly one question.
+   - Should not need to re-apply normalization rules.
 
-2. **SQLite Extractor** (`src/Tbh.Extract/Implementations/`)
-   - `SqliteCommandAlkonExtractor` - reads from dummy DB
-   - Maps all SLSD columns to C# models
+4) **Reports (Layer 4 / Presentation + exception hunting)**
+   - Excel packs for CFO review.
+   - Highlight mismatches, missing charges, anomalies.
 
-3. **Plant Performance Builder** (`src/Tbh.Analytics/Builders/`)
-   - Groups data by plant and month
-   - Calculates: volume, revenue, material/haul/overhead costs
-   - Computes contribution margin and margin %
+---
 
-4. **Excel Generator** (`src/Tbh.Reports/Generators/`)
-   - `PlantPerformanceExcelGenerator` using EPPlus
-   - Formatted with headers, totals row, currency formatting
+## 1) Current Access (Local Dummy DB)
 
-5. **Demo Program** (`src/Tbh.ReportCatalog/Program.cs`)
-   - Connects to dummy database
-   - Extracts March 2025 data
-   - Generates Plant Performance analytics
-   - Exports to Excel
+**SQLite dummy DB:** `data/command_alkon_dummy.db`
 
-### 🔄 Next Actions
+Tables currently present (row counts):
+- `plnt`: 10
+- `cust`: 4,187
+- `imst`: 2,315
+- `uoms`: 63
+- `tick`: 4,861
+- `tktl`: 4,914
+- `tktc`: 9,357
+- `ordr`: 2,522
+- `ordl`: 2,803
+- `itrn`: 3,778
+- `artb`: 1,764
+- `gldt`: 16,078
 
-- [ ] #nextaction #project/tbh-report-catalog Get additional table samples:
-  - PLNT (plant master with names)
-  - CUST (customer master)
-  - IMST (item master)
-  - TKTC (ticket costs - if different from SLSD)
-- [ ] #nextaction #project/tbh-report-catalog Run `scripts/run-plant-performance.sh` to generate first report
-- [ ] #nextaction #project/tbh-report-catalog Validate SLSD data matches Command's native reports
-- [ ] #nextaction #project/tbh-report-catalog Create GL database schema extractor
+**Not yet present (but likely required for full invoice reconciliation):**
+- `TLAP` (Ticket Line Associated Products) – fibers/admixtures
+- `TLAC` (Ticket Line Charges)
+- `TKTX` (Ticket Taxable Amounts)
+- (Any other “T*” tables needed once we see discrepancies)
 
-### 📁 Key Files
+> Note: these missing tables must be exported from Command Alkon off-hours, then imported into the dummy DB.
 
-```
-Projects/tbh-report-catalog/
-├── data/
-│   ├── command_alkon_dummy.db     # SQLite dummy database
-│   └── slsd_sample.csv            # Raw sample data (tab-delimited)
-├── scripts/
-│   ├── sqlite/
-│   │   └── build_dummy_db.py      # Rebuilds dummy DB from CSV
-│   └── run-plant-performance.sh   # Build & run demo
-├── src/
-│   ├── Tbh.Extract/
-│   │   └── Implementations/
-│   │       └── SqliteCommandAlkonExtractor.cs
-│   ├── Tbh.Analytics/
-│   │   └── Builders/
-│   │       └── PlantPerformanceBuilder.cs
-│   └── Tbh.Reports/
-│       └── Generators/
-│           └── PlantPerformanceExcelGenerator.cs
-```
+---
 
-## Schema Notes
+## 2) Pipeline — CURRENT state vs END state
 
-### Command Alkon — Key Tables
+### 2.1 Extract (Layer 1)
 
-**slsd (Sales Detail)** — Primary source for Plant Performance
-```
-ship_plant_code    char(3)      -- Plant that shipped
-tkt_date           datetime     -- Ticket date (for month grouping)
-delv_qty           numeric      -- Volume delivered (yards)
-delv_qty_uom       char(5)      -- Unit of measure
-ext_price_amt      numeric      -- Extended price (revenue)
-ext_matl_cost_amt  numeric      -- Estimated material cost
-haul_amt           numeric      -- Haul charges
-haul_cost_amt      numeric      -- Estimated haul cost
-ovhd_cost_amt      numeric      -- Overhead allocation
-```
+**Current**
+- Production MSSQL export script (SELECT-only, chunked IN-lists):
+  - `tools/montblanc_export_sqlalchemy_select_only.py`
+- Dummy DB build/import:
+  - `scripts/sqlite/build_dummy_db.py`
+- Raw coverage in dummy DB includes: TICK/TKTL/TKTC/ORDR/ORDL/ITRN/ARTB/GLDT + reference tables.
 
-**plnt (Plant Master)**
-```
-plant_code         char(3)      -- Primary key
-name               char(40)     -- Full plant name
-short_name         char(8)      -- Short code
-comp_code          char(4)      -- Company
-loc_code           char(4)      -- Location code
-```
+**End state**
+- Raw extracts (CSV) for all required dispatch/billing tables, including:
+  - TICK, TKTL, TKTC, ORDR, ORDL
+  - **TLAP, TLAC, TKTX** (and any other required “T*” tables)
+  - ITRN, ARTB, GLDT
+  - Reference: PLNT, CUST, IMST, UOMS
+- A repeatable “month window” extractor that can be run off-hours.
+- A manifest/log per run: extracted tables, row counts, date window, checksum.
 
-**tkt (Ticket Header)**
-```
-tkt_date           datetime     -- Ticket date
-tkt_code           char(8)      -- Ticket number
-plant_code         char(3)      -- Plant
-order_date         datetime     -- Order date
-order_code         char(12)     -- Order number
-```
+### 2.2 Normalize (Layer 2)
+
+**Current**
+- Removed tickets excluded:
+  - `Tickets.csv` excludes `remove_rsn_code` not blank.
+  - `TicketLines.csv` excludes lines for removed tickets.
+- UOM normalization:
+  - Ticket line UOM codes are mapped to UOM *descriptions* (via `UOMS`).
+- Product line scrub:
+  - `prod_line_code` removed from normalized Orders output (not informative here).
+
+**End state**
+- Normalized datasets are the single source for analytics:
+  - `NormalizedTickets.csv` (one row per ticket)
+  - `NormalizedTicketLines.csv` (TKTL)
+  - `NormalizedTicketCharges.csv` (TKTC)
+  - `NormalizedTicketAssociatedProducts.csv` (TLAP)
+  - `NormalizedTicketLineCharges.csv` (TLAC)
+  - `NormalizedTicketTaxableAmounts.csv` (TKTX)
+- **Derived normalized rollups** (auditable sums):
+  - `NormalizedTicketTotals.csv` (one row per ticket, with bucketed totals)
+  - Optional: `NormalizedInvoiceTotalsFromDispatch.csv` (invoice-level rollup from ticket totals)
+- All normalized datasets use stable keys:
+  - Ticket composite key = `(order_date, order_code, tkt_code)`
+
+### 2.3 Analytics (Layer 3)
+
+**Current analytics produced**
+- `DispatchPlantDay.csv`
+  - day, plant, **quantity (concrete yards)**, revenue, ticket_count, unique_truck_count
+- `DispatchVsAR_ByInvoice.csv` (ITRN-based)
+  - invoice_code, dispatch_revenue, ar_total, difference
+- `DispatchVsAR_ByInvoice_ARTB.csv` (ARTB-based)
+  - invoice_code, dispatch_revenue, artb_sales, artb_tax, artb_total, difference
+- `DispatchUomSummary.csv`
+  - now filtered to **non-concrete UOMs only** (diagnostic)
+
+**End state analytics (target set)**
+- Dispatch operations:
+  - Dispatch Plant Day (concrete yards + revenue + loads + trucks)
+- Dispatch → AR reconciliation:
+  - Dispatch vs AR by invoice (dispatch pretax vs AR pretax/tax/total)
+  - Include breakdowns for why differences occur (missing charges, removed tickets, unmapped lines)
+- Non-concrete revenue:
+  - “Non-Concrete Products” analytic that groups by product/description (not just UOM), using TKTC/TLAC/TLAP.
+
+> Key requirement: Dispatch totals must include all dispatch-side revenue components (TKTL + TKTC + TLAC + TLAP), with tax handled separately (TKTX).
+
+### 2.4 Reports (Layer 4)
+
+**Current**
+- `reports/YYYYMM DispatchBilling Verification Pack.xlsx`
+- Plant Performance demo output (still legacy ORDL-backed for now)
+
+**End state**
+- CFO-ready monthly packs:
+  - Dispatch/Billing verification pack (exceptions-focused)
+  - Plant Performance pack (volume/revenue; add costs later)
+  - GL tie-out (batch-key driven via ITRN→GLDT)
+
+---
+
+## 3) Open Work (Next Actions)
+
+### 3.1 Immediate (#nextaction)
+- [ ] #nextaction Add Extract+DummyDB support for TLAP/TLAC/TKTX (off-hours export required)
+- [ ] #nextaction Update dispatch invoice totals to include TKTC + (later) TLAP/TLAC
+- [ ] #nextaction Replace current UOM-only diagnostic with “Non-Concrete Products” analytic (product name/description)
+
+### 3.2 Validation plan
+- Pick 3–5 invoices where dispatch is short vs AR (like 1483341) and trace:
+  - TKTL vs TKTC vs (TLAP/TLAC) vs AR (ITRN/ARTB)
+  - Identify which table(s) contain the missing revenue components
+
+---
+
+## 4) Key Files / Entry Points
+
+- Pipeline overview: `docs/pipeline.md`
+- Table relationships + notes: `docs/schema-analysis.md`
+- Export (prod MSSQL, SELECT-only): `tools/montblanc_export_sqlalchemy_select_only.py`
+- Dummy DB build: `scripts/sqlite/build_dummy_db.py`
+- Runner: `src/Tbh.ReportCatalog/Program.cs`
+
