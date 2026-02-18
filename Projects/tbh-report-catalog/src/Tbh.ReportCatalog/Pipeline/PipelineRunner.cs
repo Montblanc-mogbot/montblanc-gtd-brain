@@ -521,6 +521,7 @@ public static class PipelineRunner
         var truckMonthRun = Path.Combine(ctx.RunAnalyticsDir, $"{ctx.Prefix} TruckUtilization_TruckMonth.csv");
         var plantShippingDaysMonthRun = Path.Combine(ctx.RunAnalyticsDir, $"{ctx.Prefix} PlantShippingDays_Month.csv");
         var invoiceAgingRun = Path.Combine(ctx.RunAnalyticsDir, $"{ctx.Prefix} InvoiceAging_ByInvoice.csv");
+        var customerScoreboardMonthRun = Path.Combine(ctx.RunAnalyticsDir, $"{ctx.Prefix} CustomerScoreboard_Month.csv");
         var reconRun = Path.Combine(ctx.RunAnalyticsDir, $"{ctx.Prefix} DispatchVsAR_ByInvoice.csv");
         var reconArtbRun = Path.Combine(ctx.RunAnalyticsDir, $"{ctx.Prefix} DispatchVsAR_ByInvoice_ARTB.csv");
         var uomSummaryRun = Path.Combine(ctx.RunAnalyticsDir, $"{ctx.Prefix} DispatchUomSummary.csv");
@@ -600,6 +601,18 @@ public static class PipelineRunner
             ("paid_in_full", r => r.PaidInFull ? "1" : "0"),
         ]);
 
+        await NormalizedCsvWriter.WriteAsync(customerScoreboardMonth, customerScoreboardMonthRun,
+        [
+            ("month", r => r.Month.ToString("yyyy-MM-01")),
+            ("cust_code", r => r.CustomerCode),
+            ("invoice_count", r => r.InvoiceCount.ToString()),
+            ("open_invoice_count", r => r.OpenInvoiceCount.ToString()),
+            ("open_balance_amt", r => r.OpenBalanceAmount.ToString()),
+            ("past_due_balance_amt", r => r.PastDueBalanceAmount.ToString()),
+            ("pct_past_due", r => r.PercentPastDue.ToString()),
+            ("weighted_avg_days_outstanding", r => r.WeightedAvgDaysOutstanding.ToString()),
+        ]);
+
         await NormalizedCsvWriter.WriteAsync(dispatchVsArRecon, reconRun,
         [
             ("invc_code", r => r.InvoiceCode),
@@ -635,6 +648,7 @@ public static class PipelineRunner
         PipelineIo.CopyToLatest(truckMonthRun, Path.Combine(ctx.LatestAnalyticsDir, Path.GetFileName(truckMonthRun)));
         PipelineIo.CopyToLatest(plantShippingDaysMonthRun, Path.Combine(ctx.LatestAnalyticsDir, Path.GetFileName(plantShippingDaysMonthRun)));
         PipelineIo.CopyToLatest(invoiceAgingRun, Path.Combine(ctx.LatestAnalyticsDir, Path.GetFileName(invoiceAgingRun)));
+        PipelineIo.CopyToLatest(customerScoreboardMonthRun, Path.Combine(ctx.LatestAnalyticsDir, Path.GetFileName(customerScoreboardMonthRun)));
         PipelineIo.CopyToLatest(reconRun, Path.Combine(ctx.LatestAnalyticsDir, Path.GetFileName(reconRun)));
         PipelineIo.CopyToLatest(reconArtbRun, Path.Combine(ctx.LatestAnalyticsDir, Path.GetFileName(reconArtbRun)));
         PipelineIo.CopyToLatest(uomSummaryRun, Path.Combine(ctx.LatestAnalyticsDir, Path.GetFileName(uomSummaryRun)));
@@ -651,6 +665,7 @@ public static class PipelineRunner
         Add("TruckUtilization_TruckMonth", truckMonthRun, truckMonth.Count);
         Add("PlantShippingDays_Month", plantShippingDaysMonthRun, plantShippingDaysMonth.Count);
         Add("InvoiceAging_ByInvoice", invoiceAgingRun, invoiceAging.Count);
+        Add("CustomerScoreboard_Month", customerScoreboardMonthRun, customerScoreboardMonth.Count);
         Add("DispatchVsAR_ByInvoice", reconRun, dispatchVsArRecon.Count);
         Add("DispatchVsAR_ByInvoice_ARTB", reconArtbRun, dispatchVsArtbRecon.Count);
         Add("DispatchUomSummary", uomSummaryRun, dispatchUomSummary.Count);
