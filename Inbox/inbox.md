@@ -3,6 +3,7 @@
 > Capture new tasks here. Keep it as a single list of checkbox items.
 
 ## Tasks
+- [x] #focus #nextaction #project/tbh-report-catalog Fix `dotnet format --verify-no-changes` whitespace error in PipelineRunner.cs (line ~311) and re-verify — DONE: ran dotnet format + verify; committed/pushed (0ad9353)
 - [x] #focus #nextaction #project/tbh-report-catalog Review Report Catalog README and finalize architecture — DONE: created comprehensive README with architecture diagram, analytical datasets, reconciliation framework, and normalization rules
 - [ ] #project/griddle #backlog Remember drag-bar/page split width between sessions
 - [x] #focus #nextaction #project/griddle Bug: horizontal scroll snaps back (likely scroll restoration loop) — FIXED + pushed (commit cec930a)
