@@ -14,16 +14,20 @@
 - States: Maryland (MD), West Virginia (WV), Pennsylvania (PA), Virginia (VA)
 - Activities: sales tax, use tax, withholding payments
 
-## Next Actions
+## TODO
+
+### NEXT ACTION
 - [ ] #nextaction #project/tbh-month-end-procedures Document current Python-based workflow (steps, inputs, outputs)
 - [ ] #nextaction #project/tbh-month-end-procedures Identify which parts of process have sensitive data vs. can be generalized
 - [ ] #nextaction #project/tbh-month-end-procedures Create sanitized process diagram (no real account numbers/credentials)
 - [ ] #nextaction #project/tbh-month-end-procedures Research state-specific filing requirements and deadlines
 - [ ] #nextaction #project/tbh-month-end-procedures Design redacted/abstracted version Montblanc can help with
 
-## Waiting On
+### WAITING
 - [ ] #waitingfor #project/tbh-month-end-procedures Matt: share overview of current Python scripts (structure, not credentials)
 - [ ] #waitingfor #project/tbh-month-end-procedures Matt: confirm which parts are OK to document vs. keep offline
+
+### DONE
 
 ## Someday / Maybe
 - [ ] #someday #project/tbh-month-end-procedures Automate data pulls (if API access available)

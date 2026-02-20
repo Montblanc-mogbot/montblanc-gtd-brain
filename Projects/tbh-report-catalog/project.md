@@ -136,15 +136,23 @@ Tables currently present (row counts):
 
 ---
 
-## 3) Open Work (Next Actions)
+## TODO
 
-### 3.1 Immediate (#nextaction)
-- [ ] #nextaction Hook up OutOfStateZone analytic to zone mapping + fallback city-by-zone list
-- [ ] #nextaction Add Extract+DummyDB support for TLAP/TLAC/TKTX (off-hours export required)
-- [ ] #nextaction Update dispatch invoice totals to include TKTC + (later) TLAP/TLAC
-- [ ] #nextaction Replace current UOM-only diagnostic with “Non-Concrete Products” analytic (product name/description)
+### NEXT ACTION
+- [ ] #nextaction #project/tbh-report-catalog Hook up OutOfStateZone analytic to zone mapping + fallback city-by-zone list
+- [ ] #nextaction #project/tbh-report-catalog Add Extract+DummyDB support for TLAP/TLAC/TKTX (off-hours export required)
+- [ ] #nextaction #project/tbh-report-catalog Update dispatch invoice totals to include TKTC + (later) TLAP/TLAC
+- [ ] #nextaction #project/tbh-report-catalog Replace current UOM-only diagnostic with “Non-Concrete Products” analytic (product name/description)
 
-### 3.2 Validation plan
+### WAITING
+- [ ] #waitingfor #project/tbh-report-catalog Matt: Sample data from plnt + core dispatch tables (TICK/TKTL/TKTC/ORDR/ORDL) (10–20 anonymized rows each, if possible)
+- [ ] #waitingfor #project/tbh-report-catalog Matt: Populate Out-of-State Zone list (mapping used by OutOfStateZone analytic)
+- [ ] #waitingfor #project/tbh-report-catalog Matt: Provide fallback "city by zone" list (used when explicit city→zone mapping is missing)
+- [ ] #waitingfor #project/tbh-report-catalog Matt: GL schema (expense-side tables; GLDT already present)
+
+### DONE
+
+## Validation plan
 - Pick 3–5 invoices where dispatch is short vs AR (like 1483341) and trace:
   - TKTL vs TKTC vs (TLAP/TLAC) vs AR (ITRN/ARTB)
   - Identify which table(s) contain the missing revenue components
