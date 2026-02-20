@@ -3,7 +3,6 @@
 > Capture new tasks here. Keep it as a single list of checkbox items.
 
 ## Tasks
-- [x] #focus #nextaction Weekly review (20260220) → Reference/weekly-reviews/20260220-weekly-review.md
 - [ ] #project/griddle #backlog Remember drag-bar/page split width between sessions
 - [ ] #project/griddle #backlog Fast entry: styling when notes are present
 - [ ] #project/griddle #backlog Bug: font-only styling showing as none does not render text
@@ -12,7 +11,6 @@
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: Sample data from slsd, plnt tables (10-20 anonymized rows)
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: upload `export_out.zip` (zipped export_out folder) to TBH Report Catalog Discord thread so I can ingest full exports
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: Populate Out-of-State Zone list (mapping used by OutOfStateZone analytic)
-- [ ] #focus #nextaction #project/tbh-report-catalog Implement next analytic: Non-Concrete Products/Revenue (Month + by plant/product/UOM) using existing normalized tables (TKTL/TKTC)
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: Provide fallback "city by zone" list (used when explicit city→zone mapping is missing)
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: GL schema (table names for expenses)
 - [ ] #focus #waitingfor Collect and synthesize Griddle feedback from employee testing (waiting for employees to submit feedback)

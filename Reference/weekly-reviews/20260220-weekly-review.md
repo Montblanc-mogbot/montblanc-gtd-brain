@@ -44,6 +44,8 @@
 > Paste/copy completed items from Inbox (and/or projects) here as your weekly record.
 
 From Inbox (completed):
+- Weekly review (20260220)
+- tbh-report-catalog: Implement next analytic — Non-Concrete Products/Revenue (Month + by plant/product/UOM) (added NonConcreteProducts_Month + _MonthPlantProductUom outputs; commit 0c1591d)
 - tbh-report-catalog: Fix `dotnet format --verify-no-changes` whitespace error and re-verify
 - tbh-report-catalog: Review Report Catalog README and finalize architecture
 - griddle: Bug — horizontal scroll snaps back

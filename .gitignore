@@ -8,6 +8,10 @@ Reference/attachments/
 .openclaw/
 memory/
 
+# OpenClaw skill install/cache (do not commit)
+.clawhub/
+skills/
+
 .obsidian/workspace.json
 
 Projects/griddle/repo/
