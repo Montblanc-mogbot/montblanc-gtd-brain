@@ -139,6 +139,7 @@ Tables currently present (row counts):
 ## 3) Open Work (Next Actions)
 
 ### 3.1 Immediate (#nextaction)
+- [ ] #nextaction Hook up OutOfStateZone analytic to zone mapping + fallback city-by-zone list
 - [ ] #nextaction Add Extract+DummyDB support for TLAP/TLAC/TKTX (off-hours export required)
 - [ ] #nextaction Update dispatch invoice totals to include TKTC + (later) TLAP/TLAC
 - [ ] #nextaction Replace current UOM-only diagnostic with “Non-Concrete Products” analytic (product name/description)

@@ -3,6 +3,7 @@
 > Capture new tasks here. Keep it as a single list of checkbox items.
 
 ## Tasks
+- [ ] #nextaction Weekly review (20260220) → Reference/weekly-reviews/20260220-weekly-review.md
 - [x] #focus #nextaction #project/tbh-report-catalog Fix `dotnet format --verify-no-changes` whitespace error in PipelineRunner.cs (line ~311) and re-verify — DONE: ran dotnet format + verify; committed/pushed (0ad9353)
 - [x] #focus #nextaction #project/tbh-report-catalog Review Report Catalog README and finalize architecture — DONE: created comprehensive README with architecture diagram, analytical datasets, reconciliation framework, and normalization rules
 - [ ] #project/griddle #backlog Remember drag-bar/page split width between sessions
@@ -17,6 +18,8 @@
 - [x] #focus #nextaction #project/tbh-report-catalog Integrate UOMS into pipeline: add normalized Uoms CSV export + update analytics to compute concrete yards via UOM filter (start with uom=40003) and add a DispatchUomSummary verification CSV — DONE: extractor+normalized export, concrete_delv_qty added, DispatchUomSummary added; commit e070fc9
 - [x] #focus #nextaction #project/tbh-report-catalog Update DispatchPlantDay analytic: drop delv_qty, rename concrete_delv_qty→quantity, use ticket_count (distinct tickets), add unique_truck_count (distinct truck_code) — DONE: added truck_code to tickets; updated analytics+report; commit ed96414
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: upload `export_out.zip` (zipped export_out folder) to TBH Report Catalog Discord thread so I can ingest full exports
+- [ ] #focus #waitingfor #project/tbh-report-catalog Matt: Populate Out-of-State Zone list (mapping used by OutOfStateZone analytic)
+- [ ] #focus #waitingfor #project/tbh-report-catalog Matt: Provide fallback "city by zone" list (used when explicit city→zone mapping is missing)
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: GL schema (table names for expenses)
 - [ ] #focus #waitingfor Collect and synthesize Griddle feedback from employee testing (waiting for employees to submit feedback)
 - [x] #focus #nextaction #project/tbh-report-catalog Add ITRN CSV into SQLite dummy DB + draft CFO Dispatch/Billing report layout — DONE: imported itrn_sample.csv into data/tbh_dummy.sqlite; drafted docs/cfo-dispatch-billing-report-layout.md
