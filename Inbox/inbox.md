@@ -19,6 +19,7 @@
 - [x] #focus #nextaction #project/tbh-report-catalog Update DispatchPlantDay analytic: drop delv_qty, rename concrete_delv_qty→quantity, use ticket_count (distinct tickets), add unique_truck_count (distinct truck_code) — DONE: added truck_code to tickets; updated analytics+report; commit ed96414
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: upload `export_out.zip` (zipped export_out folder) to TBH Report Catalog Discord thread so I can ingest full exports
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: Populate Out-of-State Zone list (mapping used by OutOfStateZone analytic)
+- [ ] #focus #nextaction #project/tbh-report-catalog Implement next analytic: Non-Concrete Products/Revenue (Month + by plant/product/UOM) using existing normalized tables (TKTL/TKTC)
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: Provide fallback "city by zone" list (used when explicit city→zone mapping is missing)
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: GL schema (table names for expenses)
 - [ ] #focus #waitingfor Collect and synthesize Griddle feedback from employee testing (waiting for employees to submit feedback)
