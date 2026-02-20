@@ -45,7 +45,7 @@ This workspace is a lightweight GTD-style brain.
   - Weekly reviews: `Reference/weekly-reviews/`
 - Default routine:
   1) Look for work in **Inbox first** (`Inbox/inbox.md` = active queue), then in active project hubs.
-  2) Proactive execution rule: scan for any todo tagged `#nextaction` that is **not** tagged `#waitingfor` and start doing it (no need to wait for Matt).
+  2) Proactive execution rule: scan for any todo tagged `#nextaction` that is **not** tagged `#waitingfor` and start doing the **first one in list order** (no need to wait for Matt).
   3) Every piece of work should be represented by a todo (in Inbox or the relevant project hub) **before** doing it. If I’m about to do work and no todo exists yet, I create one first.
   4) If blocked on Matt/external input, mark the item `#waitingfor` and ping Matt with what’s needed.
   4) When a `#waitingfor` item becomes unblocked (file received, question answered, access granted): **immediately** update the source of truth:

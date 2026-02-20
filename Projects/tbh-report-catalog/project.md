@@ -150,6 +150,70 @@ Tables currently present (row counts):
 - [ ] #waitingfor #project/tbh-report-catalog Matt: Provide fallback "city by zone" list (used when explicit city→zone mapping is missing)
 - [ ] #waitingfor #project/tbh-report-catalog Matt: GL schema (expense-side tables; GLDT already present)
 
+### CFO report backlog (build into Layer 4)
+
+> For each report: implement the report generator, run it for a real month window, and summarize the results (key takeaways + exceptions).
+
+1) **Dispatch/Billing Verification Pack** (exceptions-focused)
+- [ ] #todo #project/tbh-report-catalog Implement report: Dispatch/Billing Verification Pack (Excel generator + wiring)
+- [ ] #todo #project/tbh-report-catalog Run report: Dispatch/Billing Verification Pack (month window)
+- [ ] #todo #project/tbh-report-catalog Summarize report: Dispatch/Billing Verification Pack (exceptions + action items)
+
+2) **Dispatch → AR Reconciliation (By Invoice)** (ITRN-based)
+- [ ] #todo #project/tbh-report-catalog Implement report: Dispatch→AR Recon By Invoice (ITRN)
+- [ ] #todo #project/tbh-report-catalog Run report: Dispatch→AR Recon By Invoice (ITRN)
+- [ ] #todo #project/tbh-report-catalog Summarize report: Dispatch→AR Recon By Invoice (top deltas + suspected causes)
+
+3) **Dispatch → AR Reconciliation (By Invoice)** (ARTB-based)
+- [ ] #todo #project/tbh-report-catalog Implement report: Dispatch→AR Recon By Invoice (ARTB)
+- [ ] #todo #project/tbh-report-catalog Run report: Dispatch→AR Recon By Invoice (ARTB)
+- [ ] #todo #project/tbh-report-catalog Summarize report: Dispatch→AR Recon By Invoice (ARTB) (top deltas + suspected causes)
+
+4) **Plant Performance (Month)**
+- [ ] #todo #project/tbh-report-catalog Implement report: Plant Performance (Month)
+- [ ] #todo #project/tbh-report-catalog Run report: Plant Performance (Month)
+- [ ] #todo #project/tbh-report-catalog Summarize report: Plant Performance (Month) (volume/revenue leaders, trends)
+
+5) **Truck / Driver Scorecard (Month)**
+- [ ] #todo #project/tbh-report-catalog Implement report: Truck/Driver Scorecard (Month)
+- [ ] #todo #project/tbh-report-catalog Run report: Truck/Driver Scorecard (Month)
+- [ ] #todo #project/tbh-report-catalog Summarize report: Truck/Driver Scorecard (Month) (outliers, utilization)
+
+6) **Time-of-Day Heatmap (Ops)**
+- [ ] #todo #project/tbh-report-catalog Implement report: Time-of-Day Heatmap (Hour×Day×Plant)
+- [ ] #todo #project/tbh-report-catalog Run report: Time-of-Day Heatmap (Hour×Day×Plant)
+- [ ] #todo #project/tbh-report-catalog Summarize report: Time-of-Day Heatmap (peaks, staffing implications)
+
+7) **Customer Mix (Month × Plant)**
+- [ ] #todo #project/tbh-report-catalog Implement report: Customer Mix (Month×Plant)
+- [ ] #todo #project/tbh-report-catalog Run report: Customer Mix (Month×Plant)
+- [ ] #todo #project/tbh-report-catalog Summarize report: Customer Mix (concentration risk, changes)
+
+8) **Product Mix (Month × Plant)**
+- [ ] #todo #project/tbh-report-catalog Implement report: Product Mix (Month×Plant)
+- [ ] #todo #project/tbh-report-catalog Run report: Product Mix (Month×Plant)
+- [ ] #todo #project/tbh-report-catalog Summarize report: Product Mix (margin proxy candidates, anomalies)
+
+9) **Zone Performance (Month)**
+- [ ] #todo #project/tbh-report-catalog Implement report: Zone Performance (Month)
+- [ ] #todo #project/tbh-report-catalog Run report: Zone Performance (Month)
+- [ ] #todo #project/tbh-report-catalog Summarize report: Zone Performance (pricing/haul implications)
+
+10) **Project Tracker (Active Projects / Large Jobs)**
+- [ ] #todo #project/tbh-report-catalog Implement report: Project Tracker
+- [ ] #todo #project/tbh-report-catalog Run report: Project Tracker
+- [ ] #todo #project/tbh-report-catalog Summarize report: Project Tracker (growth/decline, top projects)
+
+11) **Invoice Aging + Collections Dashboard**
+- [ ] #todo #project/tbh-report-catalog Implement report: Invoice Aging + Collections Dashboard
+- [ ] #todo #project/tbh-report-catalog Run report: Invoice Aging + Collections Dashboard
+- [ ] #todo #project/tbh-report-catalog Summarize report: Invoice Aging + Collections Dashboard (past-due drivers)
+
+12) **Credit / Adjustment Register (Month)**
+- [ ] #todo #project/tbh-report-catalog Implement report: Credit/Adjustment Register (from ITRN)
+- [ ] #todo #project/tbh-report-catalog Run report: Credit/Adjustment Register (from ITRN)
+- [ ] #todo #project/tbh-report-catalog Summarize report: Credit/Adjustment Register (root causes + approvals)
+
 ### DONE
 
 ## Validation plan
