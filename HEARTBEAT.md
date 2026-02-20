@@ -10,7 +10,9 @@
 
 ## Periodic checks (when specific conditions met):
 - Check for new messages in active `#work` threads since last check; reply in-thread if something needs a response.
-- Scan `Inbox/inbox.md` for open `#waitingfor`; if anything is waiting on Matt, post a concise unblock request in `#waiting-for`.
+- Scan `Inbox/inbox.md` for open `#waitingfor`:
+  - If anything is waiting on Matt, post a concise unblock request in `#waiting-for`.
+  - Also sanity-check for “already satisfied” items (e.g., file now present, data already ingested, access granted). If satisfied: immediately mark done/remove from Inbox and add a short “done + evidence” note (path/commit/link).
 - If it's Friday morning and weekly review isn't started, post a reminder in `#weekly-review` with the GitHub link.
 - If any scheduled job posts an error (e.g., GitHub sync), surface it in `#automation-log`.
 
