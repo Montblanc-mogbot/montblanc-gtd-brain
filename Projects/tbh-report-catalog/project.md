@@ -139,7 +139,7 @@ Tables currently present (row counts):
 ## TODO
 
 ### NEXT ACTION
-- [ ] #nextaction #project/tbh-report-catalog Hook up OutOfStateZone analytic to zone mapping + fallback city-by-zone list
+- [x] #nextaction #project/tbh-report-catalog Hook up OutOfStateZone analytic to zone mapping + fallback city-by-zone list — DONE: `IftaOutOfZoneBuilder` reads `data/ifta_config.json`, `data/out_of_state_zones.csv`, `data/fallback_city_by_zone.csv`
 - [ ] #nextaction #project/tbh-report-catalog Add Extract+DummyDB support for TLAP/TLAC/TKTX (off-hours export required)
 - [ ] #nextaction #project/tbh-report-catalog Update dispatch invoice totals to include TKTC + (later) TLAP/TLAC
 - [ ] #nextaction #project/tbh-report-catalog Replace current UOM-only diagnostic with “Non-Concrete Products” analytic (product name/description)

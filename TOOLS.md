@@ -13,6 +13,12 @@ Things like:
 - Device nicknames
 - Anything environment-specific
 
+## Convenience commands / shorthands
+
+- **Force heartbeat now (CLI):**
+  - `openclaw system event --text "Run heartbeat now" --mode now`
+  - When Matt says “run heartbeat”, this is the command to execute.
+
 ## Examples
 
 ```markdown
