@@ -5,11 +5,15 @@
 ## On EVERY heartbeat wake:
 1. Read Inbox/inbox.md - are there open #nextaction items?
 2. If yes: EXECUTE the highest priority one immediately (don't just report, DO)
-3. Post status to #automation-log showing what you're working on
-4. Only reply HEARTBEAT_OK if truly nothing to do
+3. While working: if I notice any work that isn’t represented by a todo, **stop and capture it** into Inbox (or the relevant project hub) before continuing.
+4. Post status to #automation-log showing what you're working on
+5. Only reply HEARTBEAT_OK if truly nothing to do
 
 ## Periodic checks (when specific conditions met):
 - Check for new messages in active `#work` threads since last check; reply in-thread if something needs a response.
+- Scan active project hubs (`Projects/*/project.md`) and sanity-check:
+  - Each active project has at least one clear `#nextaction`.
+  - Any new work being discussed in threads has a captured todo (Inbox or the project hub).
 - Scan `Inbox/inbox.md` for open `#waitingfor`:
   - If anything is waiting on Matt, post a concise unblock request in `#waiting-for`.
   - Also sanity-check for “already satisfied” items (e.g., file now present, data already ingested, access granted). If satisfied: immediately mark done/remove from Inbox and add a short “done + evidence” note (path/commit/link).

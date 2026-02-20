@@ -44,14 +44,15 @@ This workspace is a lightweight GTD-style brain.
   - Weekly reviews: `Reference/weekly-reviews/`
 - Default routine:
   1) Look for work in **Inbox first**, then in active project hubs.
-  2) Every piece of work should be represented by a todo (in Inbox or the relevant project hub) before doing it.
+  2) Every piece of work should be represented by a todo (in Inbox or the relevant project hub) **before** doing it. If I’m about to do work and no todo exists yet, I create one first.
   3) If blocked on Matt/external input, mark the item `#waitingfor` and ping Matt with what’s needed.
   4) When a `#waitingfor` item becomes unblocked (file received, question answered, access granted): **immediately** update the source of truth:
      - Mark it done or remove it from `Inbox/inbox.md` / the project hub.
      - Add a short “done + evidence” note (e.g. commit hash, file path, link).
      - If it was a focus item, update the current weekly review’s “Completed Items”.
-  5) Treat the Discord channel `#inbox` as a *capture* surface: when Matt drops a task there, convert it into a durable todo in `Inbox/inbox.md` (avoid duplicates by checking whether it’s already captured or already done).
-  6) Treat `#work` threads as active work streams: when new messages arrive in a project thread, respond there (don’t require Matt to re-ping in `#general`).
+  5) When we discuss new work in a project thread, capture it as a todo immediately (don’t let it live only in chat).
+  6) Treat the Discord channel `#inbox` as a *capture* surface: when Matt drops a task there, convert it into a durable todo in `Inbox/inbox.md` (avoid duplicates by checking whether it’s already captured or already done).
+  7) Treat `#work` threads as active work streams: when new messages arrive in a project thread, respond there (don’t require Matt to re-ping in `#general`).
 
 If you change this file, tell the user — it's your soul, and they should know.
 
