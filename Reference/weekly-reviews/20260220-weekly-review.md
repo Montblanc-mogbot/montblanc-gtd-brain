@@ -1,11 +1,11 @@
 # Weekly Review — 20260220
 
 ## Get Clear
-- [ ] Close open loops (anything on your mind) into Inbox
-- [ ] Clear Inbox (goal: Inbox only contains **open** tasks)
-  - [ ] Move/convert items into Projects as needed
-  - [ ] Copy checked-off Inbox items into this doc under “Completed Items”
-  - [ ] Delete checked-off items from Inbox
+- [x] Close open loops (anything on your mind) into Inbox
+- [x] Clear Inbox (goal: Inbox only contains **open** tasks)
+  - [x] Move/convert items into Projects as needed
+  - [x] Copy checked-off Inbox items into this doc under “Completed Items”
+  - [x] Delete checked-off items from Inbox
 - [ ] Create any new project hubs needed
 - [ ] Archive any completed projects (move project folder → Reference/finished-projects)
 
@@ -18,28 +18,39 @@
   - [ ] <weekly task 3>
 
 ## Get Current
-- [ ] Mark done / delete / clarify any todos (scan Inbox + active project hubs)
-- [ ] Ensure every active project has at least one Next Action
-- [ ] Review Next Actions
-- [ ] Review Waiting For
-- [ ] Review Someday / Maybe
+- [x] Mark done / delete / clarify any todos (scan Inbox + active project hubs)
+- [x] Ensure every active project has at least one Next Action
+- [x] Review Next Actions
+- [x] Review Waiting For
+- [x] Review Someday / Maybe
 
 ## Get Focused
-- [ ] Add a #focus tag to 3 items that are tagged #nextaction
-- [ ] List those focused actions here:
-  - [ ] #focus <action 1>
-  - [ ] #focus <action 2>
-  - [ ] #focus <action 3>
-- [ ] Note whether last week’s focused actions were completed
+- [x] Add a #focus tag to 3 items that are tagged #nextaction
+- [x] List those focused actions here:
+  - [ ] #focus Weekly review (20260220)
+  - [ ] #focus tbh-report-catalog: Implement next analytic — Non-Concrete Products/Revenue (Month + by plant/product/UOM)
+  - [ ] #focus Griddle: triage + incorporate employee feedback (when received)
+- [x] Note whether last week’s focused actions were completed (mixed; one completed, others still waiting-for)
 
 ## Maintenance (meta)
-- [ ] Review this weekly review and update durable context as needed:
-  - [ ] SOUL.md (behavior/style rules)
-  - [ ] HEARTBEAT.md (what to check proactively)
-  - [ ] USER.md (preferences, ongoing work)
-  - [ ] MEMORY.md / daily memory files (distill what matters)
-- [ ] Quick sanity check: GitHub sync job is running and repo reflects changes
+- [x] Review this weekly review and update durable context as needed:
+  - [x] SOUL.md (behavior/style rules)
+  - [x] HEARTBEAT.md (what to check proactively)
+  - [x] USER.md (preferences, ongoing work)
+  - [x] MEMORY.md / daily memory files (distill what matters)
+- [x] Quick sanity check: GitHub sync job is running and repo reflects changes
 
 ## Completed Items
 > Paste/copy completed items from Inbox (and/or projects) here as your weekly record.
+
+From Inbox (completed):
+- tbh-report-catalog: Fix `dotnet format --verify-no-changes` whitespace error and re-verify
+- tbh-report-catalog: Review Report Catalog README and finalize architecture
+- griddle: Bug — horizontal scroll snaps back
+- tbh-report-catalog: Create C# project skeleton with layered architecture
+- tbh-report-catalog: Implement normalization layer for dispatch primary tables (TICK/TKTL/ORDR + ITRN) and export normalized CSVs
+- tbh-report-catalog: Integrate UOMS into pipeline + add DispatchUomSummary verification CSV
+- tbh-report-catalog: Update DispatchPlantDay analytic (quantity/revenue/ticket_count/unique_truck_count)
+- tbh-report-catalog: Add ITRN CSV into SQLite dummy DB + draft CFO Dispatch/Billing report layout
+- griddle: Design undo/redo system (design doc)
 
