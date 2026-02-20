@@ -3,7 +3,6 @@
 > Capture new tasks here. Keep it as a single list of checkbox items.
 
 ## Tasks
-- [ ] Review Someday / Maybe list: Reference/someday-maybe.md
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: Sample data from plnt + core dispatch tables (TICK/TKTL/TKTC/ORDR/ORDL) (10–20 anonymized rows each, if possible)
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: Populate Out-of-State Zone list (mapping used by OutOfStateZone analytic)
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: Provide fallback "city by zone" list (used when explicit city→zone mapping is missing)
