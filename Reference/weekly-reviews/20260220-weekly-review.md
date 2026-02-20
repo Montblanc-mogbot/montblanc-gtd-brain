@@ -28,7 +28,7 @@
 ## Get Focused
 - [x] Pick 3 focus items for the week (can be #nextaction or key unblocks)
 - [x] List those focused actions here:
-  - [ ] #focus (UNBLOCK) tbh-report-catalog: Sample data from `slsd` + `plnt` (10–20 anonymized rows)
+  - [ ] #focus (UNBLOCK) tbh-report-catalog: Sample data from `plnt` + core dispatch tables (TICK/TKTL/TKTC/ORDR/ORDL)
   - [ ] #focus (UNBLOCK) tbh-report-catalog: GL schema (table names/shape for expenses)
   - [ ] #focus (UNBLOCK) tbh-month-end-procedures: Python scripts overview (structure only, no credentials)
 - [x] Note whether last week’s focused actions were completed: **1/3 completed** (undo/redo design done; month-end planning + Griddle feedback still blocked)
