@@ -5,7 +5,6 @@
 ## Tasks
 - [ ] Review Someday / Maybe list: Reference/someday-maybe.md
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: Sample data from slsd, plnt tables (10-20 anonymized rows)
-- [ ] #focus #waitingfor #project/tbh-report-catalog Matt: upload `export_out.zip` (zipped export_out folder) to TBH Report Catalog Discord thread so I can ingest full exports
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: Populate Out-of-State Zone list (mapping used by OutOfStateZone analytic)
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: Provide fallback "city by zone" list (used when explicit city→zone mapping is missing)
 - [ ] #focus #waitingfor #project/tbh-report-catalog Matt: GL schema (table names for expenses)
