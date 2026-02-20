@@ -6,17 +6,14 @@
   - [x] Move/convert items into Projects as needed
   - [x] Copy checked-off Inbox items into this doc under “Completed Items”
   - [x] Delete checked-off items from Inbox
-- [ ] Create any new project hubs needed
+- [x] Create any new project hubs needed (none)
 - [x] Archive any completed projects (move project folder → Reference/finished-projects)
   - Archived: Griddle; Linux ricing — Montblanc (FFT)
 
 ## Generate Weekly Tasks (recurring)
 > Create any tasks that should happen every week and put them in Inbox (or directly in a project hub).
-- [ ] Review the previous weekly review and copy forward any still-relevant recurring tasks
-- [ ] Add this week’s recurring tasks to Inbox (leave unchecked)
-  - [ ] <weekly task 1>
-  - [ ] <weekly task 2>
-  - [ ] <weekly task 3>
+- [x] Review the previous weekly review and copy forward any still-relevant recurring tasks (none identified)
+- [x] Add this week’s recurring tasks to Inbox (leave unchecked) (none added this week)
 
 ## Get Current
 - [x] Mark done / delete / clarify any todos (scan Inbox + active project hubs)
