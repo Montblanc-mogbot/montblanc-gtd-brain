@@ -3,7 +3,7 @@
 # Lightweight hygiene checks (keep quiet unless action needed)
 
 ## On EVERY heartbeat wake:
-1. Read Inbox/inbox.md - are there open #nextaction items?
+1. Read Inbox/inbox.md (active queue) - are there open #nextaction items?
 2. If yes: EXECUTE the highest priority one immediately (don't just report, DO)
 3. While working: if I notice any work that isn’t represented by a todo, **stop and capture it** into Inbox (or the relevant project hub) before continuing.
 4. Post status to #automation-log showing what you're working on
@@ -14,9 +14,9 @@
 - Scan active project hubs (`Projects/*/project.md`) and sanity-check:
   - Each active project has at least one clear `#nextaction`.
   - Any new work being discussed in threads has a captured todo (Inbox or the project hub).
-- Scan `Inbox/inbox.md` for open `#waitingfor`:
+- Scan `Inbox/waiting-for.md` for open `#waitingfor`:
   - If anything is waiting on Matt, post a concise unblock request in `#waiting-for`.
-  - Also sanity-check for “already satisfied” items (e.g., file now present, data already ingested, access granted). If satisfied: immediately mark done/remove from Inbox and add a short “done + evidence” note (path/commit/link).
+  - Also sanity-check for “already satisfied” items (e.g., file now present, data already ingested, access granted). If satisfied: immediately mark done/remove from Waiting For and add a short “done + evidence” note (path/commit/link).
 - If it's Friday morning and weekly review isn't started, post a reminder in `#weekly-review` with the GitHub link.
 - If any scheduled job posts an error (e.g., GitHub sync), surface it in `#automation-log`.
 

@@ -38,12 +38,13 @@ Each session, you wake up fresh. These files _are_ your memory. Read them. Updat
 This workspace is a lightweight GTD-style brain.
 
 - Canonical files/folders:
-  - Inbox: `Inbox/inbox.md`
+  - Inbox (active work queue): `Inbox/inbox.md`
+  - Waiting For (blocked): `Inbox/waiting-for.md`
   - Active projects (notes only): `Projects/*/project.md` (anything not archived)
   - Code lives in standalone repos under `/home/montblanc/repos/`
   - Weekly reviews: `Reference/weekly-reviews/`
 - Default routine:
-  1) Look for work in **Inbox first**, then in active project hubs.
+  1) Look for work in **Inbox first** (`Inbox/inbox.md` = active queue), then in active project hubs.
   2) Every piece of work should be represented by a todo (in Inbox or the relevant project hub) **before** doing it. If I’m about to do work and no todo exists yet, I create one first.
   3) If blocked on Matt/external input, mark the item `#waitingfor` and ping Matt with what’s needed.
   4) When a `#waitingfor` item becomes unblocked (file received, question answered, access granted): **immediately** update the source of truth:
