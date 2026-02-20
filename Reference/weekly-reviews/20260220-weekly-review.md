@@ -26,12 +26,12 @@
 - [x] Review Someday / Maybe
 
 ## Get Focused
-- [x] Add a #focus tag to 3 items that are tagged #nextaction
+- [x] Pick 3 focus items for the week (can be #nextaction or key unblocks)
 - [x] List those focused actions here:
-  - [ ] #focus Weekly review (20260220)
-  - [ ] #focus tbh-report-catalog: Implement next analytic — Non-Concrete Products/Revenue (Month + by plant/product/UOM)
-  - [ ] #focus Griddle: triage + incorporate employee feedback (when received)
-- [x] Note whether last week’s focused actions were completed (mixed; one completed, others still waiting-for)
+  - [ ] #focus (UNBLOCK) tbh-report-catalog: Sample data from `slsd` + `plnt` (10–20 anonymized rows)
+  - [ ] #focus (UNBLOCK) tbh-report-catalog: GL schema (table names/shape for expenses)
+  - [ ] #focus (UNBLOCK) tbh-month-end-procedures: Python scripts overview (structure only, no credentials)
+- [x] Note whether last week’s focused actions were completed: **1/3 completed** (undo/redo design done; month-end planning + Griddle feedback still blocked)
 
 ## Maintenance (meta)
 - [x] Review this weekly review and update durable context as needed:
