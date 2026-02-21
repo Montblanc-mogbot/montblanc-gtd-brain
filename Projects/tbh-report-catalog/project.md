@@ -186,7 +186,7 @@ Tables currently present (row counts):
 - [x] #nextaction #project/tbh-report-catalog Summarize report: Customer Mix (concentration risk, changes) — DONE (dummy DB run 202501): High-volume plants concentration (by revenue share): Plant 6 top customer NVRI01 is 31.3% of rev (top5=51.5%, HHI~1187). Plant 4 top customer JSCC01 is 18.1% (top5=58.0%, HHI~850); next two customers each ~13%. Plant 3 top customer SMIT01 is 16.0% (top5=50.6%, HHI~696). Plant 1 top customer AYER01 is 17.8% (top5=54.7%, HHI~802). Low-volume/non-CY plants (40/42/43/44) are extremely concentrated but represent small dollars and appear to be non-concrete sales (0 CY). Source: `runs/20260221_143726_202501/analytics/202501 CustomerMix_MonthPlant.csv`
 
 8) **Product Mix (Month × Plant)**
-- [ ] #nextaction #project/tbh-report-catalog Implement report: Product Mix (Month×Plant)
+- [x] #nextaction #project/tbh-report-catalog Implement report: Product Mix (Month×Plant) — DONE: added `ProductMixMonthPlantExcelGenerator` and wired in `PipelineRunner` to emit `{prefix} Product Mix (MonthxPlant).xlsx`. Commit: 27d84fd
 - [ ] #nextaction #project/tbh-report-catalog Run report: Product Mix (Month×Plant)
 - [ ] #nextaction #project/tbh-report-catalog Summarize report: Product Mix (margin proxy candidates, anomalies)
 
