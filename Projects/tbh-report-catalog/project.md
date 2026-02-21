@@ -152,7 +152,7 @@ Tables currently present (row counts):
 
 1) **Dispatch/Billing Verification Pack** (exceptions-focused)
 - [x] #nextaction #project/tbh-report-catalog Implement report: Dispatch/Billing Verification Pack (Excel generator + wiring) — DONE: `DispatchCfoPackExcelGenerator` generates pack; wired in `PipelineRunner` to output `{prefix} DispatchBilling Verification Pack.xlsx`
-- [ ] #nextaction #project/tbh-report-catalog Run report: Dispatch/Billing Verification Pack (month window)
+- [x] #nextaction #project/tbh-report-catalog Run report: Dispatch/Billing Verification Pack (month window) — DONE: ran pipeline for 2025-01-01→2025-02-01; output: `runs/20260221_053734_202501/reports/202501 DispatchBilling Verification Pack.xlsx`
 - [ ] #nextaction #project/tbh-report-catalog Summarize report: Dispatch/Billing Verification Pack (exceptions + action items)
 
 2) **Dispatch → AR Reconciliation (By Invoice)** (ITRN-based)
