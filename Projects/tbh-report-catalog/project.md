@@ -187,7 +187,7 @@ Tables currently present (row counts):
 
 8) **Product Mix (Month × Plant)**
 - [x] #nextaction #project/tbh-report-catalog Implement report: Product Mix (Month×Plant) — DONE: added `ProductMixMonthPlantExcelGenerator` and wired in `PipelineRunner` to emit `{prefix} Product Mix (MonthxPlant).xlsx`. Commit: 27d84fd
-- [ ] #nextaction #project/tbh-report-catalog Run report: Product Mix (Month×Plant)
+- [x] #nextaction #project/tbh-report-catalog Run report: Product Mix (Month×Plant) — DONE: ran pipeline for 2025-01-01→2025-02-01; output: `runs/20260221_160725_202501/reports/202501 Product Mix (MonthxPlant).xlsx`
 - [ ] #nextaction #project/tbh-report-catalog Summarize report: Product Mix (margin proxy candidates, anomalies)
 
 9) **Zone Performance (Month)**
