@@ -182,7 +182,7 @@ Tables currently present (row counts):
 
 7) **Customer Mix (Month × Plant)**
 - [x] #nextaction #project/tbh-report-catalog Implement report: Customer Mix (Month×Plant) — DONE: added `CustomerMixMonthPlantExcelGenerator` and wired in `PipelineRunner` to emit `{prefix} Customer Mix (MonthxPlant).xlsx`. Commit: 0f093a5
-- [ ] #nextaction #project/tbh-report-catalog Run report: Customer Mix (Month×Plant)
+- [x] #nextaction #project/tbh-report-catalog Run report: Customer Mix (Month×Plant) — DONE: ran pipeline for 2025-01-01→2025-02-01; output: `runs/20260221_143726_202501/reports/202501 Customer Mix (MonthxPlant).xlsx`
 - [ ] #nextaction #project/tbh-report-catalog Summarize report: Customer Mix (concentration risk, changes)
 
 8) **Product Mix (Month × Plant)**
