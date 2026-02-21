@@ -153,7 +153,7 @@ Tables currently present (row counts):
 1) **Dispatch/Billing Verification Pack** (exceptions-focused)
 - [x] #nextaction #project/tbh-report-catalog Implement report: Dispatch/Billing Verification Pack (Excel generator + wiring) — DONE: `DispatchCfoPackExcelGenerator` generates pack; wired in `PipelineRunner` to output `{prefix} DispatchBilling Verification Pack.xlsx`
 - [x] #nextaction #project/tbh-report-catalog Run report: Dispatch/Billing Verification Pack (month window) — DONE: ran pipeline for 2025-01-01→2025-02-01; output: `runs/20260221_053734_202501/reports/202501 DispatchBilling Verification Pack.xlsx`
-- [ ] #nextaction #project/tbh-report-catalog Summarize report: Dispatch/Billing Verification Pack (exceptions + action items)
+- [x] #nextaction #project/tbh-report-catalog Summarize report: Dispatch/Billing Verification Pack (exceptions + action items) — DONE (dummy DB run 202501): DispatchVsAR_ByInvoice had 724 invoices; median |diff|=$176.66, mean |diff|=$364.64; 697/724 were negative (dispatch < AR). Largest deltas: 1482656 (-$7,792.06), 1483226 (-$4,126.70), 1483300 (-$3,832.50), 1483083 (-$3,322.08), 1482999 (-$3,146.16). Suggests missing components beyond TKTL+TKTC (likely TLAP/TLAC and/or tax handling) and/or invoice-level adjustments/credits not represented on dispatch side yet. Output run: `runs/20260221_053734_202501/`
 
 2) **Dispatch → AR Reconciliation (By Invoice)** (ITRN-based)
 - [ ] #nextaction #project/tbh-report-catalog Implement report: Dispatch→AR Recon By Invoice (ITRN)
