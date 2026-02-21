@@ -181,7 +181,7 @@ Tables currently present (row counts):
 - [x] #nextaction #project/tbh-report-catalog Summarize report: Time-of-Day Heatmap (peaks, staffing implications) — DONE (dummy DB run 202501): Overall peak hours by loads: 09:00 (251), 12:00 (247), 08:00 (243), 11:00 (242), 07:00 (215). Plant 4 dominates peaks (e.g., hour 08:00=101 loads; 09:00=96; 12:00=95; 11:00=93; 07:00=90). Plant 6 secondary (hour 12:00=85; 11:00=79; 08:00=69; 09:00=68). Day-of-week: Friday is busiest (top combos Fri 09:00=92, Fri 12:00=87, Fri 07:00=82). Timestamp coverage is high: 1962/1981 loads (99%) had usable LoadTime/ScheduledLoadTime. Staffing implication: expect heavy dispatch/loading activity 07:00–13:00 with strongest surge 08:00–12:00, especially for Plant 4. Source: `runs/20260221_130725_202501/analytics/202501 TimeOfDayHeatmap_HourDayPlant.csv`
 
 7) **Customer Mix (Month × Plant)**
-- [ ] #nextaction #project/tbh-report-catalog Implement report: Customer Mix (Month×Plant)
+- [x] #nextaction #project/tbh-report-catalog Implement report: Customer Mix (Month×Plant) — DONE: added `CustomerMixMonthPlantExcelGenerator` and wired in `PipelineRunner` to emit `{prefix} Customer Mix (MonthxPlant).xlsx`. Commit: 0f093a5
 - [ ] #nextaction #project/tbh-report-catalog Run report: Customer Mix (Month×Plant)
 - [ ] #nextaction #project/tbh-report-catalog Summarize report: Customer Mix (concentration risk, changes)
 
