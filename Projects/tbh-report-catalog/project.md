@@ -192,7 +192,7 @@ Tables currently present (row counts):
 
 9) **Zone Performance (Month)**
 - [x] #nextaction #project/tbh-report-catalog Implement report: Zone Performance (Month) — DONE: added `ZonePerformanceMonthExcelGenerator` and wired in `PipelineRunner` to emit `{prefix} Zone Performance (Month).xlsx`. Commit: b55e540
-- [ ] #nextaction #project/tbh-report-catalog Run report: Zone Performance (Month)
+- [x] #nextaction #project/tbh-report-catalog Run report: Zone Performance (Month) — DONE: ran pipeline for 2025-01-01→2025-02-01; output: `runs/20260221_173727_202501/reports/202501 Zone Performance (Month).xlsx`
 - [ ] #nextaction #project/tbh-report-catalog Summarize report: Zone Performance (pricing/haul implications)
 
 10) **Project Tracker (Active Projects / Large Jobs)**
