@@ -172,7 +172,7 @@ Tables currently present (row counts):
 
 5) **Truck / Driver Scorecard (Month)**
 - [x] #nextaction #project/tbh-report-catalog Implement report: Truck/Driver Scorecard (Month) — DONE: added `TruckDriverScorecardMonthExcelGenerator` (based on TruckDriverScorecard_MonthTruckDriver analytic) and wired in `PipelineRunner` to emit `{prefix} Truck-Driver Scorecard (Month).xlsx`. Commit: b5f79a2
-- [ ] #nextaction #project/tbh-report-catalog Run report: Truck/Driver Scorecard (Month)
+- [x] #nextaction #project/tbh-report-catalog Run report: Truck/Driver Scorecard (Month) — DONE: ran pipeline for 2025-01-01→2025-02-01; output: `runs/20260221_113725_202501/reports/202501 Truck-Driver Scorecard (Month).xlsx`
 - [ ] #nextaction #project/tbh-report-catalog Summarize report: Truck/Driver Scorecard (Month) (outliers, utilization)
 
 6) **Time-of-Day Heatmap (Ops)**
