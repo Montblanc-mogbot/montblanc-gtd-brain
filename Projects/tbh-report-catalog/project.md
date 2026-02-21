@@ -157,7 +157,7 @@ Tables currently present (row counts):
 
 2) **Dispatch → AR Reconciliation (By Invoice)** (ITRN-based)
 - [x] #nextaction #project/tbh-report-catalog Implement report: Dispatch→AR Recon By Invoice (ITRN) — DONE: added `DispatchVsArReconByInvoiceExcelGenerator` and wired in `PipelineRunner` to emit `{prefix} DispatchVsAR Recon By Invoice (ITRN).xlsx`. Commit: 62a193b
-- [ ] #nextaction #project/tbh-report-catalog Run report: Dispatch→AR Recon By Invoice (ITRN)
+- [x] #nextaction #project/tbh-report-catalog Run report: Dispatch→AR Recon By Invoice (ITRN) — DONE: ran pipeline for 2025-01-01→2025-02-01; output: `runs/20260221_070726_202501/reports/202501 DispatchVsAR Recon By Invoice (ITRN).xlsx`
 - [ ] #nextaction #project/tbh-report-catalog Summarize report: Dispatch→AR Recon By Invoice (top deltas + suspected causes)
 
 3) **Dispatch → AR Reconciliation (By Invoice)** (ARTB-based)
