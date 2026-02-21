@@ -3,11 +3,11 @@
 Items blocked on Matt/external input.
 
 ## TBH Report Catalog
-- [ ] #waitingfor Matt: Sample data from plnt + core dispatch tables (TICK/TKTL/TKTC/ORDR/ORDL) (10–20 anonymized rows each, if possible)
-- [ ] #waitingfor Matt: Populate Out-of-State Zone list (mapping used by OutOfStateZone analytic)
-- [ ] #waitingfor Matt: Provide fallback "city by zone" list (used when explicit city→zone mapping is missing)
-- [ ] #waitingfor Matt: GL schema (expense-side tables; GLDT already present)
-
+- [ ] #waitingfor #project/tbh-report-catalog Matt: Sample data from plnt + core dispatch tables (TICK/TKTL/TKTC/ORDR/ORDL) (10–20 anonymized rows each, if possible)
+- [ ] #waitingfor #project/tbh-report-catalog Matt: Populate Out-of-State Zone list (mapping used by OutOfStateZone analytic)
+- [ ] #waitingfor #project/tbh-report-catalog Matt: Provide fallback "city by zone" list (used when explicit city→zone mapping is missing)
+- [ ] #waitingfor #project/tbh-report-catalog Matt: GL schema (expense-side tables; GLDT already present)
+- [ ] #waitingfor #nextaction #project/tbh-report-catalog Add Extract+DummyDB support for TLAP/TLAC/TKTX (off-hours export required)
 ## TBH Month End Procedures
 - [ ] #waitingfor Matt: Python scripts overview (structure, not credentials)
 - [ ] #waitingfor Matt: confirm which parts are OK to document vs keep offline

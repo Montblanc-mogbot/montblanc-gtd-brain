@@ -140,15 +140,11 @@ Tables currently present (row counts):
 
 ### NEXT ACTION
 - [x] #nextaction #project/tbh-report-catalog Hook up OutOfStateZone analytic to zone mapping + fallback city-by-zone list — DONE: `IftaOutOfZoneBuilder` reads `data/ifta_config.json`, `data/out_of_state_zones.csv`, `data/fallback_city_by_zone.csv`
-- [ ] #waitingfor #nextaction #project/tbh-report-catalog Add Extract+DummyDB support for TLAP/TLAC/TKTX (off-hours export required)
 - [ ] #nextaction #project/tbh-report-catalog Update dispatch invoice totals to include TKTC + (later) TLAP/TLAC
 - [ ] #nextaction #project/tbh-report-catalog Replace current UOM-only diagnostic with “Non-Concrete Products” analytic (product name/description)
 
 ### WAITING
-- [ ] #waitingfor #project/tbh-report-catalog Matt: Sample data from plnt + core dispatch tables (TICK/TKTL/TKTC/ORDR/ORDL) (10–20 anonymized rows each, if possible)
-- [ ] #waitingfor #project/tbh-report-catalog Matt: Populate Out-of-State Zone list (mapping used by OutOfStateZone analytic)
-- [ ] #waitingfor #project/tbh-report-catalog Matt: Provide fallback "city by zone" list (used when explicit city→zone mapping is missing)
-- [ ] #waitingfor #project/tbh-report-catalog Matt: GL schema (expense-side tables; GLDT already present)
+- (Moved to `Inbox/waiting-for.md`)
 
 ### CFO report backlog (build into Layer 4)
 
