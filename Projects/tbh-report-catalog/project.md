@@ -176,8 +176,8 @@ Tables currently present (row counts):
 - [x] #nextaction #project/tbh-report-catalog Summarize report: Truck/Driver Scorecard (Month) (outliers, utilization) — DONE (dummy DB run 202501): 73 trucks. Utilization: mean loads=26.6 (median 28), max 51; mean active days=10.3 (median 11), max 17. Top by loads: truck 430 (51 loads / 17 days ≈3.00/day; 427.75 CY; $68,700.76; plant 6), 423 (49 loads / 15 days ≈3.27/day; 425.75 CY; $70,630.25; plant 4), 420 (47 loads; $63,856; plant 4). Top by revenue: 423 ($70,630.25), 430 ($68,700.76), 417 ($64,093.00). Low avg CY/load outliers (small-load style): 438 (5.66 CY/load; 8 loads; plant 1), 353 (6.64 CY/load; 34 loads; plant 6), 365 (6.70 CY/load; 14 loads; plant 1). High $/CY outliers: 386 ($179.52/CY), 365 ($175.08/CY), 438 ($174.52/CY). No trucks served >=3 unique plants in month (unique_plants max <3). Source: `runs/20260221_113725_202501/analytics/202501 TruckDriverScorecard_MonthTruckDriver.csv`
 
 6) **Time-of-Day Heatmap (Ops)**
-- [ ] #nextaction #project/tbh-report-catalog Implement report: Time-of-Day Heatmap (Hour×Day×Plant)
-- [ ] #nextaction #project/tbh-report-catalog Run report: Time-of-Day Heatmap (Hour×Day×Plant)
+- [x] #nextaction #project/tbh-report-catalog Implement report: Time-of-Day Heatmap (Hour×Day×Plant) — DONE: added `TimeOfDayHeatmapHourDayPlantExcelGenerator` and wired in `PipelineRunner` to emit `{prefix} Time-of-Day Heatmap (HourxDayxPlant).xlsx`. Commit: c4c0560
+- [x] #nextaction #project/tbh-report-catalog Run report: Time-of-Day Heatmap (Hour×Day×Plant) — DONE: ran pipeline for 2025-01-01→2025-02-01; output: `runs/20260221_130725_202501/reports/202501 Time-of-Day Heatmap (HourxDayxPlant).xlsx`
 - [ ] #nextaction #project/tbh-report-catalog Summarize report: Time-of-Day Heatmap (peaks, staffing implications)
 
 7) **Customer Mix (Month × Plant)**
