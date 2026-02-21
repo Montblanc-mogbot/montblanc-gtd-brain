@@ -158,7 +158,7 @@ Tables currently present (row counts):
 2) **Dispatch → AR Reconciliation (By Invoice)** (ITRN-based)
 - [x] #nextaction #project/tbh-report-catalog Implement report: Dispatch→AR Recon By Invoice (ITRN) — DONE: added `DispatchVsArReconByInvoiceExcelGenerator` and wired in `PipelineRunner` to emit `{prefix} DispatchVsAR Recon By Invoice (ITRN).xlsx`. Commit: 62a193b
 - [x] #nextaction #project/tbh-report-catalog Run report: Dispatch→AR Recon By Invoice (ITRN) — DONE: ran pipeline for 2025-01-01→2025-02-01; output: `runs/20260221_070726_202501/reports/202501 DispatchVsAR Recon By Invoice (ITRN).xlsx`
-- [ ] #nextaction #project/tbh-report-catalog Summarize report: Dispatch→AR Recon By Invoice (top deltas + suspected causes)
+- [x] #nextaction #project/tbh-report-catalog Summarize report: Dispatch→AR Recon By Invoice (top deltas + suspected causes) — DONE (dummy DB run 202501): 724 invoices; median |diff|=$176.66; 55 invoices with |diff|>$1,000; diffs overwhelmingly negative (697/724). Top deltas: 1482656 (-$7,792.06), 1483226 (-$4,126.70), 1483300 (-$3,832.50), 1483083 (-$3,322.08), 1482999 (-$3,146.16). Also 6 invoices where AR total=0 but dispatch≠0 (includes 3 with negative dispatch: 1483668, 1484731, 1484729). Suspected causes: dispatch still missing invoice components (TLAP/TLAC/etc), tax comparison (AR includes tax; dispatch is pretax), and credit/adjustment or invoice-linking edge cases for AR=0/negative dispatch scenarios. Run dir: `runs/20260221_070726_202501/`
 
 3) **Dispatch → AR Reconciliation (By Invoice)** (ARTB-based)
 - [ ] #nextaction #project/tbh-report-catalog Implement report: Dispatch→AR Recon By Invoice (ARTB)
