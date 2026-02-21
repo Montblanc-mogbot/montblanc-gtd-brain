@@ -151,7 +151,7 @@ Tables currently present (row counts):
 > For each report: implement the report generator, run it for a real month window, and summarize the results (key takeaways + exceptions).
 
 1) **Dispatch/Billing Verification Pack** (exceptions-focused)
-- [ ] #nextaction #project/tbh-report-catalog Implement report: Dispatch/Billing Verification Pack (Excel generator + wiring)
+- [x] #nextaction #project/tbh-report-catalog Implement report: Dispatch/Billing Verification Pack (Excel generator + wiring) — DONE: `DispatchCfoPackExcelGenerator` generates pack; wired in `PipelineRunner` to output `{prefix} DispatchBilling Verification Pack.xlsx`
 - [ ] #nextaction #project/tbh-report-catalog Run report: Dispatch/Billing Verification Pack (month window)
 - [ ] #nextaction #project/tbh-report-catalog Summarize report: Dispatch/Billing Verification Pack (exceptions + action items)
 
