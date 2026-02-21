@@ -191,7 +191,7 @@ Tables currently present (row counts):
 - [x] #nextaction #project/tbh-report-catalog Summarize report: Product Mix (margin proxy candidates, anomalies) — DONE (dummy DB run 202501): Plant 4 top volume product 3303J (977.5 CY; 13.8% CY; $155.33/CY) and 9462X (870.25 CY; $146/CY); Plant 6 top volume 9143A (523.5 CY; $137.50/CY) and 3303J EXTRSLAB (322.75 CY; $143/CY); Plant 3 dominated by 3332X (490.75 CY; $137.50/CY); Plant 1 top by CY is 9143B (191.5 CY; $147.79/CY). High $/CY candidates (>=20 CY): 1/4783US shotcrete $198.50/CY (58 CY), 6/9545L $195/CY (105 CY), 6/7940X flowfill $180/CY (145.5 CY), 4/3593B 5000# AE $182.50/CY (74.5 CY). Low $/CY (>=20 CY): 3/2122A $128/CY (170.25 CY), 4/9143A ductbank $131/CY (76 CY), 6/9173A $135.50/CY (297.5 CY). Note: product mix revenue is TKTL concrete lines only (excludes TKTC charges), so margin proxies should be compared cautiously. Source: `runs/20260221_160725_202501/analytics/202501 ProductMix_MonthPlant.csv`
 
 9) **Zone Performance (Month)**
-- [ ] #nextaction #project/tbh-report-catalog Implement report: Zone Performance (Month)
+- [x] #nextaction #project/tbh-report-catalog Implement report: Zone Performance (Month) — DONE: added `ZonePerformanceMonthExcelGenerator` and wired in `PipelineRunner` to emit `{prefix} Zone Performance (Month).xlsx`. Commit: b55e540
 - [ ] #nextaction #project/tbh-report-catalog Run report: Zone Performance (Month)
 - [ ] #nextaction #project/tbh-report-catalog Summarize report: Zone Performance (pricing/haul implications)
 
