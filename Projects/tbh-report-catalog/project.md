@@ -141,7 +141,7 @@ Tables currently present (row counts):
 ### NEXT ACTION
 - [x] #nextaction #project/tbh-report-catalog Hook up OutOfStateZone analytic to zone mapping + fallback city-by-zone list — DONE: `IftaOutOfZoneBuilder` reads `data/ifta_config.json`, `data/out_of_state_zones.csv`, `data/fallback_city_by_zone.csv`
 - [x] #nextaction #project/tbh-report-catalog Update dispatch invoice totals to include TKTC + (later) TLAP/TLAC — DONE: dispatch invoice rollup now sums NormalizedTicket.TicketDispatchTotalAmount (TKTL+TKTC). Commit: 768cc36
-- [ ] #nextaction #project/tbh-report-catalog Replace current UOM-only diagnostic with “Non-Concrete Products” analytic (product name/description)
+- [x] #nextaction #project/tbh-report-catalog Replace current UOM-only diagnostic with “Non-Concrete Products” analytic (product name/description) — DONE: removed DispatchUomSummary output from pipeline; use NonConcreteProducts_* analytics instead. Commit: e8da4b4
 
 ### WAITING
 - (Moved to `Inbox/waiting-for.md`)
