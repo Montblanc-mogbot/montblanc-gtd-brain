@@ -171,7 +171,7 @@ Tables currently present (row counts):
 - [x] #nextaction #project/tbh-report-catalog Summarize report: Plant Performance (Month) (volume/revenue leaders, trends) — DONE (dummy DB run 202501): Total CY=15,517; total dispatch rev=$2,477,833.87; total loads=1,981. Top by revenue: Plant 4 ($1,116,066.45; 7,076.75 CY; $157.71/CY), Plant 6 ($663,642.07; 4,165.50 CY; $159.32/CY), Plant 3 ($441,718.81; 2,831.75 CY; $155.99/CY), Plant 1 ($243,231.87; 1,443.00 CY; $168.56/CY). Highest $/CY among nonzero-volume plants: Plant 1 ($168.56/CY). Note: some plants show 0 CY but nonzero revenue (likely non-concrete items/UOMs); see NonConcreteProducts_* analytics for detail. Source: `runs/20260221_100721_202501/analytics/202501 DispatchPlantMonth.csv`
 
 5) **Truck / Driver Scorecard (Month)**
-- [ ] #nextaction #project/tbh-report-catalog Implement report: Truck/Driver Scorecard (Month)
+- [x] #nextaction #project/tbh-report-catalog Implement report: Truck/Driver Scorecard (Month) — DONE: added `TruckDriverScorecardMonthExcelGenerator` (based on TruckDriverScorecard_MonthTruckDriver analytic) and wired in `PipelineRunner` to emit `{prefix} Truck-Driver Scorecard (Month).xlsx`. Commit: b5f79a2
 - [ ] #nextaction #project/tbh-report-catalog Run report: Truck/Driver Scorecard (Month)
 - [ ] #nextaction #project/tbh-report-catalog Summarize report: Truck/Driver Scorecard (Month) (outliers, utilization)
 
