@@ -201,7 +201,7 @@ Tables currently present (row counts):
 - [x] #nextaction #project/tbh-report-catalog Summarize report: Project Tracker (growth/decline, top projects) — DONE (dummy DB run 202501): 93 projects. Top by CY/rev: project 1 (ABCI01) 954.75 CY / $149,502.75 over 29 days (32.9 CY/day); project 67 (EDGE01) 628.25 CY / $91,020.75 over 14 days (44.9 CY/day); project 84 (NVRI01) 579 CY / $83,223.31 over 29 days (20.0 CY/day); project 71 (NVRI01) 539 CY / $77,409.93 over 30 days (18.0 CY/day); project 35 (SMIT01) 492.75 CY / $70,478.63. Large projects >500 CY: 4 (projects 1, 67, 84, 71). Burst jobs (>=100 CY in <=5 days): 2 (project 63: 114 CY in 1 day; project 2: 104 CY in 1 day). Note: trend/growth across months requires multi-month window; within-month signal uses days_active + avg_daily_CY. Source: `runs/20260221_190731_202501/analytics/202501 ProjectTracker.csv`
 
 11) **Invoice Aging + Collections Dashboard**
-- [ ] #nextaction #project/tbh-report-catalog Implement report: Invoice Aging + Collections Dashboard
+- [x] #nextaction #project/tbh-report-catalog Implement report: Invoice Aging + Collections Dashboard — DONE: added `InvoiceAgingCollectionsDashboardExcelGenerator` (Invoice Aging + Customer Scoreboard sheets) and wired in `PipelineRunner` to emit `{prefix} Invoice Aging + Collections Dashboard.xlsx`. Commit: 102fc8d
 - [ ] #nextaction #project/tbh-report-catalog Run report: Invoice Aging + Collections Dashboard
 - [ ] #nextaction #project/tbh-report-catalog Summarize report: Invoice Aging + Collections Dashboard (past-due drivers)
 
