@@ -203,7 +203,7 @@ Tables currently present (row counts):
 11) **Invoice Aging + Collections Dashboard**
 - [x] #nextaction #project/tbh-report-catalog Implement report: Invoice Aging + Collections Dashboard — DONE: added `InvoiceAgingCollectionsDashboardExcelGenerator` (Invoice Aging + Customer Scoreboard sheets) and wired in `PipelineRunner` to emit `{prefix} Invoice Aging + Collections Dashboard.xlsx`. Commit: 102fc8d
 - [x] #nextaction #project/tbh-report-catalog Run report: Invoice Aging + Collections Dashboard — DONE: ran pipeline for 2025-01-01→2025-02-01; output: `runs/20260221_203729_202501/reports/202501 Invoice Aging + Collections Dashboard.xlsx`
-- [ ] #nextaction #project/tbh-report-catalog Summarize report: Invoice Aging + Collections Dashboard (past-due drivers)
+- [x] #nextaction #project/tbh-report-catalog Summarize report: Invoice Aging + Collections Dashboard (past-due drivers) — DONE (dummy DB run 202501, as-of today): no meaningful past-due drivers surfaced because OpenBalanceAmount is 0 across customers/invoices in dummy dataset (CustomerScoreboard past_due/open all $0; InvoiceAging has no open >0). Next step for real data: rank customers by PastDueBalanceAmount and %PastDue; list top past-due invoices by open balance and days past due; provide bucket totals (1-30/31-60/61-90/90+). Source: `runs/20260221_203729_202501/analytics/202501 InvoiceAging_ByInvoice.csv` + `CustomerScoreboard_Month.csv`
 
 12) **Credit / Adjustment Register (Month)**
 - [ ] #nextaction #project/tbh-report-catalog Implement report: Credit/Adjustment Register (from ITRN)
