@@ -196,7 +196,7 @@ Tables currently present (row counts):
 - [x] #nextaction #project/tbh-report-catalog Summarize report: Zone Performance (pricing/haul implications) — DONE (dummy DB run 202501): Volume concentrated in zones WV (6,981.25 CY; 45.0% of CY; avg $155.80/CY; avg cycle 58.1m) and zone 0 (5,202.00 CY; 33.5%; avg $161.69/CY; avg cycle 73.0m). PA is 3rd (1,388.75 CY; 8.9%; $159.55/CY; 73.8m). Highest $/CY zones with meaningful volume (>=50 CY): zone 3 $202.24/CY (63 CY; 100.1m), MAR $201.99/CY (130.5 CY; 79.6m), VA3 $184.88/CY (70 CY), WV5 $182.38/CY (138.5 CY; 86.2m). Longest avg cycle times (>=20 loads): MAR 79.6m, PA 73.8m, zone 0 73.0m, PA3 71.9m. Pricing/haul implication: remote/slow zones (MAR/WV5/zone3) show higher $/CY and longer cycles—candidates for haul surcharge validation and ensuring pricing covers time cost; PA3 shows relatively low $/CY ($143.74) despite long cycle (~71.9m) → potential underpricing/inefficiency flag. Source: `runs/20260221_173727_202501/analytics/202501 ZonePerformance_Month.csv`
 
 10) **Project Tracker (Active Projects / Large Jobs)**
-- [ ] #nextaction #project/tbh-report-catalog Implement report: Project Tracker
+- [x] #nextaction #project/tbh-report-catalog Implement report: Project Tracker — DONE: added `ProjectTrackerExcelGenerator` and wired in `PipelineRunner` to emit `{prefix} Project Tracker.xlsx`. Commit: 773a179
 - [ ] #nextaction #project/tbh-report-catalog Run report: Project Tracker
 - [ ] #nextaction #project/tbh-report-catalog Summarize report: Project Tracker (growth/decline, top projects)
 
