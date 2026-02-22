@@ -197,7 +197,7 @@ Tables currently present (row counts):
 
 10) **Project Tracker (Active Projects / Large Jobs)**
 - [x] #nextaction #project/tbh-report-catalog Implement report: Project Tracker — DONE: added `ProjectTrackerExcelGenerator` and wired in `PipelineRunner` to emit `{prefix} Project Tracker.xlsx`. Commit: 773a179
-- [ ] #nextaction #project/tbh-report-catalog Run report: Project Tracker
+- [x] #nextaction #project/tbh-report-catalog Run report: Project Tracker — DONE: ran pipeline for 2025-01-01→2025-02-01; output: `runs/20260221_190731_202501/reports/202501 Project Tracker.xlsx`
 - [ ] #nextaction #project/tbh-report-catalog Summarize report: Project Tracker (growth/decline, top projects)
 
 11) **Invoice Aging + Collections Dashboard**
