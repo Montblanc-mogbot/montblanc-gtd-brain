@@ -207,7 +207,7 @@ Tables currently present (row counts):
 
 12) **Credit / Adjustment Register (Month)**
 - [x] #nextaction #project/tbh-report-catalog Implement report: Credit/Adjustment Register (from ITRN) — DONE: added `CreditAdjustmentRegisterExcelGenerator` and wired in `PipelineRunner` to emit `{prefix} Credit-Adjustment Register (ITRN).xlsx`. Commit: 4dcc868
-- [ ] #nextaction #project/tbh-report-catalog Run report: Credit/Adjustment Register (from ITRN)
+- [x] #nextaction #project/tbh-report-catalog Run report: Credit/Adjustment Register (from ITRN) — DONE: ran pipeline for 2025-01-01→2025-02-01; output: `runs/20260221_220741_202501/reports/202501 Credit-Adjustment Register (ITRN).xlsx`
 - [ ] #nextaction #project/tbh-report-catalog Summarize report: Credit/Adjustment Register (root causes + approvals)
 
 ### DONE
