@@ -208,7 +208,7 @@ Tables currently present (row counts):
 12) **Credit / Adjustment Register (Month)**
 - [x] #nextaction #project/tbh-report-catalog Implement report: Credit/Adjustment Register (from ITRN) — DONE: added `CreditAdjustmentRegisterExcelGenerator` and wired in `PipelineRunner` to emit `{prefix} Credit-Adjustment Register (ITRN).xlsx`. Commit: 4dcc868
 - [x] #nextaction #project/tbh-report-catalog Run report: Credit/Adjustment Register (from ITRN) — DONE: ran pipeline for 2025-01-01→2025-02-01; output: `runs/20260221_220741_202501/reports/202501 Credit-Adjustment Register (ITRN).xlsx`
-- [ ] #nextaction #project/tbh-report-catalog Summarize report: Credit/Adjustment Register (root causes + approvals)
+- [x] #nextaction #project/tbh-report-catalog Summarize report: Credit/Adjustment Register (root causes + approvals) — DONE (dummy DB run 202501): 964 rows flagged. Breakdown: 953 negative_payment (trans_type 31 with pmt_amt<0), 5 ar_adjustment_code (trans_type 41, adj code PAJ), 4 nonstandard_trans_type (trans_type 51), 2 credit_or_adjustment_amount (trans_type 43 with negative tax; totals -$248.25 and -$129.87). Biggest negative payments: ARCO02 inv 1481075 pmt -$81,844.57; MILL19 inv 1482553 -$76,983.50; ARCO02 inv 1480988 -$76,478.32; ARCO02 inv 1481206 -$65,572.18; EDGE01 inv 1482042 -$53,549.48. Root-cause interpretation: most rows are payment application lines represented as negative pmt_amt with offsetting check_amt (likely normal); true credits/adjustments are the small set of non-31 types and negative tax/amount rows. Approval focus: review nonstandard types (41/43/51), PAJ-coded adjustments, and any negative pretax/tax rows. Source: `runs/20260221_220741_202501/analytics/202501 CreditAdjustmentTracker_Transaction.csv`
 
 ### DONE
 
