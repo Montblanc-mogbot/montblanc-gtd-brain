@@ -202,7 +202,7 @@ Tables currently present (row counts):
 
 11) **Invoice Aging + Collections Dashboard**
 - [x] #nextaction #project/tbh-report-catalog Implement report: Invoice Aging + Collections Dashboard — DONE: added `InvoiceAgingCollectionsDashboardExcelGenerator` (Invoice Aging + Customer Scoreboard sheets) and wired in `PipelineRunner` to emit `{prefix} Invoice Aging + Collections Dashboard.xlsx`. Commit: 102fc8d
-- [ ] #nextaction #project/tbh-report-catalog Run report: Invoice Aging + Collections Dashboard
+- [x] #nextaction #project/tbh-report-catalog Run report: Invoice Aging + Collections Dashboard — DONE: ran pipeline for 2025-01-01→2025-02-01; output: `runs/20260221_203729_202501/reports/202501 Invoice Aging + Collections Dashboard.xlsx`
 - [ ] #nextaction #project/tbh-report-catalog Summarize report: Invoice Aging + Collections Dashboard (past-due drivers)
 
 12) **Credit / Adjustment Register (Month)**
