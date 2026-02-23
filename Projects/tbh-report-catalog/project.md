@@ -154,7 +154,7 @@ Tables currently present (row counts):
 - [x] #nextaction #project/tbh-report-catalog Write normalized TLAP/TKTX CSV outputs — DONE: PipelineRunner now writes `{prefix} TicketLineAssociatedProducts.csv` (TLAP) + `{prefix} TicketTaxes.csv` (TKTX) into normalized outputs and latest, and adds artifacts to manifest. Tickets.csv also includes ticket_assoc_prod_amt. Commit: ce2efdf
 
 **Layer 3: Analytics**
-- [ ] #nextaction #project/tbh-report-catalog Update docs to note TLAP inclusion (and any tax/TKTX basis assumptions)
+- [x] #nextaction #project/tbh-report-catalog Update docs to note TLAP inclusion (and any tax/TKTX basis assumptions) — DONE: updated docs/pipeline_inventory.md to document ticket_assoc_prod_amt + TLAP/TKTX normalized CSVs and note tax basis mismatch. Commit: c009678
 - [ ] #nextaction #project/tbh-report-catalog Include TLAP in `NonConcreteProductsBuilder`
 - [ ] #nextaction #project/tbh-report-catalog Add TLAP breakdown to reconciliation outputs
 
