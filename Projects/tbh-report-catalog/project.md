@@ -149,8 +149,8 @@ Tables currently present (row counts):
 
 **Layer 2: Normalize**
 - [x] #nextaction #project/tbh-report-catalog Add `TicketAssociatedProductAmount` to `NormalizedTicket` — DONE: added field + included in TicketDispatchTotalAmount; PipelineRunner aggregates TLAP.ext_price_amt per ticket into TicketAssociatedProductAmount. Commit: dadc9ea
-- [ ] #nextaction #project/tbh-report-catalog Update `TicketDispatchTotalAmount` to include TLAP
-- [ ] #nextaction #project/tbh-report-catalog Aggregate TLAP by ticket key in `PipelineRunner.cs`
+- [x] #nextaction #project/tbh-report-catalog Update `TicketDispatchTotalAmount` to include TLAP — DONE: TicketDispatchTotalAmount now includes TicketAssociatedProductAmount. Commit: dadc9ea
+- [x] #nextaction #project/tbh-report-catalog Aggregate TLAP by ticket key in `PipelineRunner.cs` — DONE: PipelineRunner groups TLAP (tlapNorm) by ticket key and sums ext_price_amt into TicketAssociatedProductAmount. Commit: dadc9ea
 - [ ] #nextaction #project/tbh-report-catalog Write normalized TLAP/TKTX CSV outputs
 
 **Layer 3: Analytics**
