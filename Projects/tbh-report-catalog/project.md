@@ -155,7 +155,7 @@ Tables currently present (row counts):
 
 **Layer 3: Analytics**
 - [x] #nextaction #project/tbh-report-catalog Update docs to note TLAP inclusion (and any tax/TKTX basis assumptions) — DONE: updated docs/pipeline_inventory.md to document ticket_assoc_prod_amt + TLAP/TKTX normalized CSVs and note tax basis mismatch. Commit: c009678
-- [ ] #nextaction #project/tbh-report-catalog Include TLAP in `NonConcreteProductsBuilder`
+- [x] #nextaction #project/tbh-report-catalog Include TLAP in `NonConcreteProductsBuilder` — DONE: NonConcreteProductsBuilder now accepts NormalizedTlap and concatenates TLAP rows into non-concrete aggregation; PipelineRunner passes `tlap`. Commit: 14175f7
 - [ ] #nextaction #project/tbh-report-catalog Add TLAP breakdown to reconciliation outputs
 
 **Layer 4: Reports**
