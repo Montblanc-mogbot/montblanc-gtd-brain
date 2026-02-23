@@ -139,6 +139,32 @@ Tables currently present (row counts):
 ## TODO
 
 ### NEXT ACTION
+
+#### TLAP/TKTX work plan (captured from chat)
+
+**Layer 1: Extract**
+- [x] #nextaction #project/tbh-report-catalog Create `TlapRecord` / `TktxRecord` model classes — DONE: added `src/Tbh.Extract/Models/CommandAlkon/TlapRecord.cs` + `TktxRecord.cs`
+- [ ] #nextaction #project/tbh-report-catalog Add extractor methods to the extraction interface + SQLite implementation (TLAP + TKTX)
+- [ ] #nextaction #project/tbh-report-catalog Wire TLAP + TKTX into `PipelineRunner.cs` for extraction
+
+**Layer 2: Normalize**
+- [ ] #nextaction #project/tbh-report-catalog Add `TicketAssociatedProductAmount` to `NormalizedTicket`
+- [ ] #nextaction #project/tbh-report-catalog Update `TicketDispatchTotalAmount` to include TLAP
+- [ ] #nextaction #project/tbh-report-catalog Aggregate TLAP by ticket key in `PipelineRunner.cs`
+- [ ] #nextaction #project/tbh-report-catalog Write normalized TLAP/TKTX CSV outputs
+
+**Layer 3: Analytics**
+- [ ] #nextaction #project/tbh-report-catalog Update docs to note TLAP inclusion (and any tax/TKTX basis assumptions)
+- [ ] #nextaction #project/tbh-report-catalog Include TLAP in `NonConcreteProductsBuilder`
+- [ ] #nextaction #project/tbh-report-catalog Add TLAP breakdown to reconciliation outputs
+
+**Layer 4: Reports**
+- [ ] #nextaction #project/tbh-report-catalog Update CFO pack to show TLAP revenue breakdown
+- [ ] #nextaction #project/tbh-report-catalog Update report comments/documentation for TLAP/TKTX changes
+
+---
+
+#### Previously completed
 - [x] #nextaction #project/tbh-report-catalog Hook up OutOfStateZone analytic to zone mapping + fallback city-by-zone list — DONE: `IftaOutOfZoneBuilder` reads `data/ifta_config.json`, `data/out_of_state_zones.csv`, `data/fallback_city_by_zone.csv`
 - [x] #nextaction #project/tbh-report-catalog Update dispatch invoice totals to include TKTC + (later) TLAP/TLAC — DONE: dispatch invoice rollup now sums NormalizedTicket.TicketDispatchTotalAmount (TKTL+TKTC). Commit: 768cc36
 - [x] #nextaction #project/tbh-report-catalog Replace current UOM-only diagnostic with “Non-Concrete Products” analytic (product name/description) — DONE: removed DispatchUomSummary output from pipeline; use NonConcreteProducts_* analytics instead. Commit: e8da4b4
