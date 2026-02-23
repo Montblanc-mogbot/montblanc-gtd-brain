@@ -145,7 +145,7 @@ Tables currently present (row counts):
 **Layer 1: Extract**
 - [x] #nextaction #project/tbh-report-catalog Create `TlapRecord` / `TktxRecord` model classes — DONE: added `src/Tbh.Extract/Models/CommandAlkon/TlapRecord.cs` + `TktxRecord.cs`
 - [x] #nextaction #project/tbh-report-catalog Add extractor methods to the extraction interface + SQLite implementation (TLAP + TKTX) — DONE: added ExtractTlapAsync/ExtractTktxAsync to ICommandAlkonExtractor + implemented in SqliteCommandAlkonExtractor (table-exists guard). Commit: f5f742d
-- [ ] #nextaction #project/tbh-report-catalog Wire TLAP + TKTX into `PipelineRunner.cs` for extraction
+- [x] #nextaction #project/tbh-report-catalog Wire TLAP + TKTX into `PipelineRunner.cs` for extraction — DONE: PipelineRunner now calls ExtractTlapAsync/ExtractTktxAsync and prints extracted counts. Commit: dc40cd8
 
 **Layer 2: Normalize**
 - [ ] #nextaction #project/tbh-report-catalog Add `TicketAssociatedProductAmount` to `NormalizedTicket`
