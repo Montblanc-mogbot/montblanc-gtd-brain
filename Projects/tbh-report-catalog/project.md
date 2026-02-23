@@ -160,7 +160,7 @@ Tables currently present (row counts):
 
 **Layer 4: Reports**
 - [x] #nextaction #project/tbh-report-catalog Update CFO pack to show TLAP revenue breakdown — DONE: CFO pack "Dispatch vs AR (Invoice)" sheet now includes Dispatch Product/Charges/Assoc Products (TLAP) columns; cover note updated. Commit: 5146ef0
-- [ ] #nextaction #project/tbh-report-catalog Update report comments/documentation for TLAP/TKTX changes
+- [x] #nextaction #project/tbh-report-catalog Update report comments/documentation for TLAP/TKTX changes — DONE: updated Dispatch→AR recon (ITRN+ARTB) cover notes to reflect TLAP included in dispatch totals; TKTX remains tax-comparison basis. Commit: 6c1b820
 
 ---
 
