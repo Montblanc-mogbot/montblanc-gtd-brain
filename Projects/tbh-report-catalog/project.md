@@ -148,7 +148,7 @@ Tables currently present (row counts):
 - [x] #nextaction #project/tbh-report-catalog Wire TLAP + TKTX into `PipelineRunner.cs` for extraction — DONE: PipelineRunner now calls ExtractTlapAsync/ExtractTktxAsync and prints extracted counts. Commit: dc40cd8
 
 **Layer 2: Normalize**
-- [ ] #nextaction #project/tbh-report-catalog Add `TicketAssociatedProductAmount` to `NormalizedTicket`
+- [x] #nextaction #project/tbh-report-catalog Add `TicketAssociatedProductAmount` to `NormalizedTicket` — DONE: added field + included in TicketDispatchTotalAmount; PipelineRunner aggregates TLAP.ext_price_amt per ticket into TicketAssociatedProductAmount. Commit: dadc9ea
 - [ ] #nextaction #project/tbh-report-catalog Update `TicketDispatchTotalAmount` to include TLAP
 - [ ] #nextaction #project/tbh-report-catalog Aggregate TLAP by ticket key in `PipelineRunner.cs`
 - [ ] #nextaction #project/tbh-report-catalog Write normalized TLAP/TKTX CSV outputs
