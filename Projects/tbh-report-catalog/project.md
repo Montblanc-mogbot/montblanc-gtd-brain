@@ -159,7 +159,7 @@ Tables currently present (row counts):
 - [x] #nextaction #project/tbh-report-catalog Add TLAP breakdown to reconciliation outputs — DONE: DispatchVsAR_ByInvoice + ARTB versions now include dispatch_product_amt, dispatch_charge_amt, dispatch_assoc_prod_amt columns (from ticket-level components incl TLAP). Commit: 9d9114e
 
 **Layer 4: Reports**
-- [ ] #nextaction #project/tbh-report-catalog Update CFO pack to show TLAP revenue breakdown
+- [x] #nextaction #project/tbh-report-catalog Update CFO pack to show TLAP revenue breakdown — DONE: CFO pack "Dispatch vs AR (Invoice)" sheet now includes Dispatch Product/Charges/Assoc Products (TLAP) columns; cover note updated. Commit: 5146ef0
 - [ ] #nextaction #project/tbh-report-catalog Update report comments/documentation for TLAP/TKTX changes
 
 ---
