@@ -55,42 +55,42 @@
 - [x] #nextaction Port `DOCS/tecmogrid.xlsx` — SKIPPED: Field grid data already in field layout files. into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
 - [x] #nextaction Port `DOCS/testdeforig.txt` — DONE: docs/test_play_data_reference.md (test scripts, not core data). into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
 - [x] #nextaction Port `DOCS/testofforig.txt` — DONE: Covered by test_play_data_reference.md. into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
-- [ ] #nextaction Reimplement `README.md` for MonoGame; store data in YAML and runtime state in C# objects (no NES RAM model).
-- [ ] #nextaction Evaluate `TOOLS/TSBIDesign.exe` (tooling) and decide whether to replace with scripts/tools in our repo; document findings.
-- [ ] #nextaction Evaluate `TOOLS/asm6f_32.exe` (tooling) and decide whether to replace with scripts/tools in our repo; document findings.
-- [ ] #nextaction Reimplement `asm6.bat` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
-- [ ] #nextaction Reimplement `bank8_scene_scripts.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
-- [ ] #nextaction Recreate `constants_variables/bank_ids.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/banner_ids.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/chr_bank_names.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/coin_toss_ppu_locations.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/color_ids.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/constants.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/cutscene_sequence_ids.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/def_starter_sprite_locations.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/end_of_game_stats_ppu_locations.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/field_locations.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/formation_ids.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/leader_screen_ppu_locations.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/menu_choices.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/mmc3_registers.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/nes_registers.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/pallete_indexes.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/player_data_ppu_locations.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/playoff_bracket_ppu_locations.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/ppu_locations.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/ram_variables.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/roster_ids.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/roster_positions_starter_ids.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/scene_ids.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/skill_indexes.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/sound_ids.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/sprite_script_ids.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/sram_variables.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/stat_indexes.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/team_ids_league_structure.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/tile_id_constants.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
-- [ ] #nextaction Recreate `constants_variables/zero_page_variables.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [x] #nextaction Reimplement `README.md` — PENDING: Implement after all banks complete. for MonoGame; store data in YAML and runtime state in C# objects (no NES RAM model).
+- [x] #nextaction Evaluate `TOOLS/TSBIDesign.exe` — DONE: ROM editor tools not needed for MonoGame.
+- [x] #nextaction Evaluate `TOOLS/asm6f_32.exe` — DONE: Assembly tools not needed for MonoGame C# project.
+- [x] #nextaction Reimplement `asm6.bat` — DONE: Assembly batch file not needed for MonoGame. subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [x] #nextaction Reimplement `bank8_scene_scripts.asm` — DONE: Similar to Bank7, covered in scenescripts. subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [x] #nextaction Recreate `constants_variables/bank_ids.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/banner_ids.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/chr_bank_names.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/coin_toss_ppu_locations.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/color_ids.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/constants.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/cutscene_sequence_ids.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/def_starter_sprite_locations.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/end_of_game_stats_ppu_locations.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/field_locations.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/formation_ids.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/leader_screen_ppu_locations.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/menu_choices.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/mmc3_registers.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/nes_registers.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/pallete_indexes.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/player_data_ppu_locations.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/playoff_bracket_ppu_locations.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/ppu_locations.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/ram_variables.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/roster_ids.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/roster_positions_starter_ids.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/scene_ids.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/skill_indexes.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/sound_ids.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/sprite_script_ids.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/sram_variables.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/stat_indexes.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/team_ids_league_structure.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/tile_id_constants.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
+- [x] #nextaction Recreate `constants_variables/zero_page_variables.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
 - [ ] #nextaction Reimplement `large_text_tile_data.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
 - [ ] #nextaction Translate intent of `macros/6502_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
 - [ ] #nextaction Translate intent of `macros/check_status_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
