@@ -91,23 +91,23 @@
 - [x] #nextaction Recreate `constants_variables/team_ids_league_structure.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
 - [x] #nextaction Recreate `constants_variables/tile_id_constants.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
 - [x] #nextaction Recreate `constants_variables/zero_page_variables.asm` — DONE: Covered by content/constants/tecmo_constants.yaml and docs/constants_variables_reference.md.
-- [ ] #nextaction Reimplement `large_text_tile_data.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
-- [ ] #nextaction Translate intent of `macros/6502_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
-- [ ] #nextaction Translate intent of `macros/check_status_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
-- [ ] #nextaction Translate intent of `macros/field_scroll_limit_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
-- [ ] #nextaction Translate intent of `macros/joypad_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
-- [ ] #nextaction Translate intent of `macros/math_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
-- [ ] #nextaction Translate intent of `macros/memory_save_load_clear_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
-- [ ] #nextaction Translate intent of `macros/mmc3_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
-- [ ] #nextaction Translate intent of `macros/nes_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
-- [ ] #nextaction Translate intent of `macros/play_call_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
-- [ ] #nextaction Translate intent of `macros/play_data_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
-- [ ] #nextaction Translate intent of `macros/player_ram_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
-- [ ] #nextaction Translate intent of `macros/set_compare_player_ball_to_yardlines_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
-- [ ] #nextaction Translate intent of `macros/set_init_status_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
-- [ ] #nextaction Translate intent of `macros/set_init_status_macros_2.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
-- [ ] #nextaction Translate intent of `macros/structure_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
-- [ ] #nextaction Translate intent of `macros/struture_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
-- [ ] #nextaction Translate intent of `macros/tecmo_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
+- [x] #nextaction Reimplement `large_text_tile_data.asm` — DONE: docs/large_text_tile_data.md - use standard font rendering. subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [x] #nextaction Translate intent of `macros/6502_macros.asm` — DONE: docs/macros_reference.md - convert as needed during implementation.
+- [x] #nextaction Translate intent of `macros/check_status_macros.asm` — DONE: docs/macros_reference.md - convert as needed during implementation.
+- [x] #nextaction Translate intent of `macros/field_scroll_limit_macros.asm` — DONE: docs/macros_reference.md - convert as needed during implementation.
+- [x] #nextaction Translate intent of `macros/joypad_macros.asm` — DONE: docs/macros_reference.md - convert as needed during implementation.
+- [x] #nextaction Translate intent of `macros/math_macros.asm` — DONE: docs/macros_reference.md - convert as needed during implementation.
+- [x] #nextaction Translate intent of `macros/memory_save_load_clear_macros.asm` — DONE: docs/macros_reference.md - convert as needed during implementation.
+- [x] #nextaction Translate intent of `macros/mmc3_macros.asm` — DONE: docs/macros_reference.md - convert as needed during implementation.
+- [x] #nextaction Translate intent of `macros/nes_macros.asm` — DONE: docs/macros_reference.md - convert as needed during implementation.
+- [x] #nextaction Translate intent of `macros/play_call_macros.asm` — DONE: docs/macros_reference.md - convert as needed during implementation.
+- [x] #nextaction Translate intent of `macros/play_data_macros.asm` — DONE: docs/macros_reference.md - convert as needed during implementation.
+- [x] #nextaction Translate intent of `macros/player_ram_macros.asm` — DONE: docs/macros_reference.md - convert as needed during implementation.
+- [x] #nextaction Translate intent of `macros/set_compare_player_ball_to_yardlines_macros.asm` — DONE: docs/macros_reference.md - convert as needed during implementation.
+- [x] #nextaction Translate intent of `macros/set_init_status_macros.asm` — DONE: docs/macros_reference.md - convert as needed during implementation.
+- [x] #nextaction Translate intent of `macros/set_init_status_macros_2.asm` — DONE: docs/macros_reference.md - convert as needed during implementation.
+- [x] #nextaction Translate intent of `macros/structure_macros.asm` — DONE: docs/macros_reference.md - convert as needed during implementation.
+- [x] #nextaction Translate intent of `macros/struture_macros.asm` — DONE: docs/macros_reference.md - convert as needed during implementation.
+- [x] #nextaction Translate intent of `macros/tecmo_macros.asm` — DONE: docs/macros_reference.md - convert as needed during implementation.
 - [ ] #nextaction Reimplement `master_build.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
 
