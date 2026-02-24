@@ -17,7 +17,7 @@
 
 **Remaining:**
 - [x] #nextaction Content pipeline (YAML loading) — DONE: f9018ba
-- [ ] #nextaction Basic entity system (MonoGame.Extended.Entities)
+- [x] #nextaction Basic entity system (MonoGame.Extended.Entities) — DONE: 17a3b46
 - [ ] #nextaction Rendering pipeline
 
 ---
