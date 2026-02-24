@@ -9,18 +9,17 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 - Local clone: `/home/montblanc/repos/Tecmo_Super_Bowl_NES_Disassembly`
 
 ## Success criteria
-- [x] MonoGame project boots and renders *something* (window + basic loop) — DONE: added src/TecmoSBGame (MonoGame DesktopGL) that boots and clears screen. Commit: a220090 (local; push blocked—no git remote configured).
+- [x] MonoGame project boots and renders *something* (window + basic loop) — DONE: added src/TecmoSBGame (MonoGame DesktopGL) that boots and clears screen. Commit: a220090
 - [ ] Asset extraction/import pipeline defined (graphics + palettes + tiles)
 - [ ] One playable slice (e.g., kickoff or a single down) running end-to-end
 
 ## Next actions
 - [x] #nextaction Clone reference repo locally (done: `/home/montblanc/repos/Tecmo_Super_Bowl_NES_Disassembly`)
 - [x] #nextaction Reverse-engineer reference repo into a design document (file-by-file + subsystem mapping) suitable for MonoGame remake. — DONE: All banks scaffolded, DESIGN.md created. Repo: https://github.com/Montblanc-mogbot/tecmo-super-bowl-monogame
-- [ ] #nextaction Review scope and ask Matt clarifying questions for Phase 1 — Confirm project structure, target platforms, content loading strategy, MonoGame version
-- [ ] #nextaction Phase 1: Project setup — Create MonoGame project structure, solution, configure YAML pipeline, add YamlDotNet
-- [ ] #nextaction Phase 1: Content pipeline (YAML loading) — Implement YamlContentLoader, ContentManager wrapper, test loading existing YAML files
-- [ ] #nextaction Phase 1: Basic entity system — Create Entity base class, Component system, Player/Ball entities, BehaviorComponent for AI
-- [ ] #nextaction Phase 1: Rendering pipeline — SpriteBatch config, FieldRenderer, PlayerRenderer, camera/viewport, 256x224 base resolution
+- [x] #nextaction Phase 1: Project setup — DONE: MonoGame project structure created, solution configured, builds successfully. Commit: a220090, 67f27d3
+- [x] #nextaction Phase 1: Content pipeline (YAML loading) — DONE: YamlContentLoader implemented with caching and error handling. Commit: 12c3a04
+- [ ] #nextaction Phase 1: Basic entity system
+- [ ] #nextaction Phase 1: Rendering pipeline
 
 ## Backlog
 - [ ] Build tooling: script to extract assets from ROM into friendly formats
