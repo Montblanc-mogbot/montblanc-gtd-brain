@@ -109,5 +109,5 @@
 - [x] #nextaction Translate intent of `macros/structure_macros.asm` — DONE: docs/macros_reference.md - convert as needed during implementation.
 - [x] #nextaction Translate intent of `macros/struture_macros.asm` — DONE: docs/macros_reference.md - convert as needed during implementation.
 - [x] #nextaction Translate intent of `macros/tecmo_macros.asm` — DONE: docs/macros_reference.md - convert as needed during implementation.
-- [ ] #nextaction Reimplement `master_build.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [x] #nextaction Reimplement `master_build.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM. — DONE: docs/master_build_reference.md - assembly build file, MonoGame uses standard .NET project structure. Commit: d542eef (pushed to GitHub).
 
