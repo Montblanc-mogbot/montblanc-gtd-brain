@@ -16,7 +16,7 @@
 - Use MonoGame.Extended.Entities for ECS
 
 **Remaining:**
-- [ ] #nextaction Content pipeline (YAML loading)
+- [x] #nextaction Content pipeline (YAML loading) — DONE: f9018ba
 - [ ] #nextaction Basic entity system (MonoGame.Extended.Entities)
 - [ ] #nextaction Rendering pipeline
 

@@ -23,7 +23,7 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
   - IDE: VS Code (pure code) ✓
   - ECS scope: Use MonoGame.Extended.Entities for future extensibility (roguelike season mode, character progression, special abilities)
 - [x] #nextaction Phase 1: Project setup — DONE: MonoGame project structure created, solution configured, builds successfully. Commit: a220090, 67f27d3
-- [x] #nextaction Phase 1: Content pipeline (YAML loading) — DONE: YamlContentLoader implemented with caching and error handling. Commit: 12c3a04
+- [x] #nextaction Phase 1: Content pipeline (YAML loading) — DONE: GameContent loads all YAML at startup. Builds successfully. Commit: f9018ba
 - [ ] #nextaction Phase 1: Basic entity system — Using MonoGame.Extended.Entities
 - [ ] #nextaction Phase 1: Rendering pipeline
 
