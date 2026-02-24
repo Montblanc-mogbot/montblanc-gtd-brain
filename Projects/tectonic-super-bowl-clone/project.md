@@ -16,16 +16,16 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 ## Next actions
 - [x] #nextaction Clone reference repo locally (done: `/home/montblanc/repos/Tecmo_Super_Bowl_NES_Disassembly`)
 - [x] #nextaction Reverse-engineer reference repo into a design document (file-by-file + subsystem mapping) suitable for MonoGame remake. — DONE: All banks scaffolded, DESIGN.md created. Repo: https://github.com/Montblanc-mogbot/tecmo-super-bowl-monogame
-- [ ] #nextaction Ask Matt clarifying questions — Before starting entity system
-  - Confirm project structure approach (single project vs split)
-  - Target platform(s) - Desktop only or mobile/console?
-  - Content loading strategy - load all at startup vs on-demand?
-  - MonoGame version target - 3.8 or newer?
-  - Any specific tooling preferences?
+- [x] #nextaction Ask Matt clarifying questions — ANSWERED 2025-02-24
+  - Project structure: Keep split (cleaner) ✓
+  - Content loading: Load at startup ✓
+  - MonoGame version: Latest stable ✓
+  - IDE: VS Code (pure code) ✓
+  - ECS scope: Use MonoGame.Extended.Entities for future extensibility (roguelike season mode, character progression, special abilities)
 - [x] #nextaction Phase 1: Project setup — DONE: MonoGame project structure created, solution configured, builds successfully. Commit: a220090, 67f27d3
 - [x] #nextaction Phase 1: Content pipeline (YAML loading) — DONE: YamlContentLoader implemented with caching and error handling. Commit: 12c3a04
-- [ ] #nextaction Phase 1: Basic entity system — BLOCKED: waiting on clarifying questions
-- [ ] #nextaction Phase 1: Rendering pipeline — BLOCKED: waiting on clarifying questions
+- [ ] #nextaction Phase 1: Basic entity system — Using MonoGame.Extended.Entities
+- [ ] #nextaction Phase 1: Rendering pipeline
 
 ## Backlog
 - [ ] Build tooling: script to extract assets from ROM into friendly formats
