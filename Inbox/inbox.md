@@ -5,3 +5,109 @@
 
 ## Tasks
 
+### Tecmo Super Bowl → MonoGame reimplementation (file-by-file, YAML-driven)
+
+- [ ] #nextaction Reimplement `Bank10_sprite_scripts.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank11_12_BG_metatile_tiles.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank12_13_sim_update_stats.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank14_pal_fall_player_anim.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank15_faces_playbooks.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank16_menu_screens_slidebar.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank17_18_main_game_loop.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank19_20_on_field_gameplay_loop.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank1_2_team_data.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank20_playcall.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank21_22_play_commands_on_field_logic.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank23_draw_field_ball_ani_coll_check.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank24_draw_script_engine.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank25_leaders_player_data_pro_bowl_abbrev.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank26_misc.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank27_misc.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank28_sound_engine.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank29_sound_data.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank30_sound_data.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank31_fixed_bank.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank32_DMC_Samples_reset_vector.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank3_formation_metatile_data.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank4_def_spec_play_pointers_data.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank5_6_off_def_play_data.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank7_scene_scripts.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank9_sprite_scripts.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `Bank_16_team_data.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Port `DOCS/6502_tecmo_lang.xml` into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
+- [ ] #nextaction Port `DOCS/BUGS_UNUSED_AND_HIDDEN_ITEMS.docx` into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
+- [ ] #nextaction Port `DOCS/FG_worksheet.xlsx` into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
+- [ ] #nextaction Port `DOCS/FIELDLAYOUT.xlsx` into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
+- [ ] #nextaction Port `DOCS/TECMO PLAYBOOK HACKERS GUIDEBOOK ver2.0.doc` into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
+- [ ] #nextaction Port `DOCS/defextra.txt` into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
+- [ ] #nextaction Port `DOCS/defplaylistpointercode.xlsx` into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
+- [ ] #nextaction Port `DOCS/formation.txt` into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
+- [ ] #nextaction Port `DOCS/large letter tile sequences.txt` into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
+- [ ] #nextaction Port `DOCS/offextra.txt` into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
+- [ ] #nextaction Port `DOCS/onsides_kick_recovery_rates.xlsx` into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
+- [ ] #nextaction Port `DOCS/player_sprites_by_bank.bmp` into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
+- [ ] #nextaction Port `DOCS/playlist.txt` into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
+- [ ] #nextaction Port `DOCS/ppu_helper.xlsx` into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
+- [ ] #nextaction Port `DOCS/rollanimation.xlsx` into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
+- [ ] #nextaction Port `DOCS/rom_map.xlsx` into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
+- [ ] #nextaction Port `DOCS/speedchart_3.xlsx` into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
+- [ ] #nextaction Port `DOCS/tecmo_yardline_reference.txt` into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
+- [ ] #nextaction Port `DOCS/tecmogrid.xlsx` into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
+- [ ] #nextaction Port `DOCS/testdeforig.txt` into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
+- [ ] #nextaction Port `DOCS/testofforig.txt` into our design/content system (convert to YAML/data tables or reference notes; avoid hardcoded RAM-era assumptions).
+- [ ] #nextaction Reimplement `README.md` for MonoGame; store data in YAML and runtime state in C# objects (no NES RAM model).
+- [ ] #nextaction Evaluate `TOOLS/TSBIDesign.exe` (tooling) and decide whether to replace with scripts/tools in our repo; document findings.
+- [ ] #nextaction Evaluate `TOOLS/asm6f_32.exe` (tooling) and decide whether to replace with scripts/tools in our repo; document findings.
+- [ ] #nextaction Reimplement `asm6.bat` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Reimplement `bank8_scene_scripts.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Recreate `constants_variables/bank_ids.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/banner_ids.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/chr_bank_names.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/coin_toss_ppu_locations.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/color_ids.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/constants.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/cutscene_sequence_ids.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/def_starter_sprite_locations.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/end_of_game_stats_ppu_locations.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/field_locations.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/formation_ids.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/leader_screen_ppu_locations.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/menu_choices.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/mmc3_registers.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/nes_registers.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/pallete_indexes.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/player_data_ppu_locations.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/playoff_bracket_ppu_locations.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/ppu_locations.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/ram_variables.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/roster_ids.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/roster_positions_starter_ids.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/scene_ids.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/skill_indexes.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/sound_ids.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/sprite_script_ids.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/sram_variables.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/stat_indexes.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/team_ids_league_structure.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/tile_id_constants.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Recreate `constants_variables/zero_page_variables.asm` as YAML-driven constants/enums/config in MonoGame (no RAM address coupling).
+- [ ] #nextaction Reimplement `large_text_tile_data.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [ ] #nextaction Translate intent of `macros/6502_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
+- [ ] #nextaction Translate intent of `macros/check_status_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
+- [ ] #nextaction Translate intent of `macros/field_scroll_limit_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
+- [ ] #nextaction Translate intent of `macros/joypad_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
+- [ ] #nextaction Translate intent of `macros/math_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
+- [ ] #nextaction Translate intent of `macros/memory_save_load_clear_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
+- [ ] #nextaction Translate intent of `macros/mmc3_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
+- [ ] #nextaction Translate intent of `macros/nes_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
+- [ ] #nextaction Translate intent of `macros/play_call_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
+- [ ] #nextaction Translate intent of `macros/play_data_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
+- [ ] #nextaction Translate intent of `macros/player_ram_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
+- [ ] #nextaction Translate intent of `macros/set_compare_player_ball_to_yardlines_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
+- [ ] #nextaction Translate intent of `macros/set_init_status_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
+- [ ] #nextaction Translate intent of `macros/set_init_status_macros_2.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
+- [ ] #nextaction Translate intent of `macros/structure_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
+- [ ] #nextaction Translate intent of `macros/struture_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
+- [ ] #nextaction Translate intent of `macros/tecmo_macros.asm` into C# helpers/systems for MonoGame; keep all tunables in YAML.
+- [ ] #nextaction Reimplement `master_build.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+
