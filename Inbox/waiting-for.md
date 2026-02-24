@@ -1,6 +1,6 @@
 # Waiting For
 
-- [ ] #waitingfor #nextaction Tecmo MonoGame repo: configure git remote for `/home/montblanc/repos/tecmo-super-bowl-monogame` so I can push commit b4202a5 (Bank10 sprite scripts YAML scaffold).
+- [ ] #waitingfor #nextaction Tecmo MonoGame repo: configure git remote for `/home/montblanc/repos/tecmo-super-bowl-monogame` so I can push commits `b4202a5` (Bank10 sprite scripts YAML scaffold) and `88b1706` (Bank11/12 BG metatile YAML scaffold).
 
 Items blocked on Matt/external input.
 
