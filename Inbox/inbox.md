@@ -5,6 +5,24 @@
 
 ## Tasks
 
+### Phase 1: Core Framework (Tecmo Super Bowl)
+
+- [x] #nextaction Review scope and ask Matt clarifying questions — DONE: Posted questions to Matt. 2025-02-24
+  - Confirm project structure approach
+  - Discuss target platform(s)
+  - Clarify content loading strategy (load all at startup vs on-demand)
+  - Confirm MonoGame version target
+  - Any specific tooling preferences?
+
+- [x] #nextaction Project setup — DONE: Fixed solution file to include both TecmoSB and TecmoSBGame projects. Both build successfully. Commit: 67f27d3
+- [ ] #nextaction Content pipeline (YAML loading)
+- [ ] #nextaction Basic entity system
+- [ ] #nextaction Rendering pipeline
+
+**Project Hub:** `Projects/tectonic-super-bowl-clone/project.md`
+
+---
+
 ### Tecmo Super Bowl → MonoGame reimplementation (file-by-file, YAML-driven)
 
 - [x] #nextaction Reimplement `Bank10_sprite_scripts.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM. — DONE (scaffold): added YAML loader (YamlDotNet), bank index loader, and Bank10 index + initial script YAML. Commit: b4202a5 (pushed to GitHub).
