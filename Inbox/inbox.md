@@ -18,7 +18,7 @@
 **Remaining:**
 - [x] #nextaction Content pipeline (YAML loading) — DONE: f9018ba
 - [x] #nextaction Basic entity system (MonoGame.Extended.Entities) — DONE: 17a3b46
-- [ ] #nextaction Rendering pipeline
+- [x] #nextaction Rendering pipeline — DONE: Added RenderViewport (NES 256x224 scaling), FieldRenderer (field, yard lines, end zones), integrated with ECS RenderingSystem. Commit: eacd37c (local; push blocked—no git remote configured).
 
 ---
 
