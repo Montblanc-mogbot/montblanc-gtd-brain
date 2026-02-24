@@ -5,21 +5,20 @@
 
 ## Tasks
 
-### Phase 1: Core Framework (Tecmo Super Bowl)
-
-- [x] #nextaction Review scope and ask Matt clarifying questions — DONE: Posted questions to Matt. 2025-02-24
-  - Confirm project structure approach
-  - Discuss target platform(s)
-  - Clarify content loading strategy (load all at startup vs on-demand)
-  - Confirm MonoGame version target
-  - Any specific tooling preferences?
-
-- [x] #nextaction Project setup — DONE: Fixed solution file to include both TecmoSB and TecmoSBGame projects. Both build successfully. Commit: 67f27d3
-- [ ] #nextaction Content pipeline (YAML loading)
-- [ ] #nextaction Basic entity system
-- [ ] #nextaction Rendering pipeline
+### Phase 1: Core Framework (Tecmo Super Bowl) — READY TO PROCEED
 
 **Project Hub:** `Projects/tectonic-super-bowl-clone/project.md`
+
+**Decisions made:**
+- Keep split project structure (TecmoSB + TecmoSBGame)
+- Load all content at startup
+- Latest stable MonoGame
+- Use MonoGame.Extended.Entities for ECS
+
+**Remaining:**
+- [ ] #nextaction Content pipeline (YAML loading)
+- [ ] #nextaction Basic entity system (MonoGame.Extended.Entities)
+- [ ] #nextaction Rendering pipeline
 
 ---
 
