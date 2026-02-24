@@ -7,7 +7,7 @@
 
 ### Tecmo Super Bowl → MonoGame reimplementation (file-by-file, YAML-driven)
 
-- [ ] #nextaction Reimplement `Bank10_sprite_scripts.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
+- [x] #nextaction Reimplement `Bank10_sprite_scripts.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM. — DONE (scaffold): added YAML loader (YamlDotNet), bank index loader, and Bank10 index + initial script YAML. Commit: b4202a5 (local; push blocked—no git remote configured).
 - [ ] #nextaction Reimplement `Bank11_12_BG_metatile_tiles.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
 - [ ] #nextaction Reimplement `Bank12_13_sim_update_stats.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
 - [ ] #nextaction Reimplement `Bank14_pal_fall_player_anim.asm` subsystem in MonoGame (C#) with data sourced from YAML instead of ROM/RAM/SRAM.
