@@ -10,7 +10,7 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 
 ## Success criteria
 - [x] MonoGame project boots and renders *something* (window + basic loop) — DONE: added src/TecmoSBGame (MonoGame DesktopGL) that boots and clears screen. Commit: a220090
-- [ ] Asset extraction/import pipeline defined (graphics + palettes + tiles)
+- [x] Asset extraction/import pipeline defined (graphics + palettes + tiles) — DONE: Created docs/ASSET_PIPELINE.md, tools/extract_chr.py, tools/convert_chr_to_png.py, Content/Content.mgcb. Commit: a46994f (local; push blocked—no git remote configured).
 - [ ] One playable slice (e.g., kickoff or a single down) running end-to-end
 
 ## Next actions
