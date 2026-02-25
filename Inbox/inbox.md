@@ -21,9 +21,9 @@
 
 **Project Hub:** `Projects/tectonic-super-bowl-clone/project.md`
 
-- [ ] #nextaction Player Entity Factory
-- [ ] #nextaction Formation Positioning
-- [ ] #nextaction Play Execution (Behavior system)
+- [x] #nextaction Player Entity Factory — DONE: Created PlayerEntityFactory with CreatePlayer, CreateKicker, CreateReturner, CreateCoveragePlayer, CreateBlocker, CreateTeam methods. Updated GameStateSystem to use factory. Commit: 49462bf (local; push blocked—no git remote configured).
+- [x] #nextaction Formation Positioning — DONE: Created FormationPositioningSystem with Pro, Shotgun, Goal Line, 4-3 Defense, Kickoff formations. Supports facing direction, position-based player placement. Commit: 06ea803 (local; push blocked—no git remote configured).
+- [x] #nextaction Play Execution (Behavior system) — DONE: Created PlayExecutionSystem with StartPlay/EndPlay, AssignOffensiveBehavior, AssignDefensiveBehavior, route/block/rush/tracking/tackle behaviors, PlayType enum, PlayEnded event. Commit: 1cada8b (local; push blocked—no git remote configured).
 - [ ] #nextaction Input Handling
 - [ ] #nextaction Collision Detection
 - [ ] #nextaction Game State Management
