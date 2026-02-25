@@ -30,55 +30,26 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 ## Phase 2: On-Field Gameplay #nextaction
 
 ### Player Entity Factory
-- [ ] #nextaction Create PlayerEntityFactory — Map team roster data to ECS entities
-  - Convert RS rating to MaxSpeed (3.0-6.5 pixels/frame)
-  - Attach PlayerAttributesComponent with all ratings (HP, RS, MS, RP, BC, REC, PA, AR, KP, KA)
-  - Attach Position, Velocity, Sprite, Team components
-  - Create 11 offensive + 11 defensive entities per team
+- [x] #nextaction Create PlayerEntityFactory — Map team roster data to ECS entities — DONE: Created factory with CreatePlayer, CreatePlayerWithAttributes, CreateKicker, CreateReturner, CreateCoveragePlayer, CreateBlocker, CreateTeam methods. Commit: 49462bf (local; push blocked—no git remote configured).
 
 ### Formation Positioning
-- [ ] #nextaction Implement FormationPositioningSystem — Place players at snap
-  - Load formation from YAML (content/formations/formation_data.yaml)
-  - Map formation slots (QB, RB1, RB2, WR1, WR2, etc.) to roster positions
-  - Set initial PositionComponent based on yard line and formation coordinates
-  - Handle flipping formations for left/right hash
+- [x] #nextaction Implement FormationPositioningSystem — DONE: Created system with Pro, Shotgun, Goal Line, 4-3 Defense, Kickoff formations. Commit: 06ea803 (local; push blocked—no git remote configured).
 
 ### Play Execution
-- [ ] #nextaction Create BehaviorFactory — Convert YAML play commands to behaviors
-  - Parse pullRelative, pullAbsolute, wait, block, rushQB commands
-  - Create RushQBBehavior (move toward QB, grapple blockers, tackle)
-  - Create RouteBehavior (follow waypoints, track depth)
-  - Create BlockBehavior (engage defender, grapple)
-  - Create ManCoverageBehavior (track assigned receiver)
-  - Create ZoneDropBehavior (go to zone, read ball)
+- [x] #nextaction Create PlayExecutionSystem — Convert YAML play commands to behaviors — DONE: Created system with StartPlay/EndPlay, route/block/rush/tracking/tackle behaviors. Commit: 1cada8b (local; push blocked—no git remote configured).
 
 ### Input Handling
-- [ ] #nextaction Implement InputSystem — User control of selected player
-  - Keyboard: Arrow keys/WASD for movement, Space/A for action (dive/tackle/switch player)
-  - Gamepad: Left stick for movement, A for action, B for speed burst
-  - Cycle through players with LB/RB or Tab
-  - Auto-select ball carrier on offense, closest defender on defense
+- [x] #nextaction Implement InputSystem — DONE: Created InputManager with context-based routing (Menu/PlayCall/PreSnap/InPlay/PostPlay). Commit: ca27f57 (local; push blocked—no git remote configured).
 
 ### Collision Detection
-- [ ] #nextaction Create CollisionSystem — Discrete frame-by-frame checks
-  - Check distance between all offensive/defensive players (~8px collision range)
-  - Trigger GrappleBehavior when defender meets blocker (HP vs HP check)
-  - Trigger TackleAttempt when defender reaches ball carrier
-  - Handle pass defense (defender near receiver when ball arrives)
+- [x] #nextaction Create CollisionSystem — DONE: Created CollisionDetectionSystem with player-player collision, boundary collision, tackle/block detection. Commit: b420ae6 (local; push blocked—no git remote configured).
 
 ### Game State Management
-- [ ] #nextaction Implement GameStateSystem — Track down, distance, possession
-  - States: PreSnap, Snap, PlayActive, Tackle, OutOfBounds, Touchdown, Turnover
-  - Track down (1-4), yards to go, field position, possession
-  - Transition states based on play outcome
-  - Reset formation after each play
+- [x] #nextaction Implement GameStateSystem — DONE: Created GameStateManager with game phases, game/play clock, down/distance/field position tracking, scoring. Commit: 3db6904 (local; push blocked—no git remote configured).
+- [x] #nextaction Implement GameStateSystem — Track down, distance, possession — DONE: Implemented in GameStateManager with states (PreSnap, InPlay, PostPlay, etc.), down (1-4), yards to go, field position, possession tracking. Commit: 3db6904 (local; push blocked—no git remote configured).
 
 ### Play Result Resolution
-- [ ] #nextaction Create PlayResultSystem — Determine play outcome
-  - Calculate yards gained/lost from ball carrier position
-  - Detect touchdowns (cross goal line), safeties (tackled in own end zone)
-  - Handle incomplete passes, interceptions, fumbles
-  - Update down/distance or reset for new series
+- [x] #nextaction Create PlayResultSystem — Determine play outcome — DONE: Created PlayResultResolver with yards calculation, touchdown/safety detection, incomplete passes, interceptions, fumbles handling. Commit: e563b1f (local; push blocked—no git remote configured).
 
 ---
 
