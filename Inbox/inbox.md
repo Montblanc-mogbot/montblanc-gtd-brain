@@ -5,20 +5,29 @@
 
 ## Tasks
 
-### Phase 1: Core Framework (Tecmo Super Bowl) — READY TO PROCEED
+### Phase 1: Core Framework (Tecmo Super Bowl) — ✅ COMPLETE
 
 **Project Hub:** `Projects/tectonic-super-bowl-clone/project.md`
 
-**Decisions made:**
-- Keep split project structure (TecmoSB + TecmoSBGame)
-- Load all content at startup
-- Latest stable MonoGame
-- Use MonoGame.Extended.Entities for ECS
+**Phase 1 Completed:**
+- ✅ Project setup (MonoGame + DesktopGL) — Commit: a220090
+- ✅ Content pipeline (YAML loading) — Commit: f9018ba
+- ✅ Entity system (MonoGame.Extended.Entities) — Commit: 17a3b46
+- ✅ Rendering pipeline (256x224 viewport, field renderer)
 
-**Remaining:**
-- [x] #nextaction Content pipeline (YAML loading) — DONE: f9018ba
-- [x] #nextaction Basic entity system (MonoGame.Extended.Entities) — DONE: 17a3b46
-- [x] #nextaction Rendering pipeline — DONE: Added RenderViewport (NES 256x224 scaling), FieldRenderer (field, yard lines, end zones), integrated with ECS RenderingSystem. Commit: eacd37c (local; push blocked—no git remote configured).
+---
+
+### Phase 2: On-Field Gameplay — ACTIVE #nextaction
+
+**Project Hub:** `Projects/tectonic-super-bowl-clone/project.md`
+
+- [ ] #nextaction Player Entity Factory
+- [ ] #nextaction Formation Positioning
+- [ ] #nextaction Play Execution (Behavior system)
+- [ ] #nextaction Input Handling
+- [ ] #nextaction Collision Detection
+- [ ] #nextaction Game State Management
+- [ ] #nextaction Play Result Resolution
 
 ---
 

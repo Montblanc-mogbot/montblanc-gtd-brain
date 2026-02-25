@@ -27,6 +27,61 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 - [x] #nextaction Phase 1: Basic entity system — Using MonoGame.Extended.Entities — DONE: Components and Systems created, ECS integrated. Commit: 17a3b46
 - [x] #nextaction Phase 1: Rendering pipeline — DONE: Added RenderViewport (NES 256x224 scaling), FieldRenderer (field, yard lines, end zones), integrated with ECS RenderingSystem. Commit: eacd37c (local; push blocked—no git remote configured).
 
+## Phase 2: On-Field Gameplay #nextaction
+
+### Player Entity Factory
+- [ ] #nextaction Create PlayerEntityFactory — Map team roster data to ECS entities
+  - Convert RS rating to MaxSpeed (3.0-6.5 pixels/frame)
+  - Attach PlayerAttributesComponent with all ratings (HP, RS, MS, RP, BC, REC, PA, AR, KP, KA)
+  - Attach Position, Velocity, Sprite, Team components
+  - Create 11 offensive + 11 defensive entities per team
+
+### Formation Positioning
+- [ ] #nextaction Implement FormationPositioningSystem — Place players at snap
+  - Load formation from YAML (content/formations/formation_data.yaml)
+  - Map formation slots (QB, RB1, RB2, WR1, WR2, etc.) to roster positions
+  - Set initial PositionComponent based on yard line and formation coordinates
+  - Handle flipping formations for left/right hash
+
+### Play Execution
+- [ ] #nextaction Create BehaviorFactory — Convert YAML play commands to behaviors
+  - Parse pullRelative, pullAbsolute, wait, block, rushQB commands
+  - Create RushQBBehavior (move toward QB, grapple blockers, tackle)
+  - Create RouteBehavior (follow waypoints, track depth)
+  - Create BlockBehavior (engage defender, grapple)
+  - Create ManCoverageBehavior (track assigned receiver)
+  - Create ZoneDropBehavior (go to zone, read ball)
+
+### Input Handling
+- [ ] #nextaction Implement InputSystem — User control of selected player
+  - Keyboard: Arrow keys/WASD for movement, Space/A for action (dive/tackle/switch player)
+  - Gamepad: Left stick for movement, A for action, B for speed burst
+  - Cycle through players with LB/RB or Tab
+  - Auto-select ball carrier on offense, closest defender on defense
+
+### Collision Detection
+- [ ] #nextaction Create CollisionSystem — Discrete frame-by-frame checks
+  - Check distance between all offensive/defensive players (~8px collision range)
+  - Trigger GrappleBehavior when defender meets blocker (HP vs HP check)
+  - Trigger TackleAttempt when defender reaches ball carrier
+  - Handle pass defense (defender near receiver when ball arrives)
+
+### Game State Management
+- [ ] #nextaction Implement GameStateSystem — Track down, distance, possession
+  - States: PreSnap, Snap, PlayActive, Tackle, OutOfBounds, Touchdown, Turnover
+  - Track down (1-4), yards to go, field position, possession
+  - Transition states based on play outcome
+  - Reset formation after each play
+
+### Play Result Resolution
+- [ ] #nextaction Create PlayResultSystem — Determine play outcome
+  - Calculate yards gained/lost from ball carrier position
+  - Detect touchdowns (cross goal line), safeties (tackled in own end zone)
+  - Handle incomplete passes, interceptions, fumbles
+  - Update down/distance or reset for new series
+
+---
+
 ## Backlog
 - [x] Build tooling: script to extract assets from ROM into friendly formats — DONE: Created tools/extract_chr.py, tools/convert_chr_to_png.py, docs/ASSET_PIPELINE.md. Commit: a46994f (local; push blocked—no git remote configured).
 - [x] Input mapping + controller support — DONE: InputSystem with keyboard (arrows/WASD/space) and gamepad support. Commit: f3e1eee (local; push blocked—no git remote configured).
