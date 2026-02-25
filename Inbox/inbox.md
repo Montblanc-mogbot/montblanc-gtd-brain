@@ -24,10 +24,10 @@
 - [x] #nextaction Player Entity Factory — DONE: Created PlayerEntityFactory with CreatePlayer, CreateKicker, CreateReturner, CreateCoveragePlayer, CreateBlocker, CreateTeam methods. Updated GameStateSystem to use factory. Commit: 49462bf (local; push blocked—no git remote configured).
 - [x] #nextaction Formation Positioning — DONE: Created FormationPositioningSystem with Pro, Shotgun, Goal Line, 4-3 Defense, Kickoff formations. Supports facing direction, position-based player placement. Commit: 06ea803 (local; push blocked—no git remote configured).
 - [x] #nextaction Play Execution (Behavior system) — DONE: Created PlayExecutionSystem with StartPlay/EndPlay, AssignOffensiveBehavior, AssignDefensiveBehavior, route/block/rush/tracking/tackle behaviors, PlayType enum, PlayEnded event. Commit: 1cada8b (local; push blocked—no git remote configured).
-- [ ] #nextaction Input Handling
-- [ ] #nextaction Collision Detection
-- [ ] #nextaction Game State Management
-- [ ] #nextaction Play Result Resolution
+- [x] #nextaction Input Handling — DONE: Created InputManager with context-based routing (Menu/PlayCall/PreSnap/InPlay/PostPlay), keyboard+gamepad support, repeat handling, events for each context. Commit: ca27f57 (local; push blocked—no git remote configured).
+- [x] #nextaction Collision Detection — DONE: Created CollisionDetectionSystem with player-player collision, boundary collision, tackle detection (TACKLE_DISTANCE), block detection, collision resolution (push apart), GetEntitiesInRadius, GetNearestOpponent, IsInBounds. Commit: b420ae6 (local; push blocked—no git remote configured).
+- [x] #nextaction Game State Management — DONE: Created GameStateManager with game phases (CoinToss, Kickoff, PreSnap, InPlay, PostPlay, PAT, GameOver), game clock, play clock, down/distance tracking, field position, scoring (TD/FG/Safety/XP), turnovers, events (OnScoreChanged, OnTouchdown, OnTurnover). Commit: 3db6904 (local; push blocked—no git remote configured).
+- [x] #nextaction Play Result Resolution — DONE: Created PlayResultResolver with ResolvePlay method for all outcomes (Tackle, Touchdown, Safety, Sack, Interception, Fumble, Penalty), PlayContext/PlayResult classes, events (OnBigPlay, OnSack, OnInterception, OnFumble). Commit: e563b1f (local; push blocked—no git remote configured).
 
 ---
 
