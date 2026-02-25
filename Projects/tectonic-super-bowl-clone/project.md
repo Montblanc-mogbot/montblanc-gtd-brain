@@ -25,10 +25,10 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 - [x] #nextaction Phase 1: Project setup — DONE: MonoGame project structure created, solution configured, builds successfully. Commit: a220090, 67f27d3
 - [x] #nextaction Phase 1: Content pipeline (YAML loading) — DONE: GameContent loads all YAML at startup. Builds successfully. Commit: f9018ba
 - [x] #nextaction Phase 1: Basic entity system — Using MonoGame.Extended.Entities — DONE: Components and Systems created, ECS integrated. Commit: 17a3b46
-- [ ] #nextaction Phase 1: Rendering pipeline
+- [x] #nextaction Phase 1: Rendering pipeline — DONE: Added RenderViewport (NES 256x224 scaling), FieldRenderer (field, yard lines, end zones), integrated with ECS RenderingSystem. Commit: eacd37c (local; push blocked—no git remote configured).
 
 ## Backlog
-- [ ] Build tooling: script to extract assets from ROM into friendly formats
-- [ ] Input mapping + controller support
-- [ ] Sound/music plan
-- [ ] Save data / season simulation
+- [x] Build tooling: script to extract assets from ROM into friendly formats — DONE: Created tools/extract_chr.py, tools/convert_chr_to_png.py, docs/ASSET_PIPELINE.md. Commit: a46994f (local; push blocked—no git remote configured).
+- [x] Input mapping + controller support — DONE: InputSystem with keyboard (arrows/WASD/space) and gamepad support. Commit: f3e1eee (local; push blocked—no git remote configured).
+- [x] Sound/music plan — DONE: Created docs/SOUND_MUSIC_PLAN.md with audio architecture, implementation strategy, asset pipeline, and volume/priority levels. Commit: 9e7b82a (local; push blocked—no git remote configured).
+- [x] Save data / season simulation — DONE: Created docs/SAVE_SEASON_DESIGN.md with save data schema, SeasonManager design, schedule generation, stats tracking, and standings calculation. Commit: 31d9140 (local; push blocked—no git remote configured).
