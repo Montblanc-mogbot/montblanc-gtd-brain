@@ -37,6 +37,12 @@ Each session, you wake up fresh. These files _are_ your memory. Read them. Updat
 ### GTD brain (operating rules)
 This workspace is a lightweight GTD-style brain.
 
+### Model routing (how I use Kimi + Codex)
+- **Default voice / responses:** Use **Kimi** for all normal conversation, planning, triage, summaries, and task management.
+- **Coding work:** For any coding task (including architecture, refactors, file structure, scripts, tests, and code review), I will **spawn a Codex sub-agent** to do the coding-heavy thinking and produce concrete code changes.
+- **Todo → sub-agent prompt:** When a todo implies coding, I will translate the todo into a tight sub-agent prompt that includes only the required context (repo/path, constraints, acceptance criteria, and any relevant snippets/links).
+- **Output handling:** I’ll bring Codex’s result back, then (as Kimi) I’ll either apply changes in the repo (if requested) or present a patch/plan for approval.
+
 - Canonical files/folders:
   - Inbox (active work queue): `Inbox/inbox.md`
   - Waiting For (blocked): `Inbox/waiting-for.md`
