@@ -46,7 +46,7 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 - [x] #nextaction Integrate `GameLoopMachine` + `OnFieldLoopMachine` as the authoritative state controllers for ECS system enable/disable and transitions. — DONE: added `LoopState` + `LoopMachineSystem` that ticks machines at 60Hz and bridges events; systems (e.g. InputSystem) early-out based on loop state; headless prints loop snapshots.
 
 ### 2) Rendering pipeline (data-driven, assembly-faithful presentation)
-- [ ] #nextaction Recreate and fully populate `ASSETS.md` with a clean-room list of all needed game assets (UI/sprites/tiles/audio/fonts) using Tecmo Super Bowl as reference and proposed higher-res sizes.
+- [x] #nextaction Recreate and fully populate `ASSETS.md` with a clean-room list of all needed game assets (UI/sprites/tiles/audio/fonts) using Tecmo Super Bowl as reference and proposed higher-res sizes. — DONE: Fully populated ASSETS.md with 104 trackable assets across 10 categories. Commit: d71eea8
 - [ ] #nextaction Implement sprite/texture registry (spritesheets + regions via YAML manifest) and hook SpriteComponent to render real sprites.
 - [ ] #nextaction Implement animation component + animation system (clip/frame-based) driven by gameplay state, matching assembly animation timing.
 - [ ] #nextaction Implement camera + Tecmo-style field scrolling behavior aligned with assembly scrolling logic.
