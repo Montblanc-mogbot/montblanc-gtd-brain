@@ -4,6 +4,7 @@
 > Blocked items live in Inbox/waiting-for.md
 
 ## Tasks
+- [ ] #nextaction Weekly review (20260306) → Reference/weekly-reviews/20260306-weekly-review.md
 
 ### Phase 1: Core Framework (Tecmo Super Bowl) — ✅ COMPLETE
 
