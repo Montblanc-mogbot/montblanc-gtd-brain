@@ -5,8 +5,7 @@
 
 ## Tasks
 - [x] #nextaction Tectonic Super Bowl: audit current on-field loop on `main` and write a short checklist of what’s missing for “2 plays playable” (TrackingPlayer + handoff + defender pursuit + whistle/end) with file pointers. — DONE: added docs/2-plays-playable-checklist.md (commit 3593ef0)
-- [ ] #nextaction Tectonic Super Bowl: triage Matt’s playcall UI + camera issues (playcall selection doesn’t respond to Enter; players still move during playcall; camera too zoomed in) and capture root-cause + fix plan.
-- [ ] #nextaction Weekly review (20260306) → Reference/weekly-reviews/20260306-weekly-review.md
+- [x] #nextaction Tectonic Super Bowl: triage Matt’s playcall UI + camera issues (playcall selection doesn’t respond to Enter; players still move during playcall; camera too zoomed in) and capture root-cause + fix plan. — DONE: root causes found (autoplaycall flag prevented manual input; PlaySelectedEvent had no consumer; formation defaulted to kickoff "00" with 0 plays; kickoff scripts interfered; missing Content .xnb build caused crash) and implemented short-term plan (scrap playcall UI → placeholder overlay + forced play 10; MGCB build to output Content/*.xnb). Evidence: commits c09b92a, 3333260- [ ] #nextaction Weekly review (20260306) → Reference/weekly-reviews/20260306-weekly-review.md
 
 - [x] #nextaction Tectonic Super Bowl: implement MovementSystem support for `BehaviorState.TrackingPlayer` (steer toward target entity each tick; stop/slow within engage radius; respect max speed/accel). — DONE: added arrival/slowdown behavior + stop distance to reduce overshoot (commit 2a1aafe)
 - [x] #nextaction Tectonic Super Bowl: extend PlayScript instruction set to support “track target” ops (e.g. `pursue_ballcarrier`, `rush_qb`) that set `BehaviorState.TrackingPlayer` and target entity id. — DONE: added PlayScript ops + compiler + runtime support (commit e7280c3)

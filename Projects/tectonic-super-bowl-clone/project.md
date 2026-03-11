@@ -47,7 +47,7 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 
 ### 2) Rendering pipeline (data-driven, assembly-faithful presentation)
 - [x] #nextaction Recreate and fully populate `ASSETS.md` with a clean-room list of all needed game assets (UI/sprites/tiles/audio/fonts) using Tecmo Super Bowl as reference and proposed higher-res sizes. — DONE: Fully populated ASSETS.md with 104 trackable assets across 10 categories. Commit: d71eea8
-- [ ] #nextaction Implement sprite/texture registry (spritesheets + regions via YAML manifest) and hook SpriteComponent to render real sprites.
+- [x] #nextaction Implement sprite/texture registry (spritesheets + regions via YAML manifest) and hook SpriteComponent to render real sprites. — DONE: added sprite_manifest.yaml + debug spritesheet + SpriteRegistry; RenderingSystem draws SpriteComponent via atlas regions (commit df366f6)
 - [ ] #nextaction Implement animation component + animation system (clip/frame-based) driven by gameplay state, matching assembly animation timing.
 - [ ] #nextaction Implement camera + Tecmo-style field scrolling behavior aligned with assembly scrolling logic.
 - [ ] #nextaction Convert FieldRenderer from procedural rectangles to tile/atlas-driven field art (still 256×224 virtual).
