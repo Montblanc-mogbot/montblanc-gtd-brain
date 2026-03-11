@@ -4,7 +4,20 @@
 > Blocked items live in Inbox/waiting-for.md
 
 ## Tasks
+- [x] #nextaction Tectonic Super Bowl: audit current on-field loop on `main` and write a short checklist of what’s missing for “2 plays playable” (TrackingPlayer + handoff + defender pursuit + whistle/end) with file pointers. — DONE: added docs/2-plays-playable-checklist.md (commit 3593ef0)
 - [ ] #nextaction Weekly review (20260306) → Reference/weekly-reviews/20260306-weekly-review.md
+
+- [x] #nextaction Tectonic Super Bowl: implement MovementSystem support for `BehaviorState.TrackingPlayer` (steer toward target entity each tick; stop/slow within engage radius; respect max speed/accel). — DONE: added arrival/slowdown behavior + stop distance to reduce overshoot (commit 2a1aafe)
+- [ ] #nextaction Tectonic Super Bowl: extend PlayScript instruction set to support “track target” ops (e.g. `pursue_ballcarrier`, `rush_qb`) that set `BehaviorState.TrackingPlayer` and target entity id.
+- [ ] #nextaction Tectonic Super Bowl: add engine-native PlayScript command `handoff_to(slot: HB, delayFrames: N)` (or equivalent) and compiler/YAML support.
+- [ ] #nextaction Tectonic Super Bowl: implement ball ownership transfer on handoff (flip BallOwner/Carrier flags; update `PlayState.BallOwnerEntityId`; ensure renderer/UI uses new owner).
+- [ ] #nextaction Tectonic Super Bowl: implement Tecmo-style control switch on handoff (once HB has ball, user control moves QB→HB deterministically).
+- [ ] #nextaction Tectonic Super Bowl: wire offensive “Run 1 / play_number 10 (T FAKE SWEEP R)” to use the play-data YAML script end-to-end (snap gate → handoff → HB run path / blocks).
+- [ ] #nextaction Tectonic Super Bowl: create one defensive script for the “2 plays” demo (simple pursuit/contain/rush) using play-data YAML (no placeholder coverage).
+- [ ] #nextaction Tectonic Super Bowl: ensure tackle/whistle cleanly ends the play and resets to next pre-snap state (no stuck entities; clocks/down-distance update).
+- [ ] #nextaction Tectonic Super Bowl: add deterministic logging for each down/play (autoplaycall + play selected + script applied + handoff event + play end reason) so we can validate correctness quickly.
+- [ ] #nextaction Tectonic Super Bowl: add a headless/smoke test runner scenario that executes a single run play and asserts (a) HB becomes ball owner after delay, (b) at least one defender pursues, (c) play ends.
+- [ ] #nextaction Tectonic Super Bowl: update docs with “engine-native commands ↔ ROM opcode intent” mapping for the subset used by the 2-play demo and link to the YAML entries used.
 
 ### Phase 1: Core Framework (Tecmo Super Bowl) — ✅ COMPLETE
 
