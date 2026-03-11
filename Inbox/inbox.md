@@ -9,9 +9,9 @@
 
 - [x] #nextaction Tectonic Super Bowl: implement MovementSystem support for `BehaviorState.TrackingPlayer` (steer toward target entity each tick; stop/slow within engage radius; respect max speed/accel). — DONE: added arrival/slowdown behavior + stop distance to reduce overshoot (commit 2a1aafe)
 - [x] #nextaction Tectonic Super Bowl: extend PlayScript instruction set to support “track target” ops (e.g. `pursue_ballcarrier`, `rush_qb`) that set `BehaviorState.TrackingPlayer` and target entity id. — DONE: added PlayScript ops + compiler + runtime support (commit e7280c3)
-- [ ] #nextaction Tectonic Super Bowl: add engine-native PlayScript command `handoff_to(slot: HB, delayFrames: N)` (or equivalent) and compiler/YAML support.
-- [ ] #nextaction Tectonic Super Bowl: implement ball ownership transfer on handoff (flip BallOwner/Carrier flags; update `PlayState.BallOwnerEntityId`; ensure renderer/UI uses new owner).
-- [ ] #nextaction Tectonic Super Bowl: implement Tecmo-style control switch on handoff (once HB has ball, user control moves QB→HB deterministically).
+- [x] #nextaction Tectonic Super Bowl: add engine-native PlayScript command `handoff_to(slot: HB, delayFrames: N)` (or equivalent) and compiler/YAML support. — DONE: compiler + runtime supports delayFrames via `op.A` (commit c9cf410)
+- [x] #nextaction Tectonic Super Bowl: implement ball ownership transfer on handoff (flip BallOwner/Carrier flags; update `PlayState.BallOwnerEntityId`; ensure renderer/UI uses new owner). — DONE: robust ball + carrier updates (PlayScriptSystem now scans all Position entities to find ball/player entities) (commit c9cf410)
+- [x] #nextaction Tectonic Super Bowl: implement Tecmo-style control switch on handoff (once HB has ball, user control moves QB→HB deterministically). — DONE: added ControlState.PendingForcedEntityId and set it on handoff; PlayerControlSystem consumes it (commit 7878b65)
 - [ ] #nextaction Tectonic Super Bowl: wire offensive “Run 1 / play_number 10 (T FAKE SWEEP R)” to use the play-data YAML script end-to-end (snap gate → handoff → HB run path / blocks).
 - [ ] #nextaction Tectonic Super Bowl: create one defensive script for the “2 plays” demo (simple pursuit/contain/rush) using play-data YAML (no placeholder coverage).
 - [ ] #nextaction Tectonic Super Bowl: ensure tackle/whistle cleanly ends the play and resets to next pre-snap state (no stuck entities; clocks/down-distance update).
