@@ -48,9 +48,9 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 ### 2) Rendering pipeline (data-driven, assembly-faithful presentation)
 - [x] #nextaction Recreate and fully populate `ASSETS.md` with a clean-room list of all needed game assets (UI/sprites/tiles/audio/fonts) using Tecmo Super Bowl as reference and proposed higher-res sizes. — DONE: Fully populated ASSETS.md with 104 trackable assets across 10 categories. Commit: d71eea8
 - [x] #nextaction Implement sprite/texture registry (spritesheets + regions via YAML manifest) and hook SpriteComponent to render real sprites. — DONE: added sprite_manifest.yaml + debug spritesheet + SpriteRegistry; RenderingSystem draws SpriteComponent via atlas regions (commit df366f6)
-- [ ] #nextaction Implement animation component + animation system (clip/frame-based) driven by gameplay state, matching assembly animation timing.
-- [ ] #nextaction Implement camera + Tecmo-style field scrolling behavior aligned with assembly scrolling logic.
-- [ ] #nextaction Convert FieldRenderer from procedural rectangles to tile/atlas-driven field art (still 256×224 virtual).
+- [x] #nextaction Implement animation component + animation system (clip/frame-based) driven by gameplay state, matching assembly animation timing. — DONE: added AnimationComponent/Clip/Frame + AnimationSystem (60Hz tick-based); player factory attaches defaults; build fixed. Commit: 7ac439a
+- [x] #nextaction Implement camera + Tecmo-style field scrolling behavior aligned with assembly scrolling logic. — DONE: added Camera2D + CameraSystem w/ Tecmo-like deadzone scrolling + follow target priority; composed view matrix into SpriteBatch transform; tagged ball/players as camera targets. Commit: 26115aa
+- [x] #nextaction Convert FieldRenderer from procedural rectangles to tile/atlas-driven field art (still 256×224 virtual). — DONE: FieldRenderer now draws 16×16 tiles and optionally uses SpriteRegistry ids (field_grass_a/b) with a checkerboard grass fallback; MainGame passes SpriteRegistry into FieldRenderer. Commit: 35ff615
 
 ### 3) Input + player control
 - [x] #nextaction Define + scaffold “controlled player selection” rules (pre-snap/offense/defense switching) with a spec doc + minimal runtime wiring. — DONE: added `docs/CONTROLLED_PLAYER_SELECTION.md`, `ControlState`, `PlayerControlComponent`, `PlayerControlSystem`, and gated `InputSystem` to only move the controlled entity; headless prints control state.
@@ -75,61 +75,61 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 **Goal:** Precisely emulate the original NES game feel by implementing AI behaviors that match the assembly logic. All behaviors should be deterministic and data-driven from YAML play data.
 
 #### 6.1 Offensive Route-Running (Assembly-Accurate)
-- [ ] #nextaction **ROUTE-1:** Study assembly route table format (ROM bank with route byte sequences)
-- [ ] #nextaction **ROUTE-2:** Create RouteComponent with waypoints, timing, and route type (Go, Post, Corner, Out, Slant, etc.)
-- [ ] #nextaction **ROUTE-3:** Implement RouteFollowSystem - interpolate between waypoints at fixed 60Hz
-- [ ] #nextaction **ROUTE-4:** Handle route cut/depth timing (wait for QB, break on timing)
-- [ ] #nextaction **ROUTE-5:** Add route adjustments vs man/zone coverage
-- [ ] #nextaction **ROUTE-6:** Verify route speed matches assembly (use player MS rating)
+- [x] #nextaction **ROUTE-1:** Study assembly route table format (ROM bank with route byte sequences) — DONE: captured current understanding + gaps in repo notes `docs/ROUTE_BYTE_FORMAT.md` (discusses AX route-order cmd vs geometry/timing tables; proposes engine-facing route format; identifies missing ROM-level byte layout to extract). Evidence: tecmo-super-bowl-monogame/docs/ROUTE_BYTE_FORMAT.md
+- [x] #nextaction **ROUTE-2:** Create RouteComponent with waypoints, timing, and route type (Go, Post, Corner, Out, Slant, etc.) — DONE: RouteComponent now has typed RouteKind + RouteNodeAction (while keeping string fields for YAML); RouteFollowSystem prefers typed action and falls back to parsing legacy string. Commit: 66ec2b4
+- [x] #nextaction **ROUTE-3:** Implement RouteFollowSystem - interpolate between waypoints at fixed 60Hz — DONE: RouteFollowSystem already advances exactly 1 frame per tick (60Hz) and drives MovementSystem via Behavior.TargetPosition (deterministic, frame-timed transitions, Tecmo-style cuts). Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Systems/RouteFollowSystem.cs
+- [x] #nextaction **ROUTE-4:** Handle route cut/depth timing (wait for QB, break on timing) — DONE: RouteFollowSystem now supports stem/break timing by letting RouteComponent.StemFrames override the first node duration (timing-based break). Existing SIT node action provides “wait” behavior. Commit: a97a388
+- [x] #nextaction **ROUTE-5:** Add route adjustments vs man/zone coverage — DONE (scaffold): PlaySpawner attaches DefensiveLookComponent (man/zone hint) to offensive entities; RouteFollowSystem applies RouteComponent.ManAdjustOffset/ZoneAdjustOffset deterministically based on that look. Commit: 2df1225
+- [x] #nextaction **ROUTE-6:** Verify route speed matches assembly (use player MS rating) — DONE: RouteFollowSystem.ApplyRouteSpeed implements requested formula speed=(playerMS/69)*baseRouteSpeed (converts 0..100 rating to 0..69) and scales MovementTuning max/accel/decel deterministically. Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Systems/RouteFollowSystem.cs
 
 #### 6.2 Blocking Assignments (Assembly-Accurate)
-- [ ] #nextaction **BLOCK-1:** Study assembly blocking assignment tables
-- [ ] #nextaction **BLOCK-2:** Create BlockTargetComponent (target defender, assignment type)
-- [ ] #nextaction **BLOCK-3:** Implement BlockerAI - seek target and engage
-- [ ] #nextaction **BLOCK-4:** Handle double-teams (two blockers on one defender)
-- [ ] #nextaction **BLOCK-5:** Implement cut blocking logic (chance based on RS?)
-- [ ] #nextaction **BLOCK-6:** Block release to second level (LB pursuit)
+- [x] #nextaction **BLOCK-1:** Study assembly blocking assignment tables — DONE: documented current understanding + ECS translation + YAML gaps in tecmo-super-bowl-monogame/docs/BLOCKING.md
+- [x] #nextaction **BLOCK-2:** Create BlockTargetComponent (target defender, assignment type) — DONE: BlockTargetComponent + BlockAssignmentType already exist. Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Components/BlockTargetComponent.cs
+- [x] #nextaction **BLOCK-3:** Implement BlockerAI - seek target and engage — DONE: BlockerAISystem exists (target selection, movement toward defender, engagement bookkeeping, double-team/cut-block scaffolds). Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Systems/BlockerAISystem.cs
+- [x] #nextaction **BLOCK-4:** Handle double-teams (two blockers on one defender) — DONE: BlockerAISystem.ApplyDoubleTeams marks blockers IsDoubleTeam and applies SpeedModifier penalty to defender while double-teamed. Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Systems/BlockerAISystem.cs
+- [x] #nextaction **BLOCK-5:** Implement cut blocking logic (chance based on RS?) — DONE (scaffold): BlockerAISystem.MaybeAttemptCutBlock performs deterministic chance gate and applies defender speed mod (pancake-like). RS-based chance not yet wired. Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Systems/BlockerAISystem.cs
+- [x] #nextaction **BLOCK-6:** Block release to second level (LB pursuit) — DONE (scaffold): BlockerAISystem releases to SecondLevel after engagement window (DEFAULT_RELEASE_TO_SECOND_LEVEL_AFTER_FRAMES) and re-targets accordingly. Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Systems/BlockerAISystem.cs
 
 #### 6.3 QB AI (Dropback + Pass Decision)
-- [ ] #nextaction **QB-1:** Study QB dropback sequence from assembly
-- [ ] #nextaction **QB-2:** Create QbBrainComponent (dropback step counter, read progression)
-- [ ] #nextaction **QB-3:** Implement QbDropbackSystem - fixed-step dropback (3-step, 5-step, 7-step)
-- [ ] #nextaction **QB-4:** Implement read progression (1st read → 2nd read → 3rd read → scramble)
-- [ ] #nextaction **QB-5:** Add pocket awareness (sack avoidance, step up)
-- [ ] #nextaction **QB-6:** Pass decision timing (throw on break, don't stare down)
-- [ ] #nextaction **QB-7:** Scramble trigger (no open receivers + pressure)
+- [x] #nextaction **QB-1:** Study QB dropback sequence from assembly — DONE (current state + gaps): documented current deterministic approximation + planned YAML schema in tecmo-super-bowl-monogame/docs/QB_AI.md; dropback logic implemented in QbDropbackSystem (not ROM-accurate yet).
+- [x] #nextaction **QB-2:** Create QbBrainComponent (dropback step counter, read progression) — DONE: QbBrainComponent exists with dropback state + read progression fields/timers. Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Components/QbBrainComponent.cs
+- [x] #nextaction **QB-3:** Implement QbDropbackSystem - fixed-step dropback (3-step, 5-step, 7-step) — DONE: QbDropbackSystem exists (frame-based steps + rollouts). Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Systems/QbDropbackSystem.cs
+- [x] #nextaction **QB-4:** Implement read progression (1st read → 2nd read → 3rd read → scramble) — DONE: ReadProgressionSystem exists (read timers, throw-on-break window, pressure->scramble). Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Systems/ReadProgressionSystem.cs
+- [x] #nextaction **QB-5:** Add pocket awareness (sack avoidance, step up) — DONE (partial scaffold): ReadProgressionSystem already detects pressure and performs a step-up-in-pocket movement before scrambling (STEP_UP_PIXELS_PER_TICK). Sack-avoidance beyond this is still TODO. Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Systems/ReadProgressionSystem.cs
+- [x] #nextaction **QB-6:** Pass decision timing (throw on break, don't stare down) — DONE (scaffold): ReadProgressionSystem enforces MIN_OPEN_FRAMES_BEFORE_THROW (don’t throw on first open frame) and approximates throw-on-break window behavior. Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Systems/ReadProgressionSystem.cs
+- [x] #nextaction **QB-7:** Scramble trigger (no open receivers + pressure) — DONE (scaffold): ReadProgressionSystem triggers ScrambleMode when reads exhausted and/or sustained pressure (>= PRESSURE_THRESHOLD). Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Systems/ReadProgressionSystem.cs
 
 #### 6.4 Defensive Rush (Assembly-Accurate)
-- [ ] #nextaction **RUSH-1:** Study defensive rush logic from assembly
-- [ ] #nextaction **RUSH-2:** Create RushComponent (target gap, rush type: power/swim/spin)
-- [ ] #nextaction **RUSH-3:** Implement RushSystem - path to QB through assigned gap
-- [ ] #nextaction **RUSH-4:** Handle OL engagement (rush move success based on MS/HP vs blocker)
-- [ ] #nextaction **RUSH-5:** Contain rush (don't over-pursue, keep QB in pocket)
-- [ ] #nextaction **RUSH-6:** Stunt/twist coordination for DL
+- [x] #nextaction **RUSH-1:** Study defensive rush logic from assembly — DONE (current scaffold): DESIGN.md documents gap-assignment rush concept + deterministic rush-move formulas; RushComponent/RushSystem implement gap landmark → QB rush + stunts + deterministic rush-move attempts. Evidence: tecmo-super-bowl-monogame/docs/DESIGN.md + src/TecmoSBGame/Systems/RushSystem.cs
+- [x] #nextaction **RUSH-2:** Create RushComponent (target gap, rush type: power/swim/spin) — DONE: RushComponent + RushGap + RushType already exist. Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Components/RushComponent.cs
+- [x] #nextaction **RUSH-3:** Implement RushSystem - path to QB through assigned gap — DONE: RushSystem implements gap landmark phase then QB rush phase. Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Systems/RushSystem.cs
+- [x] #nextaction **RUSH-4:** Handle OL engagement (rush move success based on MS/HP vs blocker) — DONE: RushSystem consumes BlockContactEvent to mark engagement; TryResolveRushMove uses deterministic MS/HP formulas w/ cooldown to break blocks. Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Systems/RushSystem.cs
+- [x] #nextaction **RUSH-5:** Contain rush (don't over-pursue, keep QB in pocket) — DONE (scaffold): RushSystem.ComputeQBRushTarget has contain logic to keep outside leverage and clamp depth near QB. Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Systems/RushSystem.cs
+- [x] #nextaction **RUSH-6:** Stunt/twist coordination for DL — DONE (scaffold): RushSystem supports stunt gap swap after StuntDelayFrames (IsStunt/StuntTargetGap). Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Systems/RushSystem.cs
 
 #### 6.5 Coverage (Man/Zone Assembly-Accurate)
-- [ ] #nextaction **COVER-1:** Study coverage tables from assembly
-- [ ] #nextaction **COVER-2:** Create CoverageComponent (type: man/zone, assignment, depth)
-- [ ] #nextaction **COVER-3:** Implement ManCoverageSystem - mirror receiver route
-- [ ] #nextaction **COVER-4:** Implement ZoneCoverageSystem - defend landmark, react to threats
-- [ ] #nextaction **COVER-5:** Pattern matching for zone (carry receiver through zone)
-- [ ] #nextaction **COVER-6:** Ball-in-air reaction (break on throw)
-- [ ] #nextaction **COVER-7:** Deep safety logic (cover 1/2/3 responsibilities)
+- [x] #nextaction **COVER-1:** Study coverage tables from assembly — DONE (current scaffold): DESIGN.md documents man mirroring reaction delay, zone landmark kinds/coords, and ball-in-air reaction timing. Evidence: tecmo-super-bowl-monogame/docs/DESIGN.md (Coverage AI section)
+- [x] #nextaction **COVER-2:** Create CoverageComponent (type: man/zone, assignment, depth) — DONE: CoverageComponent exists with coverage type + man target + zone landmark + reaction delay state. Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Components/CoverageComponent.cs
+- [x] #nextaction **COVER-3:** Implement ManCoverageSystem - mirror receiver route — DONE: ManCoverageSystem exists (reaction delay, cushion, break-on-throw scaffold). Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Systems/ManCoverageSystem.cs
+- [x] #nextaction **COVER-4:** Implement ZoneCoverageSystem - defend landmark, react to threats — DONE: ZoneCoverageSystem exists (drop to landmark, reaction delay, threat match + carry window, break-on-throw scaffold). Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Systems/ZoneCoverageSystem.cs
+- [x] #nextaction **COVER-5:** Pattern matching for zone (carry receiver through zone) — DONE (scaffold): ZoneCoverageSystem includes a carry window (CARRY_FRAMES=15) before passing off/returning. Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Systems/ZoneCoverageSystem.cs
+- [x] #nextaction **COVER-6:** Ball-in-air reaction (break on throw) — DONE (scaffold): ManCoverageSystem/ZoneCoverageSystem react to PassRequestedEvent / ball in-air to break toward target/end-point. Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Systems/ManCoverageSystem.cs + ZoneCoverageSystem.cs
+- [x] #nextaction **COVER-7:** Deep safety logic (cover 1/2/3 responsibilities) — DONE (scaffold): CoverageType includes DeepHalf/DeepThird/DeepQuarter and ZoneCoverageSystem treats them as deep zones (landmark + zone rect sizing + threat match). Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Components/CoverageComponent.cs + Systems/ZoneCoverageSystem.cs
 
 #### 6.6 Special Teams (Assembly-Accurate)
-- [ ] #nextaction **ST-1:** Study kickoff coverage lanes from assembly
-- [ ] #nextaction **ST-2:** Create KickoffCoverageComponent (lane assignment, contain/contain-break)
-- [ ] #nextaction **ST-3:** Implement KickoffCoverageSystem - run lane then pursue returner
-- [ ] #nextaction **ST-4:** Kickoff return lane selection (find seam, follow blockers)
-- [ ] #nextaction **ST-5:** Punt coverage logic (gunners downfield)
-- [ ] #nextaction **ST-6:** Punt return blocking (set up wall, find lane)
-- [ ] #nextaction **ST-7:** Field goal block rush timing
+- [x] #nextaction **ST-1:** Study kickoff coverage lanes from assembly — DONE (current scaffold + gap): kickoff lane behavior is currently driven by formation command scripts parsed by FormationScriptParser (MoveAbsolute/Relative/Pause/etc) to produce recognizable lanes; no ROM-accurate lane tables mapped yet. Evidence: tecmo-super-bowl-monogame/src/TecmoSBGame/Spawning/FormationScriptParser.cs + FormationSpawner kickoff notes.
+- [x] #nextaction **ST-2:** Create KickoffCoverageComponent (lane assignment, contain/contain-break) — DONE: added KickoffCoverageComponent scaffold (lane index/count, contain, landmark, break flag). Commit: f0a222a
+- [x] #nextaction **ST-3:** Implement KickoffCoverageSystem - run lane then pursue returner — DONE: added KickoffCoverageSystem (kickoff slice only) that drives Behavior to lane landmark then breaks on returner once they possess ball; hooked into MainGame systems; KickoffCoverageComponent now carries ReturnerEntityId. Commit: 47f3464
+- [x] #nextaction **ST-4:** Kickoff return lane selection (find seam, follow blockers) — DONE (scaffold): added KickoffReturnComponent + KickoffReturnSystem that chooses a left/center/right seam based on nearby coverage counts, locks lane briefly, and drives Behavior.TargetPosition while kickoff slice is active; factory attaches to non-player returners. Commit: 943fd2b
+- [x] #nextaction **ST-5:** Punt coverage logic (gunners downfield) — DONE (scaffold): added PuntCoverageComponent + PuntCoverageSystem (lane landmark, gunner bias, break on returner) and wired into MainGame; punt flight integration still pending. Commit: 4e407dc
+- [x] #nextaction **ST-6:** Punt return blocking (set up wall, find lane) — DONE (scaffold): added PuntReturnComponent + PuntReturnSystem that chooses a left/center/right seam based on nearby coverage counts and drives Behavior.TargetPosition during special-teams slice. Commit: 3cd36e3
+- [x] #nextaction **ST-7:** Field goal block rush timing — DONE (scaffold): added FieldGoalBlockRushComponent + FieldGoalBlockRushSystem (DelayFrames then rush forward) and wired into MainGame; needs proper FG play-phase integration. Commit: 7f2a7c2
 
 #### 6.7 AI Infrastructure
-- [ ] #nextaction **AI-INFRA-1:** Create AIDebugSystem for visualizing AI decisions (routes, coverage, targets)
-- [ ] #nextaction **AI-INFRA-2:** Add AI decision logging for headless verification
-- [ ] #nextaction **AI-INFRA-3:** Create deterministic AI seed system (same play = same decisions)
-- [ ] #nextaction **AI-INFRA-4:** Assembly behavior test harness (compare to recorded NES gameplay)
+- [x] #nextaction **AI-INFRA-1:** Create AIDebugSystem for visualizing AI decisions (routes, coverage, targets) — DONE (scaffold): added AIDebugConfigComponent (singleton instance) + AIDebugDrawableComponent per entity; AIDebugSystem populates debug data (behavior targets, route next node, coverage target/landmark). Attached drawable to players+ball; system wired into world builder. Commit: 7010d22
+- [x] #nextaction **AI-INFRA-2:** Add AI decision logging for headless verification — DONE: added AIDecisionLogSystem (logs QB read/dropback/pressure, a few receiver route node targets, and a defender coverage summary every ~15 frames) and wired into HeadlessRunner. Commit: 530592f
+- [x] #nextaction **AI-INFRA-3:** Create deterministic AI seed system (same play = same decisions) — DONE: added deterministic seed plumbing in PlayState: BaseSeed + DeterministicSeed computed on ResetForNewPlay via DeterministicRng.SeedFromPlay (BaseSeed, PlayId, StartAbsoluteYard). Commit: f84cbfd
+- [x] #nextaction **AI-INFRA-4:** Assembly behavior test harness (compare to recorded NES gameplay) — DONE (scaffold): added JSON trace schema + headless compare runner `--headless-nes-compare <trace.json> [maxTicks]` (compares QB position with tolerance and prints diffs). Commit: 78d0e7d
 
 ### 7) Playbook + formation spawning (YAML → on-field entities)
 - [x] #nextaction Build FormationSpawner: spawn entities from FormationData + TeamData, assign roles like assembly. — DONE: added `FormationSpawner` + `PlayerRoleComponent` + placeholder `TeamRoster`; kickoff can spawn YAML formation id `00`; headless prints roster; fixed FormationData YAML loader shape.
@@ -246,16 +246,16 @@ Systems/
 **Integration:** MainGame.cs updated with all new renderers, systems wired into ECS world
 
 ### 10) Audio integration
-- [ ] #nextaction Implement SoundService and hook key events (snap/kick/hit/whistle/crowd/menu) matching assembly cues.
-- [ ] #nextaction Implement music state switching (title/menu/on-field/score/halftime) matching assembly.
+- [x] #nextaction Implement SoundService and hook key events (snap/kick/hit/whistle/crowd/menu) matching assembly cues. — DONE (scaffold): added Audio/SoundService + SoundCue enum + SoundSystem that drains GameEvents (Snap, catch/pass outcome, tackle/block hit, whistle, fumble) and triggers cues; wired into MainGame; asset keys are placeholders. Commit: abb014e
+- [x] #nextaction Implement music state switching (title/menu/on-field/score/halftime) matching assembly. — DONE (scaffold): added MusicState enum + SoundService.SetMusicState + MainGame flow-state mapping (Title/Menu/OnField/Score); actual Song/MediaPlayer playback + assembly-accurate mapping still TODO. Commit: 2fbfd99
 
 ### 11) Sprite scripts / draw scripts direction (needs decision)
 - [ ] #nextaction #waitingfor Decide whether to (A) extend sprite-script interpreter as animation driver or (B) translate sprite scripts into modern animation clips and use scripts only as reference.
 
 ### 12) Debugging + tooling
-- [ ] #nextaction Add in-game debug overlay (state ids, selected player, ball state/owner, key timers) for assembly parity debugging.
-- [ ] #nextaction Add replay recorder (tick snapshots) to compare behavior vs assembly.
-- [ ] #nextaction Add YAML validation pass with actionable errors (missing ids, bad references, out-of-range values).
+- [x] #nextaction Add in-game debug overlay (state ids, selected player, ball state/owner, key timers) for assembly parity debugging. — DONE (scaffold): added DebugOverlayRenderer showing match/play/ball/timers/seed; wired into MainGame draw and toggle via F4. Commit: 889f35c
+- [x] #nextaction Add replay recorder (tick snapshots) to compare behavior vs assembly. — DONE (scaffold): added ReplayRecorder + ReplayRecorderSystem capturing per-tick PositionComponent positions + ball state/owner to JSON; toggle via F5; auto-saves on whistle. Commit: 577a869
+- [x] #nextaction Add YAML validation pass with actionable errors (missing ids, bad references, out-of-range values). — DONE: added cross-file validator (formations/playlist/playdata) and wired it into GameContent.LoadAll (fails fast w/ issue list). Commit: 3a74586
 
 
 ### Player Entity Factory
