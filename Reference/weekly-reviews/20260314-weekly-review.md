@@ -41,5 +41,15 @@
 - [ ] Quick sanity check: GitHub sync job is running and repo reflects changes
 
 ## Completed Items
-> Paste/copy completed items from Inbox (and/or projects) here as your weekly record.
-
+- Tectonic Super Bowl: audit on-field loop + “2 plays playable” checklist (docs/2-plays-playable-checklist.md) — commit 3593ef0
+- Tectonic Super Bowl: TrackingPlayer movement support + improvements — commits 2a1aafe / 6969363
+- Tectonic Super Bowl: PlayScript pursue ops (`pursue_ballcarrier`, `rush_qb`) — commit e7280c3
+- Tectonic Super Bowl: delayed `handoff_to(slot, delayFrames)` + robust ball ownership transfer — commit c9cf410
+- Tectonic Super Bowl: deterministic control switch QB→HB on handoff — commit 7878b65
+- Tectonic Super Bowl: wire play #10 end-to-end from YAML + defense pursuit scripts — commit ab710bc
+- Tectonic Super Bowl: play-end + next-play reset hardening — commit f3a01eb
+- Tectonic Super Bowl: deterministic per-play logging — commit ddc3d47
+- Tectonic Super Bowl: headless `--headless-2plays` smoke scenario — commit f00db75
+- Tectonic Super Bowl: ROM↔engine command mapping doc subset — commit bab1e36
+- Tectonic Super Bowl: sprite/texture registry + debug sprites + YAML sprite manifest — commit df366f6
+- Tectonic Super Bowl: demo scrimmage formation 04 + demo defense execution + force selection — commit 89926ee
