@@ -39,7 +39,7 @@
    - Waiting on Matt for Python script overview
 
 ## Key Decisions
-- Model: Codex primary with Kimi fallback (usage management)
+- Model: Codex-only (Kimi discontinued)
 - GitHub sync: Every 30 minutes via cron
 - Weekly reviews: Friday mornings 9am ET
 - Status updates: Posted to #automation-log

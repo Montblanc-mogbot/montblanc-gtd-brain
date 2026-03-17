@@ -4,6 +4,12 @@ Reference/attachments/
 # OpenClaw state is outside workspace; keep repo clean
 .DS_Store
 
+# Workspace should not contain code repos; prevent accidental commits
+/src/
+
+# Local safety net (do not commit)
+/.trash/
+
 # Agent local scratch/state (do not commit)
 .openclaw/
 memory/

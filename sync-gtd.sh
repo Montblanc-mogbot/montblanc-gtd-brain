@@ -14,12 +14,13 @@ git add \
   Reference/dashboards \
   Reference/weekly-reviews \
   Reference/daily \
+  Reference/tech-notes \
   Templates \
   README-OBSIDIAN.md \
   .obsidian/app.json \
   .obsidian/core-plugins.json \
   .gitignore \
-  SOUL.md USER.md TOOLS.md IDENTITY.md AGENTS.md \
+  SOUL.md USER.md TOOLS.md IDENTITY.md AGENTS.md MEMORY.md \
   || true
 
 # Commit if there are changes
