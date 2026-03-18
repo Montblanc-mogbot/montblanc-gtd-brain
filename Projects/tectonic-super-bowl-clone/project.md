@@ -36,7 +36,7 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 
 **New files (Arch sim core):**
 - [x] #nextaction Create `src/TecmoSBGame/SimArch/Sim.cs` (own Arch World, fixed-step Update, ApplyPlaySelection, Snapshot). — DONE: Sim owns Arch World + queues play selection; emits PlaySelectedEvent via SimEventBus (commit fdd01e8)
-- [ ] #nextaction Create `src/TecmoSBGame/SimArch/SimSnapshot.cs` (render DTO for players+ball+state).
+- [x] #nextaction Create `src/TecmoSBGame/SimArch/SimSnapshot.cs` (render DTO for players+ball+state). — DONE: added PlayerSnapshot[] + BallSnapshot (commit caffe16)
 - [x] #nextaction Create `src/TecmoSBGame/SimArch/Components/Position.cs` and `Velocity.cs`. — DONE (commit 945f9fc)
 - [x] #nextaction Create `src/TecmoSBGame/SimArch/Components/Team.cs` and `Role.cs` (slot + offense/defense). — DONE (commit 945f9fc)
 - [x] #nextaction Create `src/TecmoSBGame/SimArch/Components/Behavior.cs` (Idle/MoveTo/Tracking + targets). — DONE (commit 945f9fc)
@@ -52,7 +52,7 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 - [ ] #nextaction Port PreSnap placement from `src/TecmoSBGame/Systems/PreSnapSystem.cs` + `PreSnapBallPlacementSystem.cs` → `SimArch/Systems/PreSnapSystems.cs`.
 
 #### E) Spawning / content application (file-by-file)
-- [ ] #nextaction Create `src/TecmoSBGame/SimArch/Spawning/FormationSpawner.cs` (reuse YAML formation data; spawn Arch entities for offense/defense).
+- [x] #nextaction Create `src/TecmoSBGame/SimArch/Spawning/FormationSpawner.cs` (reuse YAML formation data; spawn Arch entities for offense/defense). — DONE (initial deterministic demo roster; YAML wiring TODO later) (commit 7be4bed)
 - [ ] #nextaction Create `src/TecmoSBGame/SimArch/Spawning/PlaySpawner.cs` (apply selected play: attach routes/assignments/scripts to Arch entities).
 - [ ] #nextaction Move/keep compiler as pure code: `src/TecmoSBGame/Spawning/PlayScriptCompiler.cs` should be reusable by Arch spawners.
 
@@ -60,8 +60,8 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 - [ ] #nextaction Port `src/TecmoSBGame/Headless/HeadlessRunner.cs` so `--headless-2plays` uses Arch sim (and keep the same assertions).
 
 #### G) Rendering (no ECS UI components)
-- [ ] #nextaction Create `src/TecmoSBGame/Rendering/SimRenderer.cs` that draws `SimSnapshot` (use existing SpriteRegistry).
-- [ ] #nextaction Update `src/TecmoSBGame/MainGame.cs` to render via `SimRenderer` when `--sim=arch` is enabled.
+- [x] #nextaction Create `src/TecmoSBGame/Rendering/SimRenderer.cs` that draws `SimSnapshot` (use existing SpriteRegistry). — DONE: SimRenderer draws snapshot (commit caffe16)
+- [x] #nextaction Update `src/TecmoSBGame/MainGame.cs` to render via `SimRenderer` when `--sim=arch` is enabled. — DONE: when `--sim=arch`, fixed-step updates Arch sim and Draw renders snapshot (commit caffe16)
 
 #### H) Gum UI (modern)
 - [ ] #nextaction Add Gum project/assets under `Content/UI/Gum/` and include in `Content/Content.mgcb`.
