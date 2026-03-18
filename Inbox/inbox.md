@@ -4,6 +4,7 @@
 > Blocked items live in Inbox/waiting-for.md
 
 ## Tasks
+- [ ] #nextaction TecmoSB Arch+Gum refactor: create feature-flagged Arch simulation skeleton + Arch.EventBus event structs + upsert helpers (first migration milestone).
 - [x] #nextaction GTD autonomy: create/refresh project hubs (tecmo reimplementation, data pipeline, monthly reconciliation) with “done looks like”, goals, repo links, and Discord thread mapping; update heartbeat behavior to post project summaries + suggested next actions when a project has no #nextaction, but don’t repeat if last summary is awaiting Matt. — DONE: created project hubs + wired threads (Tecmo/TBH/Material Schedule/Griddle), updated HEARTBEAT.md with project pulse mode + anti-spam, posted first concise pulses to each project thread and saved message ids in hubs.
 - [x] #nextaction TecmoSB: fix runtime "build" errors from `dotnet run` (YAML VALIDATION FAILED ~271 issues). Make content validation non-fatal for missing formations/play_numbers OR scope playlist/formation types to the subset of implemented content so the game boots. — DONE: YAML validation now non-fatal by default + filters invalid playlist entries; merged ball components to avoid 32-component ECS limit; `dotnet run` boots (commit 5de12a3)
 - [x] #nextaction Weekly review (20260314) → Reference/weekly-reviews/20260314-weekly-review.md — DONE: created/updated weekly review doc and copied completed items (Reference/weekly-reviews/20260314-weekly-review.md)

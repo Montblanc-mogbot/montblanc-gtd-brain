@@ -14,6 +14,65 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 - [x] One playable slice (e.g., kickoff or a single down) running end-to-end — DONE: Implemented kickoff scenario with InputSystem (keyboard/controller), GameStateSystem (5 phases: setup→flight→return→tackle→end), player spawning, AI coverage/return behavior, tackle detection. Commit: f3e1eee (local; push blocked—no git remote configured).
 
 ## Next actions
+
+### Arch + Gum refactor (approved plan) — granular conversion list #nextaction
+
+#### A) Repo / structure (general changes)
+- [x] #nextaction Add new folder tree `src/TecmoSBGame/SimArch/` (World + components + systems + snapshot) and wire into solution. — DONE: added SimArch skeleton (`Sim.cs`, `SimSnapshot.cs`) (commit 90cd337)
+- [ ] #nextaction Add NuGet packages: `Arch`, `Arch.Extended` (EventBus), and the Gum runtime packages for MonoGame DesktopGL.
+- [ ] #nextaction Add feature flag parsing in `src/TecmoSBGame/Program.cs` (e.g. `--sim=mge|arch`, default mge until cutover).
+- [ ] #nextaction Add global crash-to-log handler (stderr exceptions must also be written into `~/.local/share/TecmoSBGame/Logs/...`).
+
+#### B) Arch.EventBus (simulation eventing)
+- [ ] #nextaction Create `src/TecmoSBGame/SimArch/Events/` and define core event structs: Snap/Handoff/Whistle/PlayEnded/PlaySelected/etc.
+- [ ] #nextaction Create ordering conventions doc (or comment header) for `[Event(order: ...)]` receivers (rules before presentation).
+- [ ] #nextaction Replace usages of `TecmoSBGame.Events.GameEvents` in the new Arch sim with EventBus send/receive patterns.
+
+#### C) Arch entity/component helpers (doc-driven patterns)
+- [ ] #nextaction Implement `src/TecmoSBGame/SimArch/ArchEntityExtensions.cs` with safe helpers (Has-before-Add/Set, documented patterns only).
+- [ ] #nextaction Add “no structural changes during iteration unless documented approach” guardrails (comments + helper usage).
+
+#### D) Simulation core (file-by-file ports)
+
+**New files (Arch sim core):**
+- [ ] #nextaction Create `src/TecmoSBGame/SimArch/Sim.cs` (own Arch World, fixed-step Update, ApplyPlaySelection, Snapshot).
+- [ ] #nextaction Create `src/TecmoSBGame/SimArch/SimSnapshot.cs` (render DTO for players+ball+state).
+- [ ] #nextaction Create `src/TecmoSBGame/SimArch/Components/Position.cs` and `Velocity.cs`.
+- [ ] #nextaction Create `src/TecmoSBGame/SimArch/Components/Team.cs` and `Role.cs` (slot + offense/defense).
+- [ ] #nextaction Create `src/TecmoSBGame/SimArch/Components/Behavior.cs` (Idle/MoveTo/Tracking + targets).
+- [ ] #nextaction Create `src/TecmoSBGame/SimArch/Components/Ball.cs` (single struct with state/owner/flight fields).
+- [ ] #nextaction Create `src/TecmoSBGame/SimArch/Components/Control.cs` (controlled entity + pending forced control).
+- [ ] #nextaction Create `src/TecmoSBGame/SimArch/Components/PlayScript.cs` (IP/waits/ops reference).
+
+**Port systems (re-implement, not 1:1 copy):**
+- [ ] #nextaction Port Movement logic from `src/TecmoSBGame/Systems/MovementSystem.cs` → `src/TecmoSBGame/SimArch/Systems/MovementSystem.cs` (turn-rate limit preserved).
+- [ ] #nextaction Port PlayScript runtime from `src/TecmoSBGame/Systems/PlayScriptSystem.cs` → `SimArch/Systems/PlayScriptSystem.cs` (wait_until_snap, handoff_to delay, pursue/rush).
+- [ ] #nextaction Port ball ownership + flight physics from `src/TecmoSBGame/Systems/BallPhysicsSystem.cs` (+ pass/kickoff start/complete systems) → `SimArch/Systems/BallSystem.cs`.
+- [ ] #nextaction Port tackle/whistle pipeline from `src/TecmoSBGame/Systems/*Tackle*/*.cs` + `PlayEndSystem.cs` + `NextPlayResetSystem.cs` → `SimArch/Systems/TackleAndPlayEndSystems.cs` (may split into multiple files).
+- [ ] #nextaction Port PreSnap placement from `src/TecmoSBGame/Systems/PreSnapSystem.cs` + `PreSnapBallPlacementSystem.cs` → `SimArch/Systems/PreSnapSystems.cs`.
+
+#### E) Spawning / content application (file-by-file)
+- [ ] #nextaction Create `src/TecmoSBGame/SimArch/Spawning/FormationSpawner.cs` (reuse YAML formation data; spawn Arch entities for offense/defense).
+- [ ] #nextaction Create `src/TecmoSBGame/SimArch/Spawning/PlaySpawner.cs` (apply selected play: attach routes/assignments/scripts to Arch entities).
+- [ ] #nextaction Move/keep compiler as pure code: `src/TecmoSBGame/Spawning/PlayScriptCompiler.cs` should be reusable by Arch spawners.
+
+#### F) Headless regression (must-pass)
+- [ ] #nextaction Port `src/TecmoSBGame/Headless/HeadlessRunner.cs` so `--headless-2plays` uses Arch sim (and keep the same assertions).
+
+#### G) Rendering (no ECS UI components)
+- [ ] #nextaction Create `src/TecmoSBGame/Rendering/SimRenderer.cs` that draws `SimSnapshot` (use existing SpriteRegistry).
+- [ ] #nextaction Update `src/TecmoSBGame/MainGame.cs` to render via `SimRenderer` when `--sim=arch` is enabled.
+
+#### H) Gum UI (modern)
+- [ ] #nextaction Add Gum project/assets under `Content/UI/Gum/` and include in `Content/Content.mgcb`.
+- [ ] #nextaction Create `src/TecmoSBGame/UI/Gum/GumBootstrap.cs` (init + load root screen).
+- [ ] #nextaction Create `src/TecmoSBGame/UI/Playcall/PlaycallScreen` (formations list + plays list + confirm) using Gum.
+- [ ] #nextaction Wire playcall confirm → `Sim.ApplyPlaySelection(...)` (offense only; defense AI-picked) and hide UI.
+
+#### I) Cleanup / removal
+- [ ] #nextaction Remove/disable `MonoGame.Extended.Entities` world creation path once Arch sim reaches parity for the 2-plays slice.
+- [ ] #nextaction Delete old ECS components/systems folders once cutover is complete (keep content/YAML loaders).
+
 - [x] #nextaction Clone reference repo locally (done: `/home/montblanc/repos/Tecmo_Super_Bowl_NES_Disassembly`)
 - [x] #nextaction Reverse-engineer reference repo into a design document (file-by-file + subsystem mapping) suitable for MonoGame remake. — DONE: All banks scaffolded, DESIGN.md created. Repo: https://github.com/Montblanc-mogbot/tecmo-super-bowl-monogame
 - [x] #nextaction Ask Matt clarifying questions — ANSWERED 2025-02-24
