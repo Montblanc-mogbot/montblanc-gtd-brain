@@ -30,7 +30,7 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 
 #### C) Arch entity/component helpers (doc-driven patterns)
 - [x] #nextaction Implement `src/TecmoSBGame/SimArch/ArchEntityExtensions.cs` with safe helpers (Has-before-Add/Set, documented patterns only). — DONE: Ensure/Upsert/GetOrAdd/RemoveIfPresent helpers (commit 097b503)
-- [ ] #nextaction Add “no structural changes during iteration unless documented approach” guardrails (comments + helper usage).
+- [x] #nextaction Add “no structural changes during iteration unless documented approach” guardrails (comments + helper usage). — DONE: added SimArch/STRUCTURAL_CHANGES.md + SimEventBus wrapper; build green (commit 700be1d)
 
 #### D) Simulation core (file-by-file ports)
 
