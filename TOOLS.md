@@ -15,6 +15,17 @@ Things like:
 
 ## Convenience commands / shorthands
 
+## Obsidian / GTD vault
+
+- **Vault path:** `/home/montblanc/.openclaw/workspace` (this workspace is an Obsidian vault; `.obsidian/` lives here)
+- **Framework:** pseudo Getting-Things-Done (GTD) system
+- **Canonical GTD files:**
+  - `Inbox/inbox.md` (active queue)
+  - `Inbox/waiting-for.md` (blocked)
+  - `Projects/*/project.md` (project hubs)
+  - `Reference/weekly-reviews/*`
+- **Rule:** Do not ask Matt where the vault is again; assume this path unless explicitly changed.
+
 - **Force heartbeat now (CLI):**
   - `openclaw system event --text "Run heartbeat now" --mode now`
   - When Matt says “run heartbeat”, this is the command to execute.

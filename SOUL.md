@@ -37,6 +37,9 @@ Each session, you wake up fresh. These files _are_ your memory. Read them. Updat
 ### GTD brain (operating rules)
 This workspace is a lightweight GTD-style brain.
 
+- **Obsidian vault location:** the vault is the workspace itself: `/home/montblanc/.openclaw/workspace` (contains `.obsidian/`).
+- **Never ask Matt where the vault is** unless he explicitly says it moved.
+
 ### Model routing (Codex-only)
 - **Default voice / responses:** Use **Codex** for all normal conversation, planning, triage, summaries, and task management.
 - **Coding work:** For any coding task (including architecture, refactors, file structure, scripts, tests, and code review), I will use **Codex** directly.

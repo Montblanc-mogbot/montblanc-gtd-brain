@@ -4,6 +4,7 @@
 > Blocked items live in Inbox/waiting-for.md
 
 ## Tasks
+- [ ] #nextaction GTD autonomy: create/refresh project hubs (tecmo reimplementation, data pipeline, monthly reconciliation) with “done looks like”, goals, repo links, and Discord thread mapping; update heartbeat behavior to post project summaries + suggested next actions when a project has no #nextaction, but don’t repeat if last summary is awaiting Matt. 
 - [x] #nextaction TecmoSB: remove playcall placeholder overlay/forced selection; restore minimal real playcall (offense selection only, AI picks defense) and ensure PlaySelectedEvent exits UI. — DONE: removed forced playcall placeholder + demo defense exec; PlayCallSystem now handles input offense-only; UI overlay restored (commit d7e7f06)
 - [x] #nextaction Weekly review (20260314) → Reference/weekly-reviews/20260314-weekly-review.md — DONE: created/updated weekly review doc and copied completed items (Reference/weekly-reviews/20260314-weekly-review.md)
 - [x] #nextaction Tectonic Super Bowl: audit current on-field loop on `main` and write a short checklist of what’s missing for “2 plays playable” (TrackingPlayer + handoff + defender pursuit + whistle/end) with file pointers. — DONE: added docs/2-plays-playable-checklist.md (commit 3593ef0)
