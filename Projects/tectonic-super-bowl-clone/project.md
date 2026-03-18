@@ -35,17 +35,17 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 #### D) Simulation core (file-by-file ports)
 
 **New files (Arch sim core):**
-- [ ] #nextaction Create `src/TecmoSBGame/SimArch/Sim.cs` (own Arch World, fixed-step Update, ApplyPlaySelection, Snapshot).
+- [x] #nextaction Create `src/TecmoSBGame/SimArch/Sim.cs` (own Arch World, fixed-step Update, ApplyPlaySelection, Snapshot). — DONE: Sim owns Arch World + queues play selection; emits PlaySelectedEvent via SimEventBus (commit fdd01e8)
 - [ ] #nextaction Create `src/TecmoSBGame/SimArch/SimSnapshot.cs` (render DTO for players+ball+state).
-- [ ] #nextaction Create `src/TecmoSBGame/SimArch/Components/Position.cs` and `Velocity.cs`.
-- [ ] #nextaction Create `src/TecmoSBGame/SimArch/Components/Team.cs` and `Role.cs` (slot + offense/defense).
-- [ ] #nextaction Create `src/TecmoSBGame/SimArch/Components/Behavior.cs` (Idle/MoveTo/Tracking + targets).
-- [ ] #nextaction Create `src/TecmoSBGame/SimArch/Components/Ball.cs` (single struct with state/owner/flight fields).
-- [ ] #nextaction Create `src/TecmoSBGame/SimArch/Components/Control.cs` (controlled entity + pending forced control).
-- [ ] #nextaction Create `src/TecmoSBGame/SimArch/Components/PlayScript.cs` (IP/waits/ops reference).
+- [x] #nextaction Create `src/TecmoSBGame/SimArch/Components/Position.cs` and `Velocity.cs`. — DONE (commit 945f9fc)
+- [x] #nextaction Create `src/TecmoSBGame/SimArch/Components/Team.cs` and `Role.cs` (slot + offense/defense). — DONE (commit 945f9fc)
+- [x] #nextaction Create `src/TecmoSBGame/SimArch/Components/Behavior.cs` (Idle/MoveTo/Tracking + targets). — DONE (commit 945f9fc)
+- [x] #nextaction Create `src/TecmoSBGame/SimArch/Components/Ball.cs` (single struct with state/owner/flight fields). — DONE (commit 945f9fc)
+- [x] #nextaction Create `src/TecmoSBGame/SimArch/Components/Control.cs` (controlled entity + pending forced control). — DONE (commit 945f9fc)
+- [x] #nextaction Create `src/TecmoSBGame/SimArch/Components/PlayScript.cs` (IP/waits/ops reference). — DONE (commit 425b71a)
 
 **Port systems (re-implement, not 1:1 copy):**
-- [ ] #nextaction Port Movement logic from `src/TecmoSBGame/Systems/MovementSystem.cs` → `src/TecmoSBGame/SimArch/Systems/MovementSystem.cs` (turn-rate limit preserved).
+- [x] #nextaction Port Movement logic from `src/TecmoSBGame/Systems/MovementSystem.cs` → `src/TecmoSBGame/SimArch/Systems/MovementSystem.cs` (turn-rate limit preserved). — DONE: first Arch MovementSystem skeleton w/ turn limit + integration; wired into Sim.Update (commit 425b71a)
 - [ ] #nextaction Port PlayScript runtime from `src/TecmoSBGame/Systems/PlayScriptSystem.cs` → `SimArch/Systems/PlayScriptSystem.cs` (wait_until_snap, handoff_to delay, pursue/rush).
 - [ ] #nextaction Port ball ownership + flight physics from `src/TecmoSBGame/Systems/BallPhysicsSystem.cs` (+ pass/kickoff start/complete systems) → `SimArch/Systems/BallSystem.cs`.
 - [ ] #nextaction Port tackle/whistle pipeline from `src/TecmoSBGame/Systems/*Tackle*/*.cs` + `PlayEndSystem.cs` + `NextPlayResetSystem.cs` → `SimArch/Systems/TackleAndPlayEndSystems.cs` (may split into multiple files).
