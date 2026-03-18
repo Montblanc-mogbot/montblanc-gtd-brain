@@ -12,9 +12,9 @@ Reimplement Tecmo Super Bowl gameplay/systems in C# (MonoGame) with data sourced
 - Thread/channel link/id: channel:1475718912904663040  ("Tectonic super bowl")
 
 ## Pulse tracking (anti-spam)
-- last_pulse_at: 
-- last_pulse_message_id: 
-- awaiting_matt: false
+- last_pulse_at: 2026-03-18T10:08
+- last_pulse_message_id: 1483829446028034210
+- awaiting_matt: true
 
 ## Context / where notes live
 - Project hub (this file)
@@ -35,5 +35,8 @@ Reimplement Tecmo Super Bowl gameplay/systems in C# (MonoGame) with data sourced
 - Last known milestone: “2 plays playable” demo implemented in repo + headless smoke scenario.
 
 ## Next actions
-<!-- Put concrete #nextaction todos here. If empty, heartbeat is allowed to post a project pulse + suggest next actions, but should not spam. -->
+- [ ] #nextaction Add one PASS play end-to-end (snap→route/throw→catch/incompletion→whistle) to complement run demo.
+- [ ] #nextaction Tighten playcall UX (input/selection, camera freeze, exit state) + remove remaining placeholders.
+- [ ] #nextaction Add README notes: how to run the demo + how to run the headless smoke scenario.
+- [ ] #nextaction Audit open TODOs/bugs from the 2-play checklist and pick the next 1–2 fixes.
 

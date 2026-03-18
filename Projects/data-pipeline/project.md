@@ -7,12 +7,12 @@ A data ingestion/transform pipeline (define sources, transforms, validation, out
 - (unknown yet) If there is a repo under `/home/montblanc/repos/`, link it here.
 
 ## Discord thread
-- Thread/channel link/id: (fill)
+- Thread/channel link/id: channel:1472975197031366779  ("TBH Report Catalog")
 
 ## Pulse tracking (anti-spam)
-- last_pulse_at:
-- last_pulse_message_id:
-- awaiting_matt: false
+- last_pulse_at: 2026-03-18T10:08
+- last_pulse_message_id: 1483829448192168054
+- awaiting_matt: true
 
 ## Context / where notes live
 - Project hub (this file)
@@ -32,5 +32,7 @@ A data ingestion/transform pipeline (define sources, transforms, validation, out
 - Not yet captured.
 
 ## Next actions
-<!-- Add #nextaction items here. -->
+- [ ] #nextaction Write/refresh “How to run the pipeline locally” (inputs, env vars, commands, expected outputs).
+- [ ] #nextaction Add an end-to-end smoke test (small fixture → expected reconciliation outputs).
+- [ ] #nextaction Confirm target schedule (manual vs cron) + where outputs land (files/db/reporting).
 

@@ -10,9 +10,9 @@ A repeatable monthly close / reconciliation workflow with clear steps, checklist
 - Thread/channel link/id: channel:1483489940942884934  ("202601 Material Schedule")
 
 ## Pulse tracking (anti-spam)
-- last_pulse_at:
-- last_pulse_message_id:
-- awaiting_matt: false
+- last_pulse_at: 2026-03-18T10:08
+- last_pulse_message_id: 1483829451228713062
+- awaiting_matt: true
 
 ## Context / where notes live
 - Project hub (this file)
@@ -32,5 +32,7 @@ A repeatable monthly close / reconciliation workflow with clear steps, checklist
 - Not yet captured.
 
 ## Next actions
-<!-- Add #nextaction items here. -->
+- [ ] #nextaction Capture canonical procedure doc location (vault path/file) and link it here.
+- [ ] #nextaction Create a month-end checklist template (inputs → steps → outputs) and reuse it monthly.
+- [ ] #nextaction Identify 1 automation candidate (script/report pull) and define safe inputs/outputs + where code lives.
 
