@@ -16,6 +16,7 @@ A data ingestion/transform pipeline (define sources, transforms, validation, out
 
 ## Context / where notes live
 - Project hub (this file)
+- How to run locally: `Projects/data-pipeline/how-to-run-locally.md`
 - Any technical notes: `Reference/tech-notes/` (if applicable)
 
 ## Goals
@@ -32,7 +33,7 @@ A data ingestion/transform pipeline (define sources, transforms, validation, out
 - Not yet captured.
 
 ## Next actions
-- [ ] #nextaction Write/refresh “How to run the pipeline locally” (inputs, env vars, commands, expected outputs).
-- [ ] #nextaction Add an end-to-end smoke test (small fixture → expected reconciliation outputs).
-- [ ] #nextaction Confirm target schedule (manual vs cron) + where outputs land (files/db/reporting).
+- [x] #nextaction Write/refresh “How to run the pipeline locally” (inputs, env vars, commands, expected outputs). — DONE: wrote Projects/data-pipeline/how-to-run-locally.md
+- [x] #nextaction Add an end-to-end smoke test (small fixture → expected reconciliation outputs). — DONE: added xUnit test project `src/Tbh.ReportCatalog.Tests` with fixture packaging + smoke test; `dotnet test -c Release` passes
+- [ ] #nextaction #waitingfor Confirm target schedule (manual vs cron) + where outputs land (files/db/reporting). — ASKED Matt in channel:1472975197031366779 (msg 1483857559772336360)
 
