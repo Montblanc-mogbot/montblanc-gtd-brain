@@ -32,6 +32,6 @@ Schema-driven pivot table + data entry tool (Structured JSON Editor UI).
 - Milestone 8 complete; filters + views system done; awaiting user feedback.
 
 ## Next actions
-- [ ] #nextaction Collect top 3 pain points from current usage and convert into issues.
+- [ ] #nextaction #waitingfor Matt: Share top 3 pain points from your current Griddle usage (links/screenshots ok). I’ll convert them into GitHub issues.
 - [ ] #nextaction Pick next milestone theme (import/export hardening vs validation UX vs performance).
 - [ ] #nextaction Add a tiny “demo dataset + expected workflow” doc to make regressions obvious.

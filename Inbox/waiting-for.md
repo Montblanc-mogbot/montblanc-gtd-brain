@@ -16,3 +16,6 @@ Items blocked on Matt/external input.
 
 ## Moghome Discord Setup
 - [ ] #waitingfor Matt: Set Montblanc bot avatar + server/channel icon (manual)
+
+## Griddle
+- [ ] #waitingfor #project/griddle Matt: Top 3 pain points from current Griddle usage (links/screenshots ok) so I can convert them into GitHub issues.
