@@ -2,9 +2,12 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
+# Always sync on master (avoid cron accidentally committing on a feature branch)
+git checkout master
+
 # Pull first in case you edited from work / another machine
 if git remote get-url origin >/dev/null 2>&1; then
-  git pull --rebase --autostash
+  git pull --rebase --autostash origin master
 fi
 
 # Stage changes (explicit allowlist; avoids committing random files)
@@ -20,7 +23,7 @@ git add \
   .obsidian/app.json \
   .obsidian/core-plugins.json \
   .gitignore \
-  SOUL.md USER.md TOOLS.md IDENTITY.md AGENTS.md MEMORY.md \
+  SOUL.md USER.md TOOLS.md IDENTITY.md AGENTS.md MEMORY.md HEARTBEAT.md \
   || true
 
 # Commit if there are changes

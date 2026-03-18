@@ -46,14 +46,14 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 
 **Port systems (re-implement, not 1:1 copy):**
 - [x] #nextaction Port Movement logic from `src/TecmoSBGame/Systems/MovementSystem.cs` → `src/TecmoSBGame/SimArch/Systems/MovementSystem.cs` (turn-rate limit preserved). — DONE: first Arch MovementSystem skeleton w/ turn limit + integration; wired into Sim.Update (commit 425b71a)
-- [ ] #nextaction Port PlayScript runtime from `src/TecmoSBGame/Systems/PlayScriptSystem.cs` → `SimArch/Systems/PlayScriptSystem.cs` (wait_until_snap, handoff_to delay, pursue/rush).
+- [x] #nextaction Port PlayScript runtime from `src/TecmoSBGame/Systems/PlayScriptSystem.cs` → `SimArch/Systems/PlayScriptSystem.cs` (wait_until_snap, handoff_to delay, pursue/rush). — DONE (initial): delayed handoff + defender retarget to ballcarrier (commit 577efef)
 - [ ] #nextaction Port ball ownership + flight physics from `src/TecmoSBGame/Systems/BallPhysicsSystem.cs` (+ pass/kickoff start/complete systems) → `SimArch/Systems/BallSystem.cs`.
 - [ ] #nextaction Port tackle/whistle pipeline from `src/TecmoSBGame/Systems/*Tackle*/*.cs` + `PlayEndSystem.cs` + `NextPlayResetSystem.cs` → `SimArch/Systems/TackleAndPlayEndSystems.cs` (may split into multiple files).
 - [ ] #nextaction Port PreSnap placement from `src/TecmoSBGame/Systems/PreSnapSystem.cs` + `PreSnapBallPlacementSystem.cs` → `SimArch/Systems/PreSnapSystems.cs`.
 
 #### E) Spawning / content application (file-by-file)
 - [x] #nextaction Create `src/TecmoSBGame/SimArch/Spawning/FormationSpawner.cs` (reuse YAML formation data; spawn Arch entities for offense/defense). — DONE (initial deterministic demo roster; YAML wiring TODO later) (commit 7be4bed)
-- [ ] #nextaction Create `src/TecmoSBGame/SimArch/Spawning/PlaySpawner.cs` (apply selected play: attach routes/assignments/scripts to Arch entities).
+- [x] #nextaction Create `src/TecmoSBGame/SimArch/Spawning/PlaySpawner.cs` (apply selected play: attach routes/assignments/scripts to Arch entities). — DONE: supports play_number=10 (handoff delay + defense tracking) (commit 577efef)
 - [ ] #nextaction Move/keep compiler as pure code: `src/TecmoSBGame/Spawning/PlayScriptCompiler.cs` should be reusable by Arch spawners.
 
 #### F) Headless regression (must-pass)
