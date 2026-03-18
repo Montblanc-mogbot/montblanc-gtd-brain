@@ -21,15 +21,15 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 - [x] #nextaction Add new folder tree `src/TecmoSBGame/SimArch/` (World + components + systems + snapshot) and wire into solution. — DONE: added SimArch skeleton (`Sim.cs`, `SimSnapshot.cs`) (commit 90cd337)
 - [x] #nextaction Add NuGet packages: `Arch`, `Arch.Extended` (EventBus), and the Gum runtime packages for MonoGame DesktopGL. — DONE: added Arch + Arch.EventBus + Gum.MonoGame; removed DefaultEcs (commit 77cb8ac)
 - [x] #nextaction Add feature flag parsing in `src/TecmoSBGame/Program.cs` (e.g. `--sim=mge|arch`, default mge until cutover). — DONE: added SimMode + Program/MainGame plumbing (commit 9e3c12d)
-- [ ] #nextaction Add global crash-to-log handler (stderr exceptions must also be written into `~/.local/share/TecmoSBGame/Logs/...`).
+- [x] #nextaction Add global crash-to-log handler (stderr exceptions must also be written into `~/.local/share/TecmoSBGame/Logs/...`). — DONE: CrashLogging.Install() hooks UnhandledException + UnobservedTaskException and writes to stderr (tee'd into log) (commit 9cbe2a8)
 
 #### B) Arch.EventBus (simulation eventing)
-- [ ] #nextaction Create `src/TecmoSBGame/SimArch/Events/` and define core event structs: Snap/Handoff/Whistle/PlayEnded/PlaySelected/etc.
-- [ ] #nextaction Create ordering conventions doc (or comment header) for `[Event(order: ...)]` receivers (rules before presentation).
+- [x] #nextaction Create `src/TecmoSBGame/SimArch/Events/` and define core event structs: Snap/Handoff/Whistle/PlayEnded/PlaySelected/etc. — DONE: SimEvents.cs (commit 6946eaf)
+- [x] #nextaction Create ordering conventions doc (or comment header) for `[Event(order: ...)]` receivers (rules before presentation). — DONE: EventOrder.cs + conventions (commit 6946eaf)
 - [ ] #nextaction Replace usages of `TecmoSBGame.Events.GameEvents` in the new Arch sim with EventBus send/receive patterns.
 
 #### C) Arch entity/component helpers (doc-driven patterns)
-- [ ] #nextaction Implement `src/TecmoSBGame/SimArch/ArchEntityExtensions.cs` with safe helpers (Has-before-Add/Set, documented patterns only).
+- [x] #nextaction Implement `src/TecmoSBGame/SimArch/ArchEntityExtensions.cs` with safe helpers (Has-before-Add/Set, documented patterns only). — DONE: Ensure/Upsert/GetOrAdd/RemoveIfPresent helpers (commit 097b503)
 - [ ] #nextaction Add “no structural changes during iteration unless documented approach” guardrails (comments + helper usage).
 
 #### D) Simulation core (file-by-file ports)
