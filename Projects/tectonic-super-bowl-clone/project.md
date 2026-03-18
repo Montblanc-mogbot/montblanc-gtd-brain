@@ -19,8 +19,8 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 
 #### A) Repo / structure (general changes)
 - [x] #nextaction Add new folder tree `src/TecmoSBGame/SimArch/` (World + components + systems + snapshot) and wire into solution. — DONE: added SimArch skeleton (`Sim.cs`, `SimSnapshot.cs`) (commit 90cd337)
-- [ ] #nextaction Add NuGet packages: `Arch`, `Arch.Extended` (EventBus), and the Gum runtime packages for MonoGame DesktopGL.
-- [ ] #nextaction Add feature flag parsing in `src/TecmoSBGame/Program.cs` (e.g. `--sim=mge|arch`, default mge until cutover).
+- [x] #nextaction Add NuGet packages: `Arch`, `Arch.Extended` (EventBus), and the Gum runtime packages for MonoGame DesktopGL. — DONE: added Arch + Arch.EventBus + Gum.MonoGame; removed DefaultEcs (commit 77cb8ac)
+- [x] #nextaction Add feature flag parsing in `src/TecmoSBGame/Program.cs` (e.g. `--sim=mge|arch`, default mge until cutover). — DONE: added SimMode + Program/MainGame plumbing (commit 9e3c12d)
 - [ ] #nextaction Add global crash-to-log handler (stderr exceptions must also be written into `~/.local/share/TecmoSBGame/Logs/...`).
 
 #### B) Arch.EventBus (simulation eventing)
