@@ -29,3 +29,8 @@ Projects/tbh-report-catalog/normalized/
 Projects/tbh-report-catalog/analytics/
 Projects/tbh-report-catalog/reports/
 Projects/tbh-report-catalog/runs/
+
+# Local accounting exports / reconciliation scratch (do not commit)
+*.xlsx
+MaterialScheduleReconciliation/
+materials-recon/

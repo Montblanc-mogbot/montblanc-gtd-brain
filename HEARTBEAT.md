@@ -9,8 +9,16 @@
    - `INBOX\t<path>\t<line#>\t<todo>` OR `PROJECT\t<path>\t<line#>\t<todo>` OR `NONE...`
 2. If it returns `INBOX` or `PROJECT`: **EXECUTE that exact todo** (don’t just report, DO).
 3. If it returns `NONE`:
-   - post to `#automation-log`: **"No actionable todos found (Inbox + Projects empty); staying idle"**
-   - then reply `HEARTBEAT_OK`
+   - **Project pulse mode (lightweight autonomy):**
+     - If there is a project hub in `Projects/*/project.md` whose **Next actions** section has **no unchecked `#nextaction` items**, do a quick review:
+       - Compare current state vs **What done looks like**
+       - Write a short status summary + 2–5 suggested next actions
+       - Post the summary in that project’s Discord thread (thread id/link stored in the project hub)
+       - Add the suggested items into the project hub as unchecked `#nextaction` todos
+     - **Anti-spam rule:** if the last project pulse for that project is still awaiting Matt (no reply yet), do not post a new one.
+   - If there are truly no projects to review (or thread mapping missing):
+     - post to `#automation-log`: **"No actionable todos found (Inbox + Projects empty); staying idle"**
+     - then reply `HEARTBEAT_OK`
 4. **Always** post to `#automation-log` once per heartbeat with one of:
    - “Working on: <project> — <exact todo line>”
    - OR the “No actionable todos…” idle message above.
