@@ -47,31 +47,32 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 **Port systems (re-implement, not 1:1 copy):**
 - [x] #nextaction Port Movement logic from `src/TecmoSBGame/Systems/MovementSystem.cs` → `src/TecmoSBGame/SimArch/Systems/MovementSystem.cs` (turn-rate limit preserved). — DONE: first Arch MovementSystem skeleton w/ turn limit + integration; wired into Sim.Update (commit 425b71a)
 - [x] #nextaction Port PlayScript runtime from `src/TecmoSBGame/Systems/PlayScriptSystem.cs` → `SimArch/Systems/PlayScriptSystem.cs` (wait_until_snap, handoff_to delay, pursue/rush). — DONE (initial): delayed handoff + defender retarget to ballcarrier (commit 577efef)
-- [ ] #nextaction Port ball ownership + flight physics from `src/TecmoSBGame/Systems/BallPhysicsSystem.cs` (+ pass/kickoff start/complete systems) → `SimArch/Systems/BallSystem.cs`.
-- [ ] #nextaction Port tackle/whistle pipeline from `src/TecmoSBGame/Systems/*Tackle*/*.cs` + `PlayEndSystem.cs` + `NextPlayResetSystem.cs` → `SimArch/Systems/TackleAndPlayEndSystems.cs` (may split into multiple files).
-- [ ] #nextaction Port PreSnap placement from `src/TecmoSBGame/Systems/PreSnapSystem.cs` + `PreSnapBallPlacementSystem.cs` → `SimArch/Systems/PreSnapSystems.cs`.
+- [x] #nextaction Port ball ownership + flight physics from `src/TecmoSBGame/Systems/BallPhysicsSystem.cs` (+ pass/kickoff start/complete systems) → `SimArch/Systems/BallSystem.cs`. — DONE: implemented `SimArch/Systems/BallSystem.cs` + wired into `Sim`; added SimArch pass/kickoff flight start/complete stubs (`PassFlightStartSystem`, `PassFlightCompleteSystem`, `KickoffFlightStartSystem`, `KickoffFlightCompleteSystem`) and wired completion systems into `Sim` loop. Evidence: tecmo-super-bowl-monogame branch `feat/simarch-ball-system` commit `e4e35b3` (build green).
+- [x] #nextaction Port tackle/whistle pipeline from `src/TecmoSBGame/Systems/*Tackle*/*.cs` + `PlayEndSystem.cs` + `NextPlayResetSystem.cs` → `SimArch/Systems/TackleAndPlayEndSystems.cs` (may split into multiple files). — DONE (minimal SimArch scaffold): added `SimArch/Systems/TackleAndPlayEndSystems.cs` (nearest-defender tackle contact → whistle by setting ball Dead; clears velocities) and wired into `Sim` update loop. Evidence: tecmo-super-bowl-monogame branch `feat/simarch-ball-system` commit `3ffd62e` (build green). NOTE: full ruleset + reset-to-presnap semantics still TODO.
+- [x] #nextaction Port PreSnap placement from `src/TecmoSBGame/Systems/PreSnapSystem.cs` + `PreSnapBallPlacementSystem.cs` → `SimArch/Systems/PreSnapSystems.cs`. — DONE (minimal SimArch scaffold): added `SimArch/Systems/PreSnapSystems.cs` (treat ball X as LOS when ball is Dead; align players via offense anchor; apply small defender separation; snap ball + clear ownership/flight) and wired into `Sim` update loop. Evidence: tecmo-super-bowl-monogame branch `feat/simarch-ball-system` commit `0e564b8` (build green).
 
 #### E) Spawning / content application (file-by-file)
 - [x] #nextaction Create `src/TecmoSBGame/SimArch/Spawning/FormationSpawner.cs` (reuse YAML formation data; spawn Arch entities for offense/defense). — DONE (initial deterministic demo roster; YAML wiring TODO later) (commit 7be4bed)
 - [x] #nextaction Create `src/TecmoSBGame/SimArch/Spawning/PlaySpawner.cs` (apply selected play: attach routes/assignments/scripts to Arch entities). — DONE: supports play_number=10 (handoff delay + defense tracking) (commit 577efef)
-- [ ] #nextaction Move/keep compiler as pure code: `src/TecmoSBGame/Spawning/PlayScriptCompiler.cs` should be reusable by Arch spawners.
+- [x] #nextaction Move/keep compiler as pure code: `src/TecmoSBGame/Spawning/PlayScriptCompiler.cs` should be reusable by Arch spawners. — DONE: compiler already has no ECS dependencies; added explicit comment documenting the purity/allowed deps so it stays Arch-reusable. Evidence: tecmo-super-bowl-monogame `feat/simarch-ball-system` commit `ef1c677`.
 
 #### F) Headless regression (must-pass)
-- [ ] #nextaction Port `src/TecmoSBGame/Headless/HeadlessRunner.cs` so `--headless-2plays` uses Arch sim (and keep the same assertions).
+- [x] #nextaction Port `src/TecmoSBGame/Headless/HeadlessRunner.cs` so `--headless-2plays` uses Arch sim (and keep the same assertions). — DONE: `RunTwoPlaysScenario` now drives `TecmoSBGame.SimArch.Sim`; assertions preserved (handoff via PlayScript fired; defender pursuit; play advance via reset on dead-ball). Verified `dotnet run -- --headless-2plays 240` PASS. Evidence: tecmo-super-bowl-monogame branch `feat/simarch-ball-system` commit `8a0c9ed`.
 
 #### G) Rendering (no ECS UI components)
 - [x] #nextaction Create `src/TecmoSBGame/Rendering/SimRenderer.cs` that draws `SimSnapshot` (use existing SpriteRegistry). — DONE: SimRenderer draws snapshot (commit caffe16)
 - [x] #nextaction Update `src/TecmoSBGame/MainGame.cs` to render via `SimRenderer` when `--sim=arch` is enabled. — DONE: when `--sim=arch`, fixed-step updates Arch sim and Draw renders snapshot (commit caffe16)
 
 #### H) Gum UI (modern)
-- [ ] #nextaction Add Gum project/assets under `Content/UI/Gum/` and include in `Content/Content.mgcb`.
-- [ ] #nextaction Create `src/TecmoSBGame/UI/Gum/GumBootstrap.cs` (init + load root screen).
-- [ ] #nextaction Create `src/TecmoSBGame/UI/Playcall/PlaycallScreen` (formations list + plays list + confirm) using Gum.
-- [ ] #nextaction Wire playcall confirm → `Sim.ApplyPlaySelection(...)` (offense only; defense AI-picked) and hide UI.
+- [ ] #nextaction #waitingfor Add Gum project/assets under `Content/UI/Gum/` and include in `Content/Content.mgcb`. — BLOCKED: repo currently has no `Content/UI/Gum/` nor any `*.gumx/*.gucx/*.gux` files; need the Gum project/assets source (zip, repo path, or link) to add.
+- [x] #nextaction Create `src/TecmoSBGame/UI/Gum/GumBootstrap.cs` (init + load root screen). — DONE: added `TecmoSBGame.UI.Gum.GumBootstrap` (init + Forms defaults + attach root screen under GumService.Root). Evidence: tecmo-super-bowl-monogame branch `feat/simarch-ball-system` commit `790ab66` (build green).
+- [x] #nextaction Create `src/TecmoSBGame/UI/Playcall/PlaycallScreen` (formations list + plays list + confirm) using Gum. — DONE (code-only scaffold): added `TecmoSBGame.UI.Playcall.PlaycallScreen` with Formation list, Play list, and Confirm button + `Confirmed` event (no Gum project assets required yet). Evidence: tecmo-super-bowl-monogame branch `feat/simarch-ball-system` commit `d9bcb22` (build green).
+- [x] #nextaction Wire playcall confirm → `Sim.ApplyPlaySelection(...)` (offense only; defense AI-picked) and hide UI. — DONE (auto-mode for now): in Arch sim mode, MainGame now calls `ApplyPlaySelection(...)` from playcall state (offense only) and hides playcall UI. Evidence: tecmo-super-bowl-monogame branch `feat/simarch-ball-system` commit `296af82` (build green).
 
 #### I) Cleanup / removal
-- [ ] #nextaction Remove/disable `MonoGame.Extended.Entities` world creation path once Arch sim reaches parity for the 2-plays slice.
-- [ ] #nextaction Delete old ECS components/systems folders once cutover is complete (keep content/YAML loaders).
+- [ ] #nextaction Ask Matt for explicit go-ahead to remove/disable `MonoGame.Extended.Entities` world creation path in `--sim=arch` mode (keep legacy path for `--sim=mge`).
+- [ ] #nextaction #waitingfor Remove/disable `MonoGame.Extended.Entities` world creation path once Arch sim reaches parity for the 2-plays slice. — BLOCKED/needs explicit go-ahead: this is a potentially disruptive deletion/behavior change; Arch sim now passes `--headless-2plays` but runtime parity isn’t fully validated. Recommend doing this after Matt confirms Arch sim is the default path for scrimmage + playcall.
+- [ ] #nextaction #waitingfor Delete old ECS components/systems folders once cutover is complete (keep content/YAML loaders). — NEEDS MATT CONFIRMATION before any destructive deletions.
 
 - [x] #nextaction Clone reference repo locally (done: `/home/montblanc/repos/Tecmo_Super_Bowl_NES_Disassembly`)
 - [x] #nextaction Reverse-engineer reference repo into a design document (file-by-file + subsystem mapping) suitable for MonoGame remake. — DONE: All banks scaffolded, DESIGN.md created. Repo: https://github.com/Montblanc-mogbot/tecmo-super-bowl-monogame

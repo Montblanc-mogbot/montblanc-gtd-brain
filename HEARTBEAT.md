@@ -11,7 +11,7 @@
 2. If it returns `INBOX` or `PROJECT`: **EXECUTE that exact todo** (don’t just report, DO).
 3. If it returns `NONE`:
    - **Project pulse mode (lightweight autonomy):**
-     - If there is a project hub in `Projects/*/project.md` whose **Next actions** section has **no unchecked `#nextaction` items**, do a quick review:
+     - If there is a project hub in `Projects/*/project.md` whose **Next actions** section has **no unchecked `#nextaction` items**, do a quick review (prioritize `Projects/tectonic-super-bowl-clone/project.md` first):
        - Compare current state vs **What done looks like**
        - Write a short status summary + 2–5 suggested next actions
        - Post the summary in that project’s Discord thread (thread id/link stored in the project hub)
