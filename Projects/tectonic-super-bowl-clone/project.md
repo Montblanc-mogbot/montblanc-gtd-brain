@@ -15,6 +15,22 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 
 ## Next actions
 
+### Arch parity: port remaining gameplay to SimArch (now that MGE is cut) #nextaction
+- [ ] #nextaction Port formation spawning to use real YAML (FormationDataConfig) instead of demo roster (SimArch/Spawning/FormationSpawner).
+- [ ] #nextaction Port play application to use real YAML playbook data (PlayListConfig + PlayDataConfig) instead of hardcoded play_number=10 (SimArch/Spawning/PlaySpawner).
+- [ ] #nextaction Add Arch equivalents for ratings/tuning components still implicit in the old sim (speed/accel/turn rate; stamina optional).
+- [ ] #nextaction Port collision/contact pipeline to Arch (proximity checks → engagement/block/tackle contact events).
+- [ ] #nextaction Port engagement + behavior interrupts stack to Arch (push/pop tackle/block interrupts).
+- [ ] #nextaction Port tackle resolution rules to Arch (ratings-based outcome + whistle) and feed into play-end.
+- [ ] #nextaction Port QB dropback + read progression + pass decision to Arch.
+- [ ] #nextaction Port route-follow system to Arch (frame-timed route nodes) and attach via play data.
+- [ ] #nextaction Port blocking assignments + blocker AI to Arch.
+- [ ] #nextaction Port defensive rush to Arch (gap landmark → QB rush + moves).
+- [ ] #nextaction Port man/zone coverage to Arch.
+- [ ] #nextaction Port clock + down/distance rules to Arch (MatchState/PlayState equivalents or new Arch-native models).
+- [ ] #nextaction Expand SimSnapshot to include any extra render/debug fields needed (e.g., engagement lines, route next node, coverage targets).
+- [ ] #nextaction Replace remaining UI/flow assumptions with Arch-native flow (playcall → apply play → post-play summary) or temporarily keep as headless-only until Gum assets land.
+
 ### Arch + Gum refactor (approved plan) — granular conversion list #nextaction
 
 #### A) Repo / structure (general changes)
@@ -70,9 +86,9 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 - [x] #nextaction Wire playcall confirm → `Sim.ApplyPlaySelection(...)` (offense only; defense AI-picked) and hide UI. — DONE (auto-mode for now): in Arch sim mode, MainGame now calls `ApplyPlaySelection(...)` from playcall state (offense only) and hides playcall UI. Evidence: tecmo-super-bowl-monogame branch `feat/simarch-ball-system` commit `296af82` (build green).
 
 #### I) Cleanup / removal
-- [ ] #nextaction Ask Matt for explicit go-ahead to remove/disable `MonoGame.Extended.Entities` world creation path in `--sim=arch` mode (keep legacy path for `--sim=mge`).
-- [ ] #nextaction #waitingfor Remove/disable `MonoGame.Extended.Entities` world creation path once Arch sim reaches parity for the 2-plays slice. — BLOCKED/needs explicit go-ahead: this is a potentially disruptive deletion/behavior change; Arch sim now passes `--headless-2plays` but runtime parity isn’t fully validated. Recommend doing this after Matt confirms Arch sim is the default path for scrimmage + playcall.
-- [ ] #nextaction #waitingfor Delete old ECS components/systems folders once cutover is complete (keep content/YAML loaders). — NEEDS MATT CONFIRMATION before any destructive deletions.
+- [x] #nextaction Ask Matt for explicit go-ahead to remove/disable `MonoGame.Extended.Entities` world creation path in `--sim=arch` mode (keep legacy path for `--sim=mge`). — ASKED in #work (msg 1484144550456070225)
+- [x] #nextaction Remove/disable `MonoGame.Extended.Entities` world creation path and make the game Arch-only. — DONE: removed MGE package + excluded legacy code from compilation; new `MainGameArch` entrypoint; headless `--headless-2plays` now uses Arch. Commit: a812ad0 (pushed).
+- [ ] #nextaction #waitingfor Delete old MGE ECS components/systems folders from repo once you’re comfortable (right now they’re excluded from compilation via csproj). — Optional cleanup; ask before destructive deletions.
 
 - [x] #nextaction Clone reference repo locally (done: `/home/montblanc/repos/Tecmo_Super_Bowl_NES_Disassembly`)
 - [x] #nextaction Reverse-engineer reference repo into a design document (file-by-file + subsystem mapping) suitable for MonoGame remake. — DONE: All banks scaffolded, DESIGN.md created. Repo: https://github.com/Montblanc-mogbot/tecmo-super-bowl-monogame
