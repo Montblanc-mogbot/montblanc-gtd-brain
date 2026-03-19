@@ -27,7 +27,7 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 - [x] #nextaction Port blocking assignments + blocker AI to Arch. — DONE: `SimArch/Components/BlockTarget.cs`, `SimArch/Systems/BlockerAiSystem.cs`, wired in `SimArch/Sim.cs` (tecmo-super-bowl-monogame @ 0fa05d3)
 - [x] #nextaction Port defensive rush to Arch (gap landmark → QB rush + moves). — DONE: tecmo-super-bowl-monogame commit 8d8a1c6
 - [x] #nextaction Port man/zone coverage to Arch. — DONE: tecmo-super-bowl-monogame commit 8255d06
-- [ ] #nextaction Port clock + down/distance rules to Arch (MatchState/PlayState equivalents or new Arch-native models).
+- [x] #nextaction Port clock + down/distance rules to Arch (MatchState/PlayState equivalents or new Arch-native models). — DONE: tecmo-super-bowl-monogame commit 17aae0e
 - [ ] #nextaction Expand SimSnapshot to include any extra render/debug fields needed (e.g., engagement lines, route next node, coverage targets).
 - [ ] #nextaction Replace remaining UI/flow assumptions with Arch-native flow (playcall → apply play → post-play summary) or temporarily keep as headless-only until Gum assets land.
 
