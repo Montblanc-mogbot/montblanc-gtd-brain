@@ -16,7 +16,7 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 ## Next actions
 
 ### Arch parity: port remaining gameplay to SimArch (now that MGE is cut) #nextaction
-- [ ] #nextaction Port formation spawning to use real YAML (FormationDataConfig) instead of demo roster (SimArch/Spawning/FormationSpawner).
+- [x] #nextaction Port formation spawning to use real YAML (FormationDataConfig) instead of demo roster (SimArch/Spawning/FormationSpawner). — DONE: tecmo-super-bowl-monogame commit fb35608 (feat/simarch-ball-system)
 - [ ] #nextaction Port play application to use real YAML playbook data (PlayListConfig + PlayDataConfig) instead of hardcoded play_number=10 (SimArch/Spawning/PlaySpawner).
 - [ ] #nextaction Add Arch equivalents for ratings/tuning components still implicit in the old sim (speed/accel/turn rate; stamina optional).
 - [ ] #nextaction Port collision/contact pipeline to Arch (proximity checks → engagement/block/tackle contact events).
