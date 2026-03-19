@@ -21,7 +21,7 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 - [x] #nextaction Add Arch equivalents for ratings/tuning components still implicit in the old sim (speed/accel/turn rate; stamina optional). — DONE: tecmo-super-bowl-monogame commit 37b20ef (feat/simarch-ball-system)
 - [x] #nextaction Port collision/contact pipeline to Arch (proximity checks → engagement/block/tackle contact events). — DONE: tecmo-super-bowl-monogame commit f8d02eb (feat/simarch-ball-system)
 - [x] #nextaction Port engagement + behavior interrupts stack to Arch (push/pop tackle/block interrupts). — DONE: tecmo-super-bowl-monogame commit b5fcd7e (feat/simarch-ball-system)
-- [ ] #nextaction Port tackle resolution rules to Arch (ratings-based outcome + whistle) and feed into play-end.
+- [x] #nextaction Port tackle resolution rules to Arch (ratings-based outcome + whistle) and feed into play-end. — DONE: tecmo-super-bowl-monogame commit 2a00298 (feat/simarch-ball-system)
 - [ ] #nextaction Port QB dropback + read progression + pass decision to Arch.
 - [ ] #nextaction Port route-follow system to Arch (frame-timed route nodes) and attach via play data.
 - [ ] #nextaction Port blocking assignments + blocker AI to Arch.
