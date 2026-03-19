@@ -26,7 +26,7 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 #### B) Arch.EventBus (simulation eventing)
 - [x] #nextaction Create `src/TecmoSBGame/SimArch/Events/` and define core event structs: Snap/Handoff/Whistle/PlayEnded/PlaySelected/etc. — DONE: SimEvents.cs (commit 6946eaf)
 - [x] #nextaction Create ordering conventions doc (or comment header) for `[Event(order: ...)]` receivers (rules before presentation). — DONE: EventOrder.cs + conventions (commit 6946eaf)
-- [ ] #nextaction Replace usages of `TecmoSBGame.Events.GameEvents` in the new Arch sim with EventBus send/receive patterns.
+- [x] #nextaction Replace usages of `TecmoSBGame.Events.GameEvents` in the new Arch sim with EventBus send/receive patterns. — DONE: SimArch uses `SimEventBus` (Arch.EventBus) for `PlaySelectedEvent` and has no `GameEvents`/`TecmoSBGame.Events` references (verified via ripgrep in `src/TecmoSBGame/SimArch`).
 
 #### C) Arch entity/component helpers (doc-driven patterns)
 - [x] #nextaction Implement `src/TecmoSBGame/SimArch/ArchEntityExtensions.cs` with safe helpers (Has-before-Add/Set, documented patterns only). — DONE: Ensure/Upsert/GetOrAdd/RemoveIfPresent helpers (commit 097b503)
