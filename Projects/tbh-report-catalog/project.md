@@ -143,7 +143,7 @@ Tables currently present (row counts):
 #### GL-side sample data needed (provide examples so we can build the GL half of the pipeline)
 
 - [ ] #nextaction #waitingfor Matt #project/tbh-report-catalog Provide a **GLDT export** (CSV) for a single month window (same window as dispatch/AR run, e.g. 2025-01) including: posting date, batch date/num/seq (if present), journal id, account, debit, credit, amount, reference fields. Drop CSV into `Projects/tbh-report-catalog/data/gl_samples/` (see README).
-- [ ] #nextaction #project/tbh-report-catalog Provide a **mapping/key legend**: how ITRN batch fields (batch_date/batch_num/batch_seq/unique_num) relate to GLDT fields (what’s the join key?).
+- [ ] #nextaction #waitingfor Matt #project/tbh-report-catalog Provide a **mapping/key legend**: how ITRN batch fields (batch_date/batch_num/batch_seq/unique_num) relate to GLDT fields (what’s the join key?).
 - [ ] #nextaction #project/tbh-report-catalog Provide **Chart of Accounts slice** relevant to revenue + AR + tax (acct numbers + descriptions) so we can bucket GL lines (revenue vs tax vs AR vs misc).
 - [ ] #nextaction #project/tbh-report-catalog Provide an example **posted invoice journal** in GL (1–3 invoices): the exact GL lines (accounts + amounts) that represent an invoice, including tax and any surcharges/fees.
 - [ ] #nextaction #project/tbh-report-catalog Provide example **credit/adjustment journal** in GL (1–3 cases) that correspond to the negative/AR=0 invoice edge cases seen in recon.
