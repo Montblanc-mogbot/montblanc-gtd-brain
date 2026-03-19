@@ -29,7 +29,7 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 - [x] #nextaction Port man/zone coverage to Arch. — DONE: tecmo-super-bowl-monogame commit 8255d06
 - [x] #nextaction Port clock + down/distance rules to Arch (MatchState/PlayState equivalents or new Arch-native models). — DONE: tecmo-super-bowl-monogame commit 17aae0e
 - [x] #nextaction Expand SimSnapshot to include any extra render/debug fields needed (e.g., engagement lines, route next node, coverage targets). — DONE: tecmo-super-bowl-monogame commit c25574f
-- [ ] #nextaction Replace remaining UI/flow assumptions with Arch-native flow (playcall → apply play → post-play summary) or temporarily keep as headless-only until Gum assets land.
+- [x] #nextaction Replace remaining UI/flow assumptions with Arch-native flow (playcall → apply play → post-play summary) or temporarily keep as headless-only until Gum assets land. — DONE (headless-first scaffold): `MainGameArch` Enter-to-start/advance, `Sim.AdvanceToNextPlay`, `Sim.PlayState.Phase` PostPlay. (tecmo-super-bowl-monogame commit 10e6140)
 
 ### Arch + Gum refactor (approved plan) — granular conversion list #nextaction
 
