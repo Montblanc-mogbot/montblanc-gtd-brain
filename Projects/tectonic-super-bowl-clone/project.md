@@ -80,7 +80,6 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 - [x] #nextaction Update `src/TecmoSBGame/MainGame.cs` to render via `SimRenderer` when `--sim=arch` is enabled. — DONE: when `--sim=arch`, fixed-step updates Arch sim and Draw renders snapshot (commit caffe16)
 
 #### H) Gum UI (modern)
-- [ ] #nextaction #waitingfor Add Gum project/assets under `Content/UI/Gum/` and include in `Content/Content.mgcb`. — BLOCKED: repo currently has no `Content/UI/Gum/` nor any `*.gumx/*.gucx/*.gux` files; need the Gum project/assets source (zip, repo path, or link) to add.
 - [x] #nextaction Create `src/TecmoSBGame/UI/Gum/GumBootstrap.cs` (init + load root screen). — DONE: added `TecmoSBGame.UI.Gum.GumBootstrap` (init + Forms defaults + attach root screen under GumService.Root). Evidence: tecmo-super-bowl-monogame branch `feat/simarch-ball-system` commit `790ab66` (build green).
 - [x] #nextaction Create `src/TecmoSBGame/UI/Playcall/PlaycallScreen` (formations list + plays list + confirm) using Gum. — DONE (code-only scaffold): added `TecmoSBGame.UI.Playcall.PlaycallScreen` with Formation list, Play list, and Confirm button + `Confirmed` event (no Gum project assets required yet). Evidence: tecmo-super-bowl-monogame branch `feat/simarch-ball-system` commit `d9bcb22` (build green).
 - [x] #nextaction Wire playcall confirm → `Sim.ApplyPlaySelection(...)` (offense only; defense AI-picked) and hide UI. — DONE (auto-mode for now): in Arch sim mode, MainGame now calls `ApplyPlaySelection(...)` from playcall state (offense only) and hides playcall UI. Evidence: tecmo-super-bowl-monogame branch `feat/simarch-ball-system` commit `296af82` (build green).
@@ -88,7 +87,6 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 #### I) Cleanup / removal
 - [x] #nextaction Ask Matt for explicit go-ahead to remove/disable `MonoGame.Extended.Entities` world creation path in `--sim=arch` mode (keep legacy path for `--sim=mge`). — ASKED in #work (msg 1484144550456070225)
 - [x] #nextaction Remove/disable `MonoGame.Extended.Entities` world creation path and make the game Arch-only. — DONE: removed MGE package + excluded legacy code from compilation; new `MainGameArch` entrypoint; headless `--headless-2plays` now uses Arch. Commit: a812ad0 (pushed).
-- [ ] #nextaction #waitingfor Delete old MGE ECS components/systems folders from repo once you’re comfortable (right now they’re excluded from compilation via csproj). — Optional cleanup; ask before destructive deletions.
 
 - [x] #nextaction Clone reference repo locally (done: `/home/montblanc/repos/Tecmo_Super_Bowl_NES_Disassembly`)
 - [x] #nextaction Reverse-engineer reference repo into a design document (file-by-file + subsystem mapping) suitable for MonoGame remake. — DONE: All banks scaffolded, DESIGN.md created. Repo: https://github.com/Montblanc-mogbot/tecmo-super-bowl-monogame
@@ -104,6 +102,22 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 - [x] #nextaction Phase 1: Rendering pipeline — DONE: Added RenderViewport (NES 256x224 scaling), FieldRenderer (field, yard lines, end zones), integrated with ECS RenderingSystem. Commit: eacd37c (local; push blocked—no git remote configured).
 
 ## Phase 2: On-Field Gameplay #nextaction
+
+### Playable demo (Arch / SimArch) — MVP checklist #nextaction
+
+**Definition of done (demo):** Launch the game, select *a* play (UI or minimal menu), press snap, control the ballcarrier/defender, see a deterministic play run, resolve tackle/whistle, show a post-play summary, then reset to pre-snap for the next play.
+
+- [x] #nextaction Implement a real play-lifecycle state machine in SimArch (PreSnap → InPlay → PostPlay → PreSnap) driven by events (`SnapEvent`, `WhistleEvent`, `PlayEndedEvent`) with no ad-hoc “press Enter” shortcuts. Acceptance: the phase transitions happen from systems only; MainGame only feeds input + renders. — DONE: tecmo-super-bowl-monogame commit 59e2dfc
+- [ ] #nextaction Implement formation positioning from `FormationDataConfig` for **both offense and defense** (no placeholder defensive front). Acceptance: 22 players placed deterministically from YAML formation slots relative to LOS, plus ball spot.
+- [ ] #nextaction Implement `FormationScriptParser` grammar + `FormationScriptSystem` interpreter for the subset required to place/shift/motion players pre-snap. Acceptance: all formation scripts referenced by the chosen formation YAML execute without NOP fallback.
+- [ ] #nextaction Expand PlayData script compilation/execution until the chosen play executes **all referenced commands** (no ignored/unimplemented opcodes). Acceptance: log/diagnostic mode shows 0 “unknown cmd” for the play’s scripts.
+- [ ] #nextaction Replace deterministic defense slot mapping with a YAML-driven defensive roster/assignment model (roles + coverage/rush assignments) so play behavior is extensible per formation/defense call.
+- [ ] #nextaction Implement `PlayCallSystem` + input wiring to choose formation+play (minimal UI acceptable) and publish a complete `PlaySelectedEvent` (offense formation + play + defense call). Acceptance: no hardcoded play number in MainGame/Sim.
+- [ ] #nextaction Implement `PlayerControlSystem` selection rules (offense: ballcarrier/QB; defense: nearest pursuit defender) and wire to input. Acceptance: control switches deterministically on handoff/pass/catch/turnover.
+- [ ] #nextaction Implement yardline/world coordinate mapping + spotting so `PlayResultResolver` computes yards gained from the ball’s absolute yard and updates `MatchState` correctly. Acceptance: down/distance changes correctly after the play.
+- [ ] #nextaction Implement `PlayEndSystem` + `NextPlayResetSystem` so a whistled play produces a stable post-play summary and then resets all entities to pre-snap positions for the next play without recreating the world.
+- [ ] #nextaction Implement fumble/loose-ball pipeline end-to-end (fumble trigger → loose ball flight → pickup). Acceptance: can force a fumble via debug flag and see the ball become loose and be recovered.
+- [ ] #nextaction Implement a minimal HUD update (`HudSystem`) showing: down, distance, quarter, clock, ball spot, score. Acceptance: renders correctly and updates after a play.
 
 ## Roadmap TODOs (assembly-parity → fully playable) #nextaction
 
@@ -326,7 +340,6 @@ Systems/
 - [x] #nextaction Implement music state switching (title/menu/on-field/score/halftime) matching assembly. — DONE (scaffold): added MusicState enum + SoundService.SetMusicState + MainGame flow-state mapping (Title/Menu/OnField/Score); actual Song/MediaPlayer playback + assembly-accurate mapping still TODO. Commit: 2fbfd99
 
 ### 11) Sprite scripts / draw scripts direction (needs decision)
-- [ ] #nextaction #waitingfor Decide whether to (A) extend sprite-script interpreter as animation driver or (B) translate sprite scripts into modern animation clips and use scripts only as reference.
 
 ### 12) Debugging + tooling
 - [x] #nextaction Add in-game debug overlay (state ids, selected player, ball state/owner, key timers) for assembly parity debugging. — DONE (scaffold): added DebugOverlayRenderer showing match/play/ball/timers/seed; wired into MainGame draw and toggle via F4. Commit: 889f35c
