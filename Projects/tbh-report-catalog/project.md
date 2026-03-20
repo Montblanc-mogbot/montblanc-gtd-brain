@@ -155,7 +155,7 @@ Tables currently present (row counts):
   - Codes starting with **5**** = GL account numbers (e.g. 51010)
   - Documented join/lookup rules: `dept_gldescno = "4" + deptNo.zfill(4)` and `acct_gldescno = "5" + acctNo.zfill(4)`
   - Produced mapping examples + real-row aggregates from `gl_trans`
-- [ ] #nextaction #project/tbh-report-catalog Implement **GL account classification helpers** (Layer 2.5 “auditable transforms”):
+- [x] #nextaction #project/tbh-report-catalog Implement **GL account classification helpers** (Layer 2.5 “auditable transforms”) — DONE: added `Tbh.Normalize/GlAccountClassifier.cs` (GlDescType + canonical acct rewrite for 50001–50999 based on dept) + unit tests. Commit: 6e02703.
   - `gldesc_type` = Department | Account
   - `dept_code` extraction when applicable
   - `account_code` extraction when applicable
