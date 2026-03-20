@@ -168,15 +168,35 @@ Tables currently present (row counts):
   - `ApSpendByVendor_Month.csv`
   - `ApSpendByGlAccount_Month.csv` (join AP dtl dept/acct to GLDESC when possible)
 
+#### GL/AP + Command blended analytics (value-add)
+
+- [ ] #nextaction #project/tbh-report-catalog Add GL/AP analytic: `ApMaterialSchedule_Month.csv` (recon for AP-coded materials)
+  - Use AP invoice lines joined to AP headers (invoice date window)
+  - Group by: vendor + dept + GL acct (+ desc) + unit price proxy
+  - Include: total amount, total quantity, implied unit cost (= amount/qty) when qty present
+  - Flag: missing qty, missing acct/desc, extreme unit costs
+- [ ] #nextaction #project/tbh-report-catalog Add GL analytic: `TaxesPayable_Month.csv` (outstanding taxes to pay)
+  - Start with rule-based buckets via GL account ranges + gldesc lookup
+  - Output totals by tax type + dept; include drilldown list of contributing journal lines
+  - Keep mapping table auditable (csv/json config)
+- [ ] #nextaction #project/tbh-report-catalog Add blended analytic: `CostPerCubicYard_MonthPlant.csv`
+  - Numerator: selected cost buckets from GL/AP (materials, fuel, etc.)
+  - Denominator: dispatch concrete CY from Command (DispatchPlantMonth)
+  - Output: cost/CY by plant + by bucket; include notes about timing mismatch + cutoff assumptions
+- [ ] #nextaction #project/tbh-report-catalog Add blended analytic: `FastPnL_Month.csv` + `FastPnL_Ytd.csv`
+  - “Fast P&L” = best-effort early close using GL journal lines
+  - Config-driven bucket mapping: revenue/COGS/SGA/other; dept rollups
+  - Include a reconciliation section: total GL activity vs sum of buckets; unclassified lines
+- [ ] #nextaction #project/tbh-report-catalog Add Layer 4 report pack: `Fast P&L (Draft).xlsx`
+  - Tabs: Summary (Month/YTD), By Dept, By Account, Unclassified, Notes/Assumptions
+- [ ] #nextaction #project/tbh-report-catalog Add Layer 4 report pack: `AP Spend & Pricing Check Pack.xlsx`
+  - Tabs: Spend by vendor (Month/YTD), Materials schedule, Unit price outliers (amount/qty), Missing qty coding
+
 #### GL-side sample data needed (provide examples so we can build the GL half of the pipeline)
 
-- [ ] #nextaction #waitingfor Matt #project/tbh-report-catalog Provide a **GLDT export** (CSV) for a single month window (same window as dispatch/AR run, e.g. 2025-01) including: posting date, batch date/num/seq (if present), journal id, account, debit, credit, amount, reference fields. Drop CSV into `Projects/tbh-report-catalog/data/gl_samples/` (see README).
-- [ ] #nextaction #waitingfor Matt #project/tbh-report-catalog Provide a **mapping/key legend**: how ITRN batch fields (batch_date/batch_num/batch_seq/unique_num) relate to GLDT fields (what’s the join key?).
-- [ ] #nextaction #waitingfor Matt #project/tbh-report-catalog Provide **Chart of Accounts slice** relevant to revenue + AR + tax (acct numbers + descriptions) so we can bucket GL lines (revenue vs tax vs AR vs misc).
-- [ ] #nextaction #waitingfor Matt #project/tbh-report-catalog Provide an example **posted invoice journal** in GL (1–3 invoices): the exact GL lines (accounts + amounts) that represent an invoice, including tax and any surcharges/fees.
-- [ ] #nextaction #waitingfor Matt #project/tbh-report-catalog Provide example **credit/adjustment journal** in GL (1–3 cases) that correspond to the negative/AR=0 invoice edge cases seen in recon.
-- [ ] #nextaction #waitingfor Matt #project/tbh-report-catalog Provide **GL posting rules / timing notes** (when dispatch hits AR; month-end cutoff; any accrual vs cash considerations).
-- [ ] #nextaction #waitingfor Matt #project/tbh-report-catalog Confirm whether we should treat GL tie-out at **invoice level** or **batch/journal level** as the primary reconciliation view.
+- [x] #nextaction #project/tbh-report-catalog GLDT export + join-key legend — CLOSED: we are treating Command (ops/AR) vs TBH GL/AP (financial) as largely separate pipelines; GLDT mapping is not exact and cross-db joins are not a core requirement right now.
+- [x] #nextaction #project/tbh-report-catalog COA slice / posted invoice journal / credit journal examples / posting rules — CLOSED: defer until we decide we explicitly need GL↔AR tie-out reports.
+- [x] #nextaction #project/tbh-report-catalog Confirm invoice-level vs batch/journal-level tie-out — CLOSED for now (not in current scope).
 
 #### TLAP/TKTX work plan (captured from chat)
 
