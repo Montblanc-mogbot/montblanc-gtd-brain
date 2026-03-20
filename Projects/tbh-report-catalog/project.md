@@ -147,14 +147,14 @@ Tables currently present (row counts):
 - [x] #nextaction #project/tbh-report-catalog Split the dummy GL/AP exports into two DBs to mirror prod (`tbh_ap` vs `tbh_gl`) and record row counts — DONE: created `/home/montblanc/repos/tbh-report-catalog/data/tbh_ap_dummy.db` + `/home/montblanc/repos/tbh-report-catalog/data/tbh_gl_dummy.db` via `scripts/sqlite/build_tbh_ap_dummy_db.py` + `scripts/sqlite/build_tbh_gl_dummy_db.py`. Row counts: ap_invoice_dtl 28,772; ap_invoice_hdr 10,634; ap_master 1,569; gl_adjust 3,163; gl_journal 11,860; gl_trans 5,472; gl_desc 718.
 - [x] #nextaction #project/tbh-report-catalog Wire **TBH AP + GL extractors** into `PipelineRunner` (separate from Command extractor) — DONE: pipeline now detects `data/tbh_ap_dummy.db` + `data/tbh_gl_dummy.db` and writes Layer 1 raw extracts to `runs/.../extract/` (and `extract/` latest), adding artifacts to manifest. Commit: 5b9336f.
   - Outputs: `ApInvoiceHdr_Raw.csv`, `ApInvoiceDtl_Raw.csv`, `ApMaster_Raw.csv`, `GlTrans_Raw.csv`, `GlJournal_Raw.csv`, `GlAdjust_Raw.csv`, `GlDesc_Raw.csv`
-- [ ] #nextaction #project/tbh-report-catalog Add **Layer 2 normalized CSVs** for TBH AP + GL (typed parsing + trimming; no business logic):
+- [x] #nextaction #project/tbh-report-catalog Add **Layer 2 normalized CSVs** for TBH AP + GL (typed parsing + trimming; no business logic) — DONE: added `TbhApGlNormalizer` + normalized model records and wired PipelineRunner to write these outputs + add them to manifest. Commit: 3644fa3.
   - AP: `NormalizedApVendors.csv`, `NormalizedApInvoices.csv`, `NormalizedApInvoiceLines.csv`
   - GL: `NormalizedGlDesc.csv`, `NormalizedGlJournalLines.csv`, `NormalizedGlTransactions.csv`, `NormalizedGlAdjustments.csv`
-- [ ] #nextaction #project/tbh-report-catalog Investigate + document the **GLDESC oddities** (departments vs GL accounts) in `docs/schema-analysis.md`:
-  - Codes starting with **4**** = departments (confirm list: 40003, 40004, 40007, 40011)
+- [x] #nextaction #project/tbh-report-catalog Investigate + document the **GLDESC oddities** (departments vs GL accounts) in `docs/schema-analysis.md`: — DONE: wrote analysis + mapping rules + examples to `/home/montblanc/.openclaw/workspace/docs/schema-analysis.md` (based on dummy DB `/home/montblanc/repos/tbh-report-catalog/data/tbh_gl_dummy.db`).
+  - Codes starting with **4**** = departments (observed: 40003, 40004, 40005, 40007, 40010, 40011)
   - Codes starting with **5**** = GL account numbers (e.g. 51010)
-  - Document how departmentalized accounts work: base range **50001–50999** and how they transform into dept-specific numbers (example given: dept 3 cement: 50001 → 30001?)
-  - Produce a mapping table + examples from real rows (gl_journal/gl_trans)
+  - Documented join/lookup rules: `dept_gldescno = "4" + deptNo.zfill(4)` and `acct_gldescno = "5" + acctNo.zfill(4)`
+  - Produced mapping examples + real-row aggregates from `gl_trans`
 - [ ] #nextaction #project/tbh-report-catalog Implement **GL account classification helpers** (Layer 2.5 “auditable transforms”):
   - `gldesc_type` = Department | Account
   - `dept_code` extraction when applicable
