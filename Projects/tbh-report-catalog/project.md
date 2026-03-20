@@ -148,7 +148,7 @@ Tables currently present (row counts):
 - [ ] #nextaction #waitingfor Matt #project/tbh-report-catalog Provide an example **posted invoice journal** in GL (1–3 invoices): the exact GL lines (accounts + amounts) that represent an invoice, including tax and any surcharges/fees.
 - [ ] #nextaction #waitingfor Matt #project/tbh-report-catalog Provide example **credit/adjustment journal** in GL (1–3 cases) that correspond to the negative/AR=0 invoice edge cases seen in recon.
 - [ ] #nextaction #waitingfor Matt #project/tbh-report-catalog Provide **GL posting rules / timing notes** (when dispatch hits AR; month-end cutoff; any accrual vs cash considerations).
-- [ ] #nextaction #project/tbh-report-catalog Confirm whether we should treat GL tie-out at **invoice level** or **batch/journal level** as the primary reconciliation view.
+- [ ] #nextaction #waitingfor Matt #project/tbh-report-catalog Confirm whether we should treat GL tie-out at **invoice level** or **batch/journal level** as the primary reconciliation view.
 
 #### TLAP/TKTX work plan (captured from chat)
 
