@@ -5,6 +5,7 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 
 ## Notes / context
 - Source thread: Discord #work › Tectonic super bowl
+  - Thread id/link: **#waitingfor Matt** (please paste either `channel:<id>` or the full Discord thread URL)
 - Reference repo: https://github.com/bruddog/Tecmo_Super_Bowl_NES_Disassembly
 - Local clone: `/home/montblanc/repos/Tecmo_Super_Bowl_NES_Disassembly`
 
@@ -14,6 +15,10 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 - [x] One playable slice (e.g., kickoff or a single down) running end-to-end — DONE: Implemented kickoff scenario with InputSystem (keyboard/controller), GameStateSystem (5 phases: setup→flight→return→tackle→end), player spawning, AI coverage/return behavior, tackle detection. Commit: f3e1eee (local; push blocked—no git remote configured).
 
 ## Next actions
+
+### Pulse / housekeeping (so heartbeat can post status) #nextaction
+- [ ] #nextaction #waitingfor Matt: Add the Discord thread id/link for this project to the “Notes / context” section (paste `channel:<id>` or full link here once you have it).
+- [x] #nextaction Verify the tecmo-super-bowl-monogame repo has a git remote configured and that any “local; push blocked” commits are either pushed or clearly marked obsolete (add brief note here with evidence). — DONE: repo has remote `origin` set to `https://github.com/Montblanc-mogbot/tecmo-super-bowl-monogame.git` and `main` is synced with `origin/main` (no local commits pending). The previously-labeled “local; push blocked” commits (e.g. a46994f, f3e1eee, eacd37c, 49462bf) exist in the repo history and are on `main` (pushed). Evidence: `git remote -v` + `git status -sb` shows `## main...origin/main`; `git show -s` confirms those commit hashes.
 
 ### Arch parity: port remaining gameplay to SimArch (now that MGE is cut) #nextaction
 - [x] #nextaction Port formation spawning to use real YAML (FormationDataConfig) instead of demo roster (SimArch/Spawning/FormationSpawner). — DONE: tecmo-super-bowl-monogame commit fb35608 (feat/simarch-ball-system)
