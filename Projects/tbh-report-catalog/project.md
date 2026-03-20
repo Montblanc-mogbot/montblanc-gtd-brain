@@ -160,7 +160,7 @@ Tables currently present (row counts):
   - `dept_code` extraction when applicable
   - `account_code` extraction when applicable
   - `canonical_account_code` for departmentalized ranges (documented rule)
-- [ ] #nextaction #project/tbh-report-catalog Add first **Layer 3 analytics** for TBH GL (month + YTD):
+- [x] #nextaction #project/tbh-report-catalog Add first **Layer 3 analytics** for TBH GL (month + YTD) — DONE: added GL analytics builder + outputs written in PipelineRunner (from GL journal lines) and added to manifest. Commit: e97f17b.
   - `GlTrialBalance_Month.csv` (by dept + account)
   - `GlPnL_Month.csv` (bucket by account ranges; start with placeholder mapping)
   - `GlPnL_Ytd.csv`
