@@ -179,7 +179,7 @@ Tables currently present (row counts):
   - Start with rule-based buckets via GL account ranges + gldesc lookup
   - Output totals by tax type + dept; include drilldown list of contributing journal lines
   - Keep mapping table auditable (csv/json config)
-- [ ] #nextaction #project/tbh-report-catalog Add blended analytic: `CostPerCubicYard_MonthPlant.csv`
+- [x] #nextaction #project/tbh-report-catalog Add blended analytic: `CostPerCubicYard_MonthPlant.csv` — DONE: added config-driven bucket mapping (`data/cost_per_cy_mapping.json`) + blended builder using GL journal lines ÷ dispatch concrete CY, and wrote pipeline output + manifest artifact. Commit: d273a66.
   - Numerator: selected cost buckets from GL/AP (materials, fuel, etc.)
   - Denominator: dispatch concrete CY from Command (DispatchPlantMonth)
   - Output: cost/CY by plant + by bucket; include notes about timing mismatch + cutoff assumptions
