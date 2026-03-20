@@ -183,7 +183,7 @@ Tables currently present (row counts):
   - Numerator: selected cost buckets from GL/AP (materials, fuel, etc.)
   - Denominator: dispatch concrete CY from Command (DispatchPlantMonth)
   - Output: cost/CY by plant + by bucket; include notes about timing mismatch + cutoff assumptions
-- [ ] #nextaction #project/tbh-report-catalog Add blended analytic: `FastPnL_Month.csv` + `FastPnL_Ytd.csv`
+- [x] #nextaction #project/tbh-report-catalog Add blended analytic: `FastPnL_Month.csv` + `FastPnL_Ytd.csv` — DONE: added config-driven mapping (`data/fast_pnl_mapping.json`) + builder + pipeline outputs (including unclassified + recon CSVs). Commit: a086c6d.
   - “Fast P&L” = best-effort early close using GL journal lines
   - Config-driven bucket mapping: revenue/COGS/SGA/other; dept rollups
   - Include a reconciliation section: total GL activity vs sum of buckets; unclassified lines
