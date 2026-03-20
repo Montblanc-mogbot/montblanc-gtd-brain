@@ -140,6 +140,8 @@ Tables currently present (row counts):
 
 ### NEXT ACTION
 
+- [x] #nextaction #project/tbh-report-catalog Import Matt-provided GL reference tables (zip + CSV attachments) into a **separate SQLite DB** (NOT the Command dummy DB). — DONE: created standalone GL dummy DB `/home/montblanc/repos/tbh-report-catalog/data/tbh_gl_dummy.db` from `data/gl_inbound_2025/` via `scripts/sqlite/build_gl_dummy_db.py`. Row counts: ap_invoice_dtl 28,772; ap_invoice_hdr 10,634; ap_master 1,569; gl_adjust 3,163; gl_journal 11,860; gl_trans 5,472; gl_desc 718.
+
 #### GL-side sample data needed (provide examples so we can build the GL half of the pipeline)
 
 - [ ] #nextaction #waitingfor Matt #project/tbh-report-catalog Provide a **GLDT export** (CSV) for a single month window (same window as dispatch/AR run, e.g. 2025-01) including: posting date, batch date/num/seq (if present), journal id, account, debit, credit, amount, reference fields. Drop CSV into `Projects/tbh-report-catalog/data/gl_samples/` (see README).
