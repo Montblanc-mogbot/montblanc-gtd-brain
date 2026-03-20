@@ -170,7 +170,7 @@ Tables currently present (row counts):
 
 #### GL/AP + Command blended analytics (value-add)
 
-- [ ] #nextaction #project/tbh-report-catalog Add GL/AP analytic: `ApMaterialSchedule_Month.csv` (recon for AP-coded materials)
+- [x] #nextaction #project/tbh-report-catalog Add GL/AP analytic: `ApMaterialSchedule_Month.csv` (recon for AP-coded materials) — DONE: added analytics builder `BuildApMaterialScheduleMonth` and pipeline output with flags (missing qty/acct/desc + extreme unit costs). Commit: 0d1881a.
   - Use AP invoice lines joined to AP headers (invoice date window)
   - Group by: vendor + dept + GL acct (+ desc) + unit price proxy
   - Include: total amount, total quantity, implied unit cost (= amount/qty) when qty present
