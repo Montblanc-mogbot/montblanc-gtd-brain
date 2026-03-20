@@ -175,7 +175,7 @@ Tables currently present (row counts):
   - Group by: vendor + dept + GL acct (+ desc) + unit price proxy
   - Include: total amount, total quantity, implied unit cost (= amount/qty) when qty present
   - Flag: missing qty, missing acct/desc, extreme unit costs
-- [ ] #nextaction #project/tbh-report-catalog Add GL analytic: `TaxesPayable_Month.csv` (outstanding taxes to pay)
+- [x] #nextaction #project/tbh-report-catalog Add GL analytic: `TaxesPayable_Month.csv` (outstanding taxes to pay) — DONE: added config-driven mapping (`data/tax_payable_mapping.json`) + analytics builder + pipeline outputs `TaxesPayable_Month.csv` and `TaxesPayable_Lines_Month.csv` (drilldown). Commit: e755427.
   - Start with rule-based buckets via GL account ranges + gldesc lookup
   - Output totals by tax type + dept; include drilldown list of contributing journal lines
   - Keep mapping table auditable (csv/json config)
