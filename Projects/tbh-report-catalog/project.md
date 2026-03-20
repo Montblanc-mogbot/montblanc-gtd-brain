@@ -187,7 +187,7 @@ Tables currently present (row counts):
   - “Fast P&L” = best-effort early close using GL journal lines
   - Config-driven bucket mapping: revenue/COGS/SGA/other; dept rollups
   - Include a reconciliation section: total GL activity vs sum of buckets; unclassified lines
-- [ ] #nextaction #project/tbh-report-catalog Add Layer 4 report pack: `Fast P&L (Draft).xlsx`
+- [x] #nextaction #project/tbh-report-catalog Add Layer 4 report pack: `Fast P&L (Draft).xlsx` — DONE: added `FastPnLDraftExcelGenerator` (EPPlus) and wired it into pipeline reports section using FastPnL analytics outputs. Commit: ff8ee9e.
   - Tabs: Summary (Month/YTD), By Dept, By Account, Unclassified, Notes/Assumptions
 - [ ] #nextaction #project/tbh-report-catalog Add Layer 4 report pack: `AP Spend & Pricing Check Pack.xlsx`
   - Tabs: Spend by vendor (Month/YTD), Materials schedule, Unit price outliers (amount/qty), Missing qty coding
