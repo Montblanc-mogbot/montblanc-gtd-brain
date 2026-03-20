@@ -142,6 +142,32 @@ Tables currently present (row counts):
 
 - [x] #nextaction #project/tbh-report-catalog Import Matt-provided GL reference tables (zip + CSV attachments) into a **separate SQLite DB** (NOT the Command dummy DB). — DONE: created standalone GL dummy DB `/home/montblanc/repos/tbh-report-catalog/data/tbh_gl_dummy.db` from `data/gl_inbound_2025/` via `scripts/sqlite/build_gl_dummy_db.py`. Row counts: ap_invoice_dtl 28,772; ap_invoice_hdr 10,634; ap_master 1,569; gl_adjust 3,163; gl_journal 11,860; gl_trans 5,472; gl_desc 718.
 
+#### TBH GL/AP pipeline scaffold (new)
+
+- [x] #nextaction #project/tbh-report-catalog Split the dummy GL/AP exports into two DBs to mirror prod (`tbh_ap` vs `tbh_gl`) and record row counts — DONE: created `/home/montblanc/repos/tbh-report-catalog/data/tbh_ap_dummy.db` + `/home/montblanc/repos/tbh-report-catalog/data/tbh_gl_dummy.db` via `scripts/sqlite/build_tbh_ap_dummy_db.py` + `scripts/sqlite/build_tbh_gl_dummy_db.py`. Row counts: ap_invoice_dtl 28,772; ap_invoice_hdr 10,634; ap_master 1,569; gl_adjust 3,163; gl_journal 11,860; gl_trans 5,472; gl_desc 718.
+- [x] #nextaction #project/tbh-report-catalog Wire **TBH AP + GL extractors** into `PipelineRunner` (separate from Command extractor) — DONE: pipeline now detects `data/tbh_ap_dummy.db` + `data/tbh_gl_dummy.db` and writes Layer 1 raw extracts to `runs/.../extract/` (and `extract/` latest), adding artifacts to manifest. Commit: 5b9336f.
+  - Outputs: `ApInvoiceHdr_Raw.csv`, `ApInvoiceDtl_Raw.csv`, `ApMaster_Raw.csv`, `GlTrans_Raw.csv`, `GlJournal_Raw.csv`, `GlAdjust_Raw.csv`, `GlDesc_Raw.csv`
+- [ ] #nextaction #project/tbh-report-catalog Add **Layer 2 normalized CSVs** for TBH AP + GL (typed parsing + trimming; no business logic):
+  - AP: `NormalizedApVendors.csv`, `NormalizedApInvoices.csv`, `NormalizedApInvoiceLines.csv`
+  - GL: `NormalizedGlDesc.csv`, `NormalizedGlJournalLines.csv`, `NormalizedGlTransactions.csv`, `NormalizedGlAdjustments.csv`
+- [ ] #nextaction #project/tbh-report-catalog Investigate + document the **GLDESC oddities** (departments vs GL accounts) in `docs/schema-analysis.md`:
+  - Codes starting with **4**** = departments (confirm list: 40003, 40004, 40007, 40011)
+  - Codes starting with **5**** = GL account numbers (e.g. 51010)
+  - Document how departmentalized accounts work: base range **50001–50999** and how they transform into dept-specific numbers (example given: dept 3 cement: 50001 → 30001?)
+  - Produce a mapping table + examples from real rows (gl_journal/gl_trans)
+- [ ] #nextaction #project/tbh-report-catalog Implement **GL account classification helpers** (Layer 2.5 “auditable transforms”):
+  - `gldesc_type` = Department | Account
+  - `dept_code` extraction when applicable
+  - `account_code` extraction when applicable
+  - `canonical_account_code` for departmentalized ranges (documented rule)
+- [ ] #nextaction #project/tbh-report-catalog Add first **Layer 3 analytics** for TBH GL (month + YTD):
+  - `GlTrialBalance_Month.csv` (by dept + account)
+  - `GlPnL_Month.csv` (bucket by account ranges; start with placeholder mapping)
+  - `GlPnL_Ytd.csv`
+- [ ] #nextaction #project/tbh-report-catalog Add first **Layer 3 analytics** for TBH AP:
+  - `ApSpendByVendor_Month.csv`
+  - `ApSpendByGlAccount_Month.csv` (join AP dtl dept/acct to GLDESC when possible)
+
 #### GL-side sample data needed (provide examples so we can build the GL half of the pipeline)
 
 - [ ] #nextaction #waitingfor Matt #project/tbh-report-catalog Provide a **GLDT export** (CSV) for a single month window (same window as dispatch/AR run, e.g. 2025-01) including: posting date, batch date/num/seq (if present), journal id, account, debit, credit, amount, reference fields. Drop CSV into `Projects/tbh-report-catalog/data/gl_samples/` (see README).
