@@ -117,7 +117,7 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
 - [x] #nextaction Implement yardline/world coordinate mapping + spotting so `PlayResultResolver` computes yards gained from the ball’s absolute yard and updates `MatchState` correctly. Acceptance: down/distance changes correctly after the play. — DONE: tecmo-super-bowl-monogame commit b743682
 - [x] #nextaction Implement `PlayEndSystem` + `NextPlayResetSystem` so a whistled play produces a stable post-play summary and then resets all entities to pre-snap positions for the next play without recreating the world. — DONE: tecmo-super-bowl-monogame commit 37d033a
 - [x] #nextaction Implement fumble/loose-ball pipeline end-to-end (fumble trigger → loose ball flight → pickup). Acceptance: can force a fumble via debug flag and see the ball become loose and be recovered. — DONE: tecmo-super-bowl-monogame commit 63852f7 (press B to force fumble)
-- [ ] #nextaction Implement a minimal HUD update (`HudSystem`) showing: down, distance, quarter, clock, ball spot, score. Acceptance: renders correctly and updates after a play.
+- [x] #nextaction Implement a minimal HUD update (`HudSystem`) showing: down, distance, quarter, clock, ball spot, score. Acceptance: renders correctly and updates after a play. — DONE: tecmo-super-bowl-monogame commit c58ab48
 
 ## Roadmap TODOs (assembly-parity → fully playable) #nextaction
 
