@@ -32,6 +32,7 @@ Schema-driven pivot table + data entry tool (Structured JSON Editor UI).
 - Milestone 8 complete; filters + views system done; awaiting user feedback.
 
 ## Next actions
+- [x] #nextaction Fix side panels: keep close button always visible (header not scrollable), and add background click handler to deselect grid + close side panel. Then push to GitHub pages. (Thread: Structured JSON Editor 2026-03-20) — DONE: drawer no longer scrolls; panels have fixed header + scrollable body; click outside grid+drawer clears selection + closes panel. Evidence: griddle commit `3cd71a7` (pushed).
 - [ ] #nextaction #waitingfor Matt: Share top 3 pain points from your current Griddle usage (links/screenshots ok). I’ll convert them into GitHub issues.
 - [x] #nextaction Pick next milestone theme (import/export hardening vs validation UX vs performance). — PICKED: validation UX + workflow clarity next. Rationale: Milestone 8 finished (views/filters), next biggest ROI is making schema validation understandable/actionable during data entry and import, which will also surface the right follow-on performance work.
 - [x] #nextaction Create a concise Validation UX plan: error panel, inline field highlights, and “jump to next error” flow. — DONE (see “Validation UX plan” section below).

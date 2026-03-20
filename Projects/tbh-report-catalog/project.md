@@ -164,7 +164,7 @@ Tables currently present (row counts):
   - `GlTrialBalance_Month.csv` (by dept + account)
   - `GlPnL_Month.csv` (bucket by account ranges; start with placeholder mapping)
   - `GlPnL_Ytd.csv`
-- [ ] #nextaction #project/tbh-report-catalog Add first **Layer 3 analytics** for TBH AP:
+- [x] #nextaction #project/tbh-report-catalog Add first **Layer 3 analytics** for TBH AP — DONE: added AP analytics builders and wired PipelineRunner outputs + manifest artifacts. Commit: 23fd2dd.
   - `ApSpendByVendor_Month.csv`
   - `ApSpendByGlAccount_Month.csv` (join AP dtl dept/acct to GLDESC when possible)
 
