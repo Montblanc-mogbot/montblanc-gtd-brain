@@ -189,7 +189,7 @@ Tables currently present (row counts):
   - Include a reconciliation section: total GL activity vs sum of buckets; unclassified lines
 - [x] #nextaction #project/tbh-report-catalog Add Layer 4 report pack: `Fast P&L (Draft).xlsx` — DONE: added `FastPnLDraftExcelGenerator` (EPPlus) and wired it into pipeline reports section using FastPnL analytics outputs. Commit: ff8ee9e.
   - Tabs: Summary (Month/YTD), By Dept, By Account, Unclassified, Notes/Assumptions
-- [ ] #nextaction #project/tbh-report-catalog Add Layer 4 report pack: `AP Spend & Pricing Check Pack.xlsx`
+- [x] #nextaction #project/tbh-report-catalog Add Layer 4 report pack: `AP Spend & Pricing Check Pack.xlsx` — DONE: added `ApSpendPricingCheckPackExcelGenerator` and wired it into pipeline reports section (uses AP Spend by Vendor + AP Material Schedule analytics). Commit: 9c23f4d.
   - Tabs: Spend by vendor (Month/YTD), Materials schedule, Unit price outliers (amount/qty), Missing qty coding
 
 #### GL-side sample data needed (provide examples so we can build the GL half of the pipeline)
