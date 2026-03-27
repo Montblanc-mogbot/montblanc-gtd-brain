@@ -8,6 +8,11 @@ Use the Tecmo Super Bowl (NES) disassembly as a reference/basis to recreate the 
   - Thread id/link: **#waitingfor Matt** (please paste either `channel:<id>` or the full Discord thread URL)
 - Reference repo: https://github.com/bruddog/Tecmo_Super_Bowl_NES_Disassembly
 - Local clone: `/home/montblanc/repos/Tecmo_Super_Bowl_NES_Disassembly`
+- last_thread_digest_at: 2026-03-27T12:22-04:00
+
+## Thread digest
+- 2026-03-27: Project-specific todos and project-thread memory should live in this hub rather than Inbox.
+- 2026-03-27: Use this hub as the canonical place to capture design decisions, gameplay requirements, bug reports, and accepted/rejected implementation approaches from the project thread.
 
 ## Success criteria
 - [x] MonoGame project boots and renders *something* (window + basic loop) — DONE: added src/TecmoSBGame (MonoGame DesktopGL) that boots and clears screen. Commit: a220090

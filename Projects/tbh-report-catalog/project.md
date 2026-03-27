@@ -122,6 +122,33 @@ Tables currently present (row counts):
 
 > Key requirement: Dispatch totals must include all dispatch-side revenue components (TKTL + TKTC + TLAC + TLAP), with tax handled separately (TKTX).
 
+**Next real validation window (selected):** `2025-02-01` → `2025-03-01`
+
+**Why this window**
+- Adjacent to the completed 2025-01 dummy validation, so month-over-month comparison is straightforward.
+- Small, concrete off-hours ask: one full month rather than a broad historical backfill.
+- Lets us validate whether the 2025-01 exception patterns persist once TLAP/TLAC/TKTX are included from a real export.
+
+**Raw exports to request / collect off-hours**
+- **Command dispatch/ops**
+  - `TICK` — date/key fields: `order_date`, `order_code`, `tkt_code`; invoice linkage/date fields such as `inv_date`, `inv_code`; any removed-ticket flags.
+  - `TKTL` — `order_date`, `order_code`, `tkt_code`; line/product/UOM/qty/amount fields.
+  - `TKTC` — `order_date`, `order_code`, `tkt_code`; charge code/description/amount fields.
+  - `TLAP` — `order_date`, `order_code`, `tkt_code`; associated-product/product-description fields; `ext_price_amt` (or equivalent amount field).
+  - `TLAC` — `order_date`, `order_code`, `tkt_code`; line-charge code/description/amount fields.
+  - `TKTX` — `order_date`, `order_code`, `tkt_code`; tax basis / taxable amount / tax amount fields.
+  - `ORDR`, `ORDL` — keyed by `order_date` + `order_code` for order-level context and line rollups.
+- **AR**
+  - `ITRN` — invoice key/date fields (`inv_date`, `inv_code`) plus transaction amount/type/posting-date fields.
+  - `ARTB` — invoice key/date fields (`inv_date`, `inv_code`) plus sales/tax/total fields.
+- **Optional financial tie-out sample**
+  - `GLDT` for the same 2025-02 window, with whatever posting/account/date fields are available.
+
+**Join/date expectations for the export request**
+- Dispatch-side ticket joins should preserve `order_date` + `order_code` + `tkt_code` across TICK/TKTL/TKTC/TLAP/TLAC/TKTX.
+- AR extracts should preserve invoice linkage via `inv_code` (and `inv_date` when available).
+- Prefer filtering each table to the **2025-02 business window** using its native transaction/invoice/ticket date column, and include that date column in the extract so the filter basis is auditable.
+
 ### 2.4 Reports (Layer 4)
 
 **Current**
@@ -136,12 +163,17 @@ Tables currently present (row counts):
 
 ---
 
+## Thread digest
+- last_thread_digest_at: 2026-03-27T12:22-04:00
+- 2026-03-27: Project hubs are now the canonical home for project-specific todos and distilled thread memory.
+- 2026-03-27: Continue using this hub for requirements, decisions, blockers, and notable thread-derived context rather than relying on chat history alone.
+
 ## TODO
 
 ### NEXT ACTIONS (heartbeat-created)
 
 - [ ] #nextaction #waitingfor Matt: Add the Discord thread id/link for this project (paste `channel:<id>` or full thread URL) so heartbeat can post pulses.
-- [ ] #nextaction Define the next **real month window** to validate (e.g., 2025-02, 2025-03) and list what raw exports are required (tables + date columns) so we can request/collect them off-hours.
+- [x] #nextaction Define the next **real month window** to validate (e.g., 2025-02, 2025-03) and list what raw exports are required (tables + date columns) so we can request/collect them off-hours. — DONE: picked **2025-02** as the next real validation window (adjacent to the completed 2025-01 dummy run, keeps month-over-month comparison simple, and is a short off-hours request). Required raw exports captured for request/collection: **Command ops/AR**: TICK (`order_date`, `order_code`, `tkt_code`, `inv_date`, `inv_code`), TKTL (`order_date`, `order_code`, `tkt_code`, line/product/UOM/amount fields), TKTC (`order_date`, `order_code`, `tkt_code`, charge code/amount fields), TLAP (`order_date`, `order_code`, `tkt_code`, ext_price_amt + product/description fields), TLAC (`order_date`, `order_code`, `tkt_code`, charge/amount fields), TKTX (`order_date`, `order_code`, `tkt_code`, tax amount/basis fields), ORDR/ORDL (order-level context keyed by `order_date` + `order_code`), ITRN (`inv_date`, `inv_code`, transaction amount/type/date fields), ARTB (`inv_date`, `inv_code`, sales/tax/total fields); **optional GL tie-out sample**: GLDT for the same 2025-02 window using whatever posting/account/date fields are available. Evidence: updated project hub note below this TODO with the selected window + export checklist.
 - [ ] #nextaction Add TLAC (ticket line charges) end-to-end: Layer 1 extract → Layer 2 normalize → include in dispatch totals + non-concrete rollups → update recon reports (ITRN/ARTB) to break out TLAC separately.
 - [ ] #nextaction Add an extract run manifest checksum step (CSV row counts + sha256) so month runs are auditable/reproducible.
 - [ ] #nextaction Document a “refresh dummy DB from raw extracts” playbook (exact commands + expected artifacts) in `docs/pipeline.md`.

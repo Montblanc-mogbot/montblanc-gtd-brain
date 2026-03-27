@@ -15,6 +15,14 @@ Things like:
 
 ## Convenience commands / shorthands
 
+## Transfer directory
+
+- **Local transfer path:** `~/transfer/`
+- Matt has utilities on his machine to move files between his computer’s transfer directory and this machine’s `~/transfer/`.
+- Treat `~/transfer/` as a safe staging area for file exchange between Matt’s machines and this machine.
+- Do not assume files dropped there are already organized; triage them into the correct project, reference location, or repo when appropriate.
+- Prefer archiving or moving files out of `~/transfer/` once they have been processed so the directory stays understandable.
+
 ## Obsidian / GTD vault
 
 - **Vault path:** `/home/montblanc/.openclaw/workspace` (this workspace is an Obsidian vault; `.obsidian/` lives here)

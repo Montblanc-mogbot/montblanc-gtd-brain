@@ -14,6 +14,11 @@ Schema-driven pivot table + data entry tool (Structured JSON Editor UI).
 - last_pulse_at: 2026-03-18T10:08
 - last_pulse_message_id: 1483829453539905667
 - awaiting_matt: true
+- last_thread_digest_at: 2026-03-27T12:22-04:00
+
+## Thread digest
+- 2026-03-27: Matt confirmed the revert of the side-panel change is authoritative. Canonical repo location is `/home/montblanc/repos/griddle`; stale duplicate repo under archived `workspace-work` should not be used as a source of truth.
+- 2026-03-27: Project-specific todos should live in this hub rather than Inbox.
 
 ## Context / where notes live
 - Project hub (this file)

@@ -1,6 +1,6 @@
 # HEARTBEAT.md
 
-# Lightweight hygiene checks (keep quiet unless action needed)
+# Quiet, predictable maintenance first
 
 ## On EVERY heartbeat wake (STRICT — don’t skip steps):
 1. Run the picker script to determine the single next actionable todo (the top unchecked todo, skipping `#waitingfor`).
@@ -8,40 +8,61 @@
    - `scripts/heartbeat_pick_next_tectonic_first.py`
    It returns one line:
    - `INBOX\t<path>\t<line#>\t<todo>` OR `PROJECT\t<path>\t<line#>\t<todo>` OR `NONE...`
-2. If it returns `INBOX` or `PROJECT`: **EXECUTE that exact todo** (don’t just report, DO).
+2. If it returns `INBOX` or `PROJECT`:
+   - First ask: is this todo **clearly scoped, local, safe, and non-destructive**?
+   - Only execute it automatically if the answer is yes.
+   - If it requires external action, risky repo surgery, broad refactors, credentials, deletion, or ambiguous judgment, do **not** execute it blindly. Instead:
+     - log the exact todo to `#automation-log`
+     - capture any clarification needed in the source of truth
+     - leave the todo open
 3. If it returns `NONE`:
-   - **Project pulse mode (lightweight autonomy):**
-     - If there is a project hub in `Projects/*/project.md` whose **Next actions** section has **no unchecked `#nextaction` items**, do a quick review (prioritize `Projects/tectonic-super-bowl-clone/project.md` first):
-       - Compare current state vs **What done looks like**
-       - Write a short status summary + 2–5 suggested next actions
-       - Post the summary in that project’s Discord thread (thread id/link stored in the project hub)
-       - Add the suggested items into the project hub as unchecked `#nextaction` todos
-     - **Anti-spam rule:** if the last project pulse for that project is still awaiting Matt (no reply yet), do not post a new one.
-   - If there are truly no projects to review (or thread mapping missing):
-     - post to `#automation-log`: **"No actionable todos found (Inbox + Projects empty); staying idle"**
+   - Do lightweight maintenance only:
+     - sanity-check Inbox/project structure
+     - review whether any obvious `#waitingfor` item is already satisfied
+     - avoid project-pulse posting unless there is a genuinely useful status update to send
+   - If there is truly nothing useful and low-risk to do:
+     - post to `#automation-log`: **"No actionable todos found (Inbox + Projects empty or blocked); staying idle"**
      - then reply `HEARTBEAT_OK`
-4. **Always** post to `#automation-log` once per heartbeat with one of:
+4. **Only post to `#automation-log` when meaningful**:
    - “Working on: <project> — <exact todo line>”
-   - OR the “No actionable todos…” idle message above.
-5. **Scope guardrail:** Only work on items that are explicitly represented as todos in `Inbox/inbox.md` or `Projects/*/project.md`.
-6. When a todo is completed: **check it off in the source file** (`Inbox/inbox.md` or the relevant `Projects/*/project.md`) and add a short “done + evidence” note (commit hash / file path / link).
+   - OR “Blocked / needs Matt: <exact todo line>”
+   - OR the idle message above
+   Avoid routine spam when nothing changed.
+5. **Scope guardrail:** Only work on items explicitly represented as todos in `Inbox/inbox.md` or `Projects/*/project.md`.
+6. When a todo is completed: **check it off in the source file** and add a short “done + evidence” note (commit hash / file path / link).
 7. While working: if I notice any work that isn’t represented by a todo, **stop and capture it** into Inbox (or the relevant project hub) before continuing.
-8. Only reply `HEARTBEAT_OK` if truly nothing to do (and only after posting the idle message).
+8. Only reply `HEARTBEAT_OK` if truly nothing needs attention.
 
-## Periodic checks (when specific conditions met):
-- Check for new messages in active `#work` threads since last check; reply in-thread if something needs a response.
+## Periodic checks (lightweight, not mandatory every cycle)
+- Check active `#work` threads only when there is reason to believe something changed or needs a reply.
+- When reviewing active project threads, distill meaningful updates into the relevant project hub instead of leaving the thread as the only source of truth.
+  - Capture decisions, clarified requirements, blockers, bug reports, accepted/rejected approaches, and new todos.
+  - Append concise bullets to the project hub’s `Thread digest` section.
+  - Update that hub’s `last_thread_digest_at` marker.
+  - Avoid duplicate digestion when nothing meaningful changed.
 - Scan active project hubs (`Projects/*/project.md`) and sanity-check:
-  - Each active project has at least one clear `#nextaction`.
-  - Any new work being discussed in threads has a captured todo (Inbox or the project hub).
-- Scan for open `#waitingfor` items (things that require Matt input) in:
+  - each active project has at least one clear `#nextaction`
+  - project-specific todos live in the project hub, not Inbox
+  - new work discussed elsewhere has been captured in the correct project hub
+- Scan for open `#waitingfor` items in:
   - `Inbox/waiting-for.md`
-  - and `Projects/*/project.md`
-  If anything is waiting on Matt:
-  - Post a concise “Action needed from Matt” list in `#waiting-for` (link to file + the exact todo lines).
-  - Also sanity-check for “already satisfied” items. If satisfied: immediately check it off/remove it and add a short “done + evidence” note.
-- If it's Friday morning and weekly review isn't started, post a reminder in `#weekly-review` with the GitHub link.
-- If any scheduled job posts an error (e.g., GitHub sync), surface it in `#automation-log`.
+  - `Projects/*/project.md`
+  If something is waiting on Matt **and a reminder would be genuinely useful**, post a concise “Action needed from Matt” summary in `#waiting-for`.
+- If it is Friday morning and the weekly review has not started, send a reminder in `#weekly-review`.
+- If any scheduled job posts an error (for example, GitHub sync), surface it in `#automation-log`.
 
-## Daily (on first heartbeat of day):
-- Create memory/YYYY-MM-DD.md if it doesn't exist
-- Review yesterday's memory file for any uncaptured todos
+## Daily (on first heartbeat of day)
+- Create `memory/YYYY-MM-DD.md` if it does not exist.
+- Review yesterday’s memory file for uncaptured todos or durable lessons.
+- If a daily memory note contains durable preferences/rules/lessons, promote those into the right long-term home:
+  - `MEMORY.md` for durable cross-project truths
+  - `Projects/<slug>/project.md` for project-specific memory
+  - `AGENTS.md` / `TOOLS.md` / `SOUL.md` for operating rules
+- Glance at `~/transfer/` as a staging area only when there is reason to expect inbound files; if new files appear, triage them into the correct project/reference location rather than leaving them there indefinitely.
+
+## Memory boundary rule
+- `memory/YYYY-MM-DD.md` = episodic daily log
+- `Projects/*/project.md` = canonical project memory and default home for project todos
+- `MEMORY.md` = durable cross-session truths only
+- project-thread messages should be distilled into project hubs regularly, not mirrored wholesale
+- Heartbeats should prefer maintaining these boundaries over generating extra chatter
