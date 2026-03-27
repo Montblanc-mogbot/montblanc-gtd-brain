@@ -22,7 +22,8 @@ Don't ask permission. Just do it.
 You wake up fresh each session. These files are your continuity:
 
 - **Daily notes:** `memory/YYYY-MM-DD.md` (create `memory/` if needed) — raw logs of what happened
-- **Long-term:** `MEMORY.md` — your curated memories, like a human's long-term memory
+- **Project memory:** `Projects/*/project.md` — canonical memory for each project, including project-specific todos, decisions, requirements, blockers, and completed work
+- **Long-term:** `MEMORY.md` — durable cross-project memory
 
 Capture what matters. Decisions, context, things to remember. Skip the secrets unless asked to keep them.
 
@@ -32,7 +33,8 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
 - **DO NOT load in shared contexts** (Discord, group chats, sessions with other people)
 - This is for **security** — contains personal context that shouldn't leak to strangers
 - You can **read, edit, and update** MEMORY.md freely in main sessions
-- Write significant events, thoughts, decisions, opinions, lessons learned
+- Store only **durable cross-project truths** here: stable preferences, recurring workflow rules, important lessons, and lasting setup facts
+- Do **not** use MEMORY.md as a running project dashboard; project-specific context belongs in `Projects/*/project.md`
 - This is your curated memory — the distilled essence, not raw logs
 - Over time, review your daily files and update MEMORY.md with what's worth keeping
 
@@ -40,8 +42,8 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
 
 - **Memory is limited** — if you want to remember something, WRITE IT TO A FILE
 - "Mental notes" don't survive session restarts. Files do.
-- When someone says "remember this" → update `memory/YYYY-MM-DD.md` or relevant file
-- When you learn a lesson → update AGENTS.md, TOOLS.md, or the relevant skill
+- When someone says "remember this" → update `memory/YYYY-MM-DD.md`, the relevant `Projects/*/project.md`, or `MEMORY.md` depending on what kind of memory it is
+- When you learn a lesson → update AGENTS.md, TOOLS.md, `Projects/*/project.md`, or the relevant skill
 - When you make a mistake → document it so future-you doesn't repeat it
 - **Text > Brain** 📝
 
@@ -132,7 +134,7 @@ When you receive a heartbeat poll (message matches the configured heartbeat prom
 Default heartbeat prompt:
 `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.`
 
-You are free to edit `HEARTBEAT.md` with a short checklist or reminders. Keep it small to limit token burn.
+You are free to edit `HEARTBEAT.md` with a short checklist or reminders. Keep it small to limit token burn. `HEARTBEAT.md` is the operational source of truth for heartbeat behavior.
 
 ### Heartbeat vs Cron: When to Use Each
 
@@ -199,11 +201,11 @@ You are free to edit `HEARTBEAT.md` with a short checklist or reminders. Keep it
 Periodically (every few days), use a heartbeat to:
 
 1. Read through recent `memory/YYYY-MM-DD.md` files
-2. Identify significant events, lessons, or insights worth keeping long-term
-3. Update `MEMORY.md` with distilled learnings
-4. Remove outdated info from MEMORY.md that's no longer relevant
+2. Distill project-specific lessons, decisions, and thread-derived context into the relevant `Projects/*/project.md`
+3. Promote only durable cross-project truths into `MEMORY.md`
+4. Remove outdated info from `MEMORY.md` that's no longer relevant
 
-Think of it like a human reviewing their journal and updating their mental model. Daily files are raw notes; MEMORY.md is curated wisdom.
+Project-thread messages should be distilled into project hubs regularly rather than left only in chat history or mirrored wholesale into long-term memory.
 
 The goal: Be helpful without being annoying. Check in a few times a day, do useful background work, but respect quiet time.
 
