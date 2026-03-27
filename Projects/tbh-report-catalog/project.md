@@ -138,7 +138,13 @@ Tables currently present (row counts):
 
 ## TODO
 
-### NEXT ACTION
+### NEXT ACTIONS (heartbeat-created)
+
+- [ ] #nextaction #waitingfor Matt: Add the Discord thread id/link for this project (paste `channel:<id>` or full thread URL) so heartbeat can post pulses.
+- [ ] #nextaction Define the next **real month window** to validate (e.g., 2025-02, 2025-03) and list what raw exports are required (tables + date columns) so we can request/collect them off-hours.
+- [ ] #nextaction Add TLAC (ticket line charges) end-to-end: Layer 1 extract → Layer 2 normalize → include in dispatch totals + non-concrete rollups → update recon reports (ITRN/ARTB) to break out TLAC separately.
+- [ ] #nextaction Add an extract run manifest checksum step (CSV row counts + sha256) so month runs are auditable/reproducible.
+- [ ] #nextaction Document a “refresh dummy DB from raw extracts” playbook (exact commands + expected artifacts) in `docs/pipeline.md`.
 
 - [x] #nextaction #project/tbh-report-catalog Import Matt-provided GL reference tables (zip + CSV attachments) into a **separate SQLite DB** (NOT the Command dummy DB). — DONE: created standalone GL dummy DB `/home/montblanc/repos/tbh-report-catalog/data/tbh_gl_dummy.db` from `data/gl_inbound_2025/` via `scripts/sqlite/build_gl_dummy_db.py`. Row counts: ap_invoice_dtl 28,772; ap_invoice_hdr 10,634; ap_master 1,569; gl_adjust 3,163; gl_journal 11,860; gl_trans 5,472; gl_desc 718.
 
