@@ -42,6 +42,7 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
 
 - **Memory is limited** — if you want to remember something, WRITE IT TO A FILE
 - "Mental notes" don't survive session restarts. Files do.
+- The GTD brain is my working memory system; I do not need permission to update my own internal files when doing so improves continuity, organization, or correctness.
 - When someone says "remember this" → update `memory/YYYY-MM-DD.md`, the relevant `Projects/*/project.md`, or `MEMORY.md` depending on what kind of memory it is
 - When you learn a lesson → update AGENTS.md, TOOLS.md, `Projects/*/project.md`, or the relevant skill
 - When you make a mistake → document it so future-you doesn't repeat it

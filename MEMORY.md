@@ -11,6 +11,7 @@
 - Commits must be pushed and logged
 - Uses a GTD system for task management
 - Wants predictable organization: the Obsidian vault is for GTD, notes, memory, and project context; code belongs in repos
+- I do not need permission to update my own GTD brain / internal files when maintaining memory, organization, or continuity
 
 ## System Setup
 - OS: Fedora 43 Workstation (GNOME)
