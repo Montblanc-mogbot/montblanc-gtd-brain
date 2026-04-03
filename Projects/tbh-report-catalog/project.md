@@ -198,6 +198,18 @@ Tables currently present (row counts):
 - [ ] #nextaction Add a limited-run execution mode so monthly runs can select subsets of analytics and/or reports instead of always running the full pipeline; design the selector surface first, then implement it cleanly through central output IDs rather than scattered ad hoc conditionals.
 - [ ] #nextaction Audit the existing analytics and reports to enforce the rule that each analytic produces exactly one CSV artifact and each report produces exactly one report artifact; identify and fix places where one output is currently piggybacking on another analytic definition or where a single output concept is blurred across multiple artifacts.
 
+### Report cleanup from live-data review #nextaction
+- [ ] #nextaction Fix the shared Excel workbook corruption issue (`styles.xml` repairs on open) across generated reports; identify the common EPPlus/style pattern causing repair prompts and make workbook output open cleanly without Excel repair.
+- [ ] #nextaction Fix month/date formatting in generated reports so month fields render as dates/months in Excel instead of raw serial values like `46023`; audit existing generators for date-serial formatting gaps.
+- [ ] #nextaction AP Spend & Pricing Check: restrict Material Schedule to material accounts only (`0001`-`0099`) so non-material vendors do not drown out the schedule.
+- [ ] #nextaction AP Spend & Pricing Check: determine whether `Canonical Acct` is meaningful; either document and relabel it clearly or remove it from the operator-facing workbook.
+- [ ] #nextaction AP Spend & Pricing Check: reevaluate/remove low-value exception sections (`missing qty`, `missing acct`, `missing gldesc`) if they do not drive useful action, especially once material-account filtering is applied.
+- [ ] #nextaction AP Spend & Pricing Check: audit `Unit Cost Outliers` logic and likely move it to invoice-level analysis rather than vendor-month aggregation.
+- [ ] #nextaction Credit Adjustment Register: document working interpretations for transaction types (`31` payment/application, `51` assignment, `43` sales-tax adjustment, `41` other adjustment, `21` credit memo) and encode them in report labels/docs as provisional business mappings.
+- [ ] #nextaction Credit Adjustment Register: exclude or otherwise handle trans type `31` correctly if it is payment/application activity rather than true credit adjustment activity.
+- [ ] #nextaction Credit Adjustment Register: audit the displayed `Invoice` field and relabel it if it often represents check/reference numbers rather than actual invoice numbers.
+- [ ] #nextaction Deprioritize or disable low-value reports for now: Fast PnL (until bucketing exists) and Invoice Aging / Collections dashboard (until it carries meaningful signal).
+
 ### Ticket Analysis / Dispatch Ops report rebuild #nextaction
 
 #### Phase 1 — business rules and source contract
