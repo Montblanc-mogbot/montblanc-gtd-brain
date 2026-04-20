@@ -35,6 +35,7 @@ Schema-driven pivot table + data entry tool (Structured JSON Editor UI).
 
 ## Current status
 - Milestone 8 complete; filters + views system done; awaiting user feedback.
+- Heartbeat / execution preference: treat this Griddle stabilization plan as the active workstream when Griddle is the selected project; the top unchecked `#nextaction` in this section is the intended next step.
 - Recent review conclusion: domain layer is in decent shape, but the interaction layer is fragile. Primary stabilization targets are `src/App.tsx`, panel/selection transitions, and Full Records complexity.
 - Important repo reality: commit `3cd71a7` added fixed panel headers + click-off deselect, but it was later reverted by `31ff319`. The revert is authoritative; current `master` does **not** include that behavior.
 
@@ -47,9 +48,10 @@ Schema-driven pivot table + data entry tool (Structured JSON Editor UI).
 - [ ] #nextaction Revisit side-panel UX polish only after the interaction model is clarified: fixed headers / scrollable bodies are still desirable, but any click-off deselect behavior must be scoped to the workspace and explicitly exclude top chrome, modals, and full-records interactions. Review any changes for anything that might introduce bugs, especially misclassified outside clicks, premature panel closure, modal interference, and full-records containment issues.
 - [ ] #nextaction Prepare the validation UX milestone on top of the stabilized interaction layer by defining the validation state model, issue targeting rules, and how issue navigation maps into current selection/panel behavior before building the UI. Review any changes for anything that might introduce bugs, especially focus-jump edge cases, view-switch side effects, validation lag, and mismatches between issue paths and editable UI surfaces.
 - [ ] #nextaction #waitingfor Matt: Share top 3 pain points from your current Griddle usage (links/screenshots ok). I’ll convert them into GitHub issues.
-- [x] #nextaction Pick next milestone theme (import/export hardening vs validation UX vs performance). — PICKED: validation UX + workflow clarity next. Rationale: Milestone 8 finished (views/filters), next biggest ROI is making schema validation understandable/actionable during data entry and import, which will also surface the right follow-on performance work.
-- [x] #nextaction Create a concise Validation UX plan: error panel, inline field highlights, and “jump to next error” flow. — DONE (see “Validation UX plan” section below).
-- [x] #nextaction Add a tiny “demo dataset + expected workflow” doc to make regressions obvious. — DONE: `docs/demo-dataset-workflow.md` (commit 6af1beb)
+## Completed planning / historical context
+- [x] Pick next milestone theme (import/export hardening vs validation UX vs performance). — PICKED: validation UX + workflow clarity next. Rationale: Milestone 8 finished (views/filters), next biggest ROI is making schema validation understandable/actionable during data entry and import, which will also surface the right follow-on performance work.
+- [x] Create a concise Validation UX plan: error panel, inline field highlights, and “jump to next error” flow. — DONE (see “Validation UX plan” section below).
+- [x] Add a tiny “demo dataset + expected workflow” doc to make regressions obvious. — DONE: `docs/demo-dataset-workflow.md` (commit 6af1beb)
 
 ## Validation UX plan (concise)
 
