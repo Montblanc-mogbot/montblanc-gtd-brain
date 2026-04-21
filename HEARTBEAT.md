@@ -12,6 +12,11 @@
    - First ask: is this todo **clearly scoped, local, safe, and non-destructive**?
    - Only execute it automatically if the answer is yes.
    - **Bias toward doing the work, not just reporting it.** If the task is a bounded local doc/code/test/update step that can be completed safely in one session, execute it end-to-end instead of replying with a block message.
+   - Before doing anything else, classify the todo in one short internal sentence as one of:
+     - `SAFE_LOCAL_EXECUTION`
+     - `NEEDS_MATT_INPUT`
+     - `TOO_RISKY_FOR_HEARTBEAT`
+     - `MISSING_CONTEXT`
    - For safe coding/doc tasks, prefer this execution pattern:
      - inspect the relevant files
      - make the smallest clean change that completes the todo
@@ -25,6 +30,9 @@
      - log the exact todo to `#automation-log`
      - capture any clarification needed in the source of truth
      - leave the todo open
+   - **Do not return `HEARTBEAT_OK` or allow an `ok-empty` result when an actionable todo exists.** If you choose not to act, you must reply with a concrete reason in this format:
+     - `Heartbeat did not act: <classification> — <exact todo line> — <one-sentence reason>`
+   - If a tool failure, missing file, permissions issue, or missing metadata prevents execution, reply with that concrete reason instead of idling.
 3. If it returns `NONE`:
    - Do lightweight maintenance only:
      - sanity-check Inbox/project structure
@@ -42,7 +50,7 @@
 5. **Scope guardrail:** Only work on items explicitly represented as todos in `Inbox/inbox.md` or `Projects/*/project.md`.
 6. When a todo is completed: **check it off in the source file** and add a short “done + evidence” note (commit hash / file path / link).
 7. While working: if I notice any work that isn’t represented by a todo, **stop and capture it** into Inbox (or the relevant project hub) before continuing.
-8. Only reply `HEARTBEAT_OK` if truly nothing needs attention.
+8. Only reply `HEARTBEAT_OK` if truly nothing needs attention and there is no actionable todo available from the picker.
 
 ## Periodic checks (lightweight, not mandatory every cycle)
 - Check active `#work` threads only when there is reason to believe something changed or needs a reply.
