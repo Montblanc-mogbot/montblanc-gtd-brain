@@ -11,6 +11,14 @@
 2. If it returns `INBOX` or `PROJECT`:
    - First ask: is this todo **clearly scoped, local, safe, and non-destructive**?
    - Only execute it automatically if the answer is yes.
+   - **Bias toward doing the work, not just reporting it.** If the task is a bounded local doc/code/test/update step that can be completed safely in one session, execute it end-to-end instead of replying with a block message.
+   - For safe coding/doc tasks, prefer this execution pattern:
+     - inspect the relevant files
+     - make the smallest clean change that completes the todo
+     - run the relevant validation commands
+     - if validation passes, commit the change in the project repo with a focused commit message so it is easy to revert (`git revert <hash>`) if bugs appear later
+     - push when a remote exists and pushing is part of the normal repo workflow
+     - update the source todo with a short DONE note + evidence
    - If it requires external action, risky repo surgery, broad refactors, credentials, deletion, or ambiguous judgment, do **not** execute it blindly. Instead:
      - log the exact todo to `#automation-log`
      - capture any clarification needed in the source of truth
@@ -25,6 +33,7 @@
      - then reply `HEARTBEAT_OK`
 4. **Only post to `#automation-log` when meaningful**:
    - “Working on: <project> — <exact todo line>”
+   - OR “Completed: <project> — <exact todo line>”
    - OR “Blocked / needs Matt: <exact todo line>”
    - OR the idle message above
    Avoid routine spam when nothing changed.
