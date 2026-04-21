@@ -18,6 +18,8 @@
      - run the relevant validation commands
      - if validation passes, commit the change in the project repo with a focused commit message so it is easy to revert (`git revert <hash>`) if bugs appear later
      - push when a remote exists and pushing is part of the normal repo workflow
+     - **never** publish/deploy a site, GitHub Pages build, release artifact, or similarly user-facing release output unless the source todo or project hub explicitly says Matt already approved that release step
+     - when a project hub includes an approval gate for deployment/release, heartbeat may continue normal source work up to that gate but must stop short of release and leave a clear note for Matt
      - update the source todo with a short DONE note + evidence
    - If it requires external action, risky repo surgery, broad refactors, credentials, deletion, or ambiguous judgment, do **not** execute it blindly. Instead:
      - log the exact todo to `#automation-log`
