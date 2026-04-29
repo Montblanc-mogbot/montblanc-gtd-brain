@@ -5,8 +5,11 @@ Schema-driven pivot table + data entry tool (Structured JSON Editor UI).
 
 ## Repo
 - `/home/montblanc/repos/griddle`
-  - GitHub: https://github.com/Montblanc-mogbot/griddle
-  - **Workflow rule:** do not make future Griddle source changes directly on `origin/master`. Create/use a dedicated fork (or at minimum a dedicated integration branch that targets a fork remote) for Griddle work so changes can be tested there before merging upstream.
+  - Upstream GitHub: https://github.com/Montblanc-mogbot/griddle
+  - Integration fork GitHub: https://github.com/Montblanc-mogbot/griddle-integration
+  - Git remotes: `origin` = upstream, `fork` = integration fork
+  - Active working branch: `stabilization-pass-1` (tracks `fork/stabilization-pass-1`)
+  - **Workflow rule:** do not make future Griddle source changes directly on `origin/master`. Land Griddle work on the `fork` remote first, test there, then selectively merge upstream.
 
 ## Discord thread
 - Thread/channel link/id: channel:1469349466468389143  ("Structured JSON Editor")
@@ -36,14 +39,15 @@ Schema-driven pivot table + data entry tool (Structured JSON Editor UI).
 
 ## Current status
 - Milestone 8 complete; filters + views system done; awaiting user feedback.
-- Repo currently has uncommitted Griddle work in progress (`docs/demo-dataset-workflow.md`, `docs/workspace-interaction-model.md`, plus new `src/domain/validationTargeting*` files). Before more Griddle coding, preserve this work in the new fork/branch workflow instead of pushing straight to `origin/master`.
+- Repo had uncommitted Griddle work in progress (`docs/demo-dataset-workflow.md`, `docs/workspace-interaction-model.md`, plus new `src/domain/validationTargeting*` files); this was pushed into the integration fork so future testing can happen there before upstream merges.
 - Heartbeat / execution preference: treat this Griddle stabilization plan as the active workstream when Griddle is the selected project; the top unchecked `#nextaction` in this section is the intended next step.
 - Deployment guardrail: heartbeat may commit, validate, and push normal source changes for Griddle, but it must **not** publish/deploy/push GitHub Pages or any user-facing release artifact for Griddle until Matt explicitly approves that release.
 - Recent review conclusion: domain layer is in decent shape, but the interaction layer is fragile. Primary stabilization targets are `src/App.tsx`, panel/selection transitions, and Full Records complexity.
 - Important repo reality: commit `3cd71a7` added fixed panel headers + click-off deselect, but it was later reverted by `31ff319`. The revert is authoritative; current `master` does **not** include that behavior.
 
 ## Next actions
-- [ ] #nextaction Create/configure a dedicated Griddle fork remote + working branch, then move the current local Griddle changes onto that fork/branch before any further Griddle implementation work.
+- [x] #nextaction Create/configure a dedicated Griddle fork remote + working branch, then move the current local Griddle changes onto that fork/branch before any further Griddle implementation work. — DONE: created integration fork `Montblanc-mogbot/griddle-integration`, added git remote `fork`, and pushed current local state to `fork/master`.
+- [ ] #nextaction Continue all Griddle implementation work on branch `stabilization-pass-1` against the `fork` remote first; only propose upstream merge/promotion after validation on the integration fork.
 - [x] #nextaction Stabilization pass 0: fix the current lint failure in `src/components/BulkMetadataEdit.tsx`, then re-run `npm run lint`, `npm test`, and `npm run build` until the repo is back to a clean green baseline. Review any changes for anything that might introduce bugs, especially hook ordering, render timing, and panel-related regressions. — DONE: moved `measureDecimals` `useMemo` above the early return so hooks are called unconditionally; no intended behavior change. Evidence: lint passes; tests pass (11/11); build passes on 2026-04-20. Bug review: low-risk fix; checked for stale dependency issues and no new panel/selection behavior changes were introduced. Remaining non-blocking warnings: third-party Rollup PURE comment warnings from `@glideapps/glide-data-grid` and existing large bundle chunk warning (~603 kB main chunk).
 - [x] #nextaction Document the current interaction model in a short repo doc (suggested: `docs/workspace-interaction-model.md`) covering `selected`, `gridSelection`, `panelMode`, `pendingPanelMode`, `fullRecordsRecordIds`, pointer gesture intent, and the allowed transitions between entry, bulk, and full-records flows. Review any changes for anything that might introduce bugs, especially incorrect state assumptions, missing transition cases, or behavior drift from the actual app. — DONE: added `docs/workspace-interaction-model.md` documenting core selection/panel state, pointer gesture rules, and allowed transitions between entry, bulk, and full-records flows. Evidence: repo doc added on 2026-04-21; validation: `npm run lint`, `npm test`, and `npm run build` all passed. Risk review: doc-only change; no runtime behavior changed.
 - [x] #nextaction Extract `src/App.tsx` workspace selection/panel transitions into a first small helper layer with named functions for the already-repeated reset/open paths (`clearWorkspaceSelection`, `openFullRecordsFromBulk`, `openEntryFromSelection`, etc.) without changing behavior yet. Keep the change narrowly scoped to obvious duplication removal and state-transition naming. Review any changes for anything that might introduce bugs, especially invalid state combinations, stale selection context, and pointer-up/pointer-down races. — DONE: added small `src/App.tsx` helper functions for grid/workspace clearing plus entry/full-records opens, and routed repeated panel-transition call sites through them without changing the surrounding interaction model. Evidence: commit `ba2c063`; validation passed on 2026-04-22 via `npm run lint`, `npm test`, and `npm run build`. Bug review: kept behavior narrow by preserving existing pointer-down gating and panel-mode transitions; checked for invalid state combinations from clear helpers and for stale/full-records selection loss on bulk/entry close paths.

@@ -4,8 +4,8 @@
 
 ## On EVERY heartbeat wake (STRICT — don’t skip steps):
 1. Run the picker script to determine the single next actionable todo (the top unchecked todo, skipping `#waitingfor`).
-   **Priority:** Always prefer Tecmo/Tectonic project hub actions first.
-   - `scripts/heartbeat_pick_next_tectonic_first.py`
+   **Priority:** Always prefer Griddle project hub actions first.
+   - `scripts/heartbeat_pick_next_griddle_first.py`
    It returns one line:
    - `INBOX\t<path>\t<line#>\t<todo>` OR `PROJECT\t<path>\t<line#>\t<todo>` OR `NONE...`
 2. If it returns `INBOX` or `PROJECT`:
@@ -67,7 +67,7 @@
   - `Inbox/waiting-for.md`
   - `Projects/*/project.md`
   If something is waiting on Matt **and a reminder would be genuinely useful**, post a concise “Action needed from Matt” summary in `#waiting-for`.
-- If it is Friday morning and the weekly review has not started, send a reminder in `#weekly-review`.
+- Weekly review reminders are opt-in and low-noise: at most once on Friday morning, only in `#weekly-review`, and only when Matt has explicitly chosen to run that week’s review. Do not post weekly-review reminders to `#automation-log`, and do not repeat them later in the day.
 - If any scheduled job posts an error (for example, GitHub sync), surface it in `#automation-log`.
 
 ## Daily (on first heartbeat of day)
