@@ -9,8 +9,8 @@
    It returns one line:
    - `INBOX\t<path>\t<line#>\t<todo>` OR `PROJECT\t<path>\t<line#>\t<todo>` OR `NONE...`
 2. If it returns `INBOX` or `PROJECT`:
-   - First ask: is this todo **clearly scoped, local, safe, and non-destructive**?
-   - Only execute it automatically if the answer is yes.
+   - First ask: is this todo **clearly scoped, local, reversible, and non-destructive**?
+   - Default stance: if the task is a bounded local doc/code/test/update step in a known repo or workspace file, treat it as eligible for automatic execution unless it requires external credentials, irreversible deletion, deployment/release, or broad ambiguous product judgment.
    - **Bias toward doing the work, not just reporting it.** If the task is a bounded local doc/code/test/update step that can be completed safely in one session, execute it end-to-end instead of replying with a block message.
    - Before doing anything else, classify the todo in one short internal sentence as one of:
      - `SAFE_LOCAL_EXECUTION`
@@ -26,7 +26,7 @@
      - **never** publish/deploy a site, GitHub Pages build, release artifact, or similarly user-facing release output unless the source todo or project hub explicitly says Matt already approved that release step
      - when a project hub includes an approval gate for deployment/release, heartbeat may continue normal source work up to that gate but must stop short of release and leave a clear note for Matt
      - update the source todo with a short DONE note + evidence
-   - If it requires external action, risky repo surgery, broad refactors, credentials, deletion, or ambiguous judgment, do **not** execute it blindly. Instead:
+   - If it requires external action, credentials, irreversible deletion, deployment/release approval, risky repo surgery, or broad ambiguous product judgment, do **not** execute it blindly. Instead:
      - log the exact todo to `#automation-log`
      - capture any clarification needed in the source of truth
      - leave the todo open
