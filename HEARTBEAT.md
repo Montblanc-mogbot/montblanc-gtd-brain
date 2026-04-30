@@ -4,8 +4,8 @@
 
 ## On EVERY heartbeat wake (STRICT — don’t skip steps):
 1. Run the picker script to determine the single next actionable todo (the top unchecked todo, skipping `#waitingfor`).
-   **Priority:** Always prefer Griddle project hub actions first.
-   - `scripts/heartbeat_pick_next_griddle_first.py`
+   **Priority:** Always prefer Tecmo/Tectonic project hub actions first.
+   - `scripts/heartbeat_pick_next_tectonic_first.py`
    It returns one line:
    - `INBOX\t<path>\t<line#>\t<todo>` OR `PROJECT\t<path>\t<line#>\t<todo>` OR `NONE...`
 2. If it returns `INBOX` or `PROJECT`:
