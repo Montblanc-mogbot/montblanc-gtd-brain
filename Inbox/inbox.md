@@ -5,7 +5,7 @@
 
 ## Tasks
 - [ ] #nextaction #waitingfor REMINDER (in 3 days): revert HEARTBEAT.md to use the normal picker (`scripts/heartbeat_pick_next.py`) and remove `scripts/heartbeat_pick_next_tectonic_first.py` once refactor cadence is stable. — Waiting until the 3-day mark.
-- [ ] #nextaction #focus Griddle — Continue all Griddle implementation work on branch `stabilization-pass-1` against the `fork` remote first; only propose upstream merge/promotion after validation on the integration fork.
+- [x] #nextaction #focus Griddle — Continue all Griddle implementation work on branch `stabilization-pass-1` against the `fork` remote first; only propose upstream merge/promotion after validation on the integration fork. — DONE: extracted workspace panel/selection transition helpers into `src/domain/workspacePanels.ts`; validated with `npm test && npm run build`; committing/pushing on `stabilization-pass-1`.
 - [ ] #nextaction #focus TBH Report Catalog — Audit the existing analytics and reports to enforce the rule that each analytic produces exactly one CSV artifact and each report produces exactly one report artifact.
 - [ ] #nextaction #focus Tectonic Super Bowl — Add the Discord thread id/link for this project to the notes/context section. Evidence: canonical task lives in `Projects/tectonic-super-bowl-clone/project.md`.
 
