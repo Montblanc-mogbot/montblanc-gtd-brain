@@ -17,6 +17,7 @@
      - `NEEDS_MATT_INPUT`
      - `TOO_RISKY_FOR_HEARTBEAT`
      - `MISSING_CONTEXT`
+   - **Context-recovery rule:** if a picked todo is local coding/doc/test work in a known repo and the only blocker is missing implementation context, do a short bounded context recovery pass first (inspect the referenced repo/files, current branch, git status, and the nearest relevant docs/tests) and then re-classify. Do not stop at `MISSING_CONTEXT` until you have attempted that local context recovery.
    - For safe coding/doc tasks, prefer this execution pattern:
      - inspect the relevant files
      - make the smallest clean change that completes the todo
@@ -33,6 +34,7 @@
    - **Do not return `HEARTBEAT_OK` or allow an `ok-empty` result when an actionable todo exists.** If you choose not to act, you must reply with a concrete reason in this format:
      - `Heartbeat did not act: <classification> — <exact todo line> — <one-sentence reason>`
    - If a tool failure, missing file, permissions issue, or missing metadata prevents execution, reply with that concrete reason instead of idling.
+   - For project-hub workflow/focus notes, do not treat them as executable todos unless they are concrete bounded steps. Prefer the next actual implementation `#nextaction` beneath them.
 3. If it returns `NONE`:
    - Do lightweight maintenance only:
      - sanity-check Inbox/project structure
